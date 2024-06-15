@@ -1,0 +1,10 @@
+# default config
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+
+.next
+.vscode
+public
+yarn.lock
