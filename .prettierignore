@@ -4,6 +4,7 @@
 **/.hg
 **/node_modules
 
+.husky
 .next
 .vscode
 public
