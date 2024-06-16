@@ -13,8 +13,9 @@ const headingVariants = cva('break-all', {
 })
 
 export const Heading = ({
-  variant,
+  children,
   className,
+  variant,
   ...props
 }: PropsWithChildren<
   HTMLAttributes<HTMLHeadingElement> & VariantProps<typeof headingVariants>
@@ -25,7 +26,7 @@ export const Heading = ({
       {...props}
       className={cn(headingVariants({ variant }), className)}
     >
-      heading
+      {children}
     </Component>
   )
 }
