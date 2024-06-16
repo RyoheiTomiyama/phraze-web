@@ -1,6 +1,6 @@
 import { LayoutWithSidebar } from '@/components/common/layout'
 import { SideNav } from '@/components/common/layout/sidebar/side-nav'
-import { DashboardTable } from '@/components/feature/dashboard'
+import { DeckTable } from '@/components/feature/deck'
 import { Heading } from '@/components/ui/heading'
 
 export default function DashboardPage() {
@@ -10,7 +10,7 @@ export default function DashboardPage() {
         <Heading variant="h1">Dashboard</Heading>
       </header>
       <main className="container">
-        <DashboardTable />
+        <DeckTable />
       </main>
     </LayoutWithSidebar>
   )

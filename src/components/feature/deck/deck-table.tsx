@@ -9,7 +9,7 @@ import {
 import { ArrowRight, Plus } from 'lucide-react'
 import Link from 'next/link'
 
-export const DashboardTable = () => {
+export const DeckTable = () => {
   return (
     <Card x-chunk="dashboard-06-chunk-0">
       <CardHeader className="flex flex-row items-center">
@@ -35,9 +35,11 @@ export const DashboardTable = () => {
             </p>
           </div>
           <div className="">
-            <Button className="gap-2">
-              学習する
-              <ArrowRight className="w-4" />
+            <Button className="gap-2" asChild>
+              <Link href="/deck/1">
+                学習する
+                <ArrowRight className="w-4" />
+              </Link>
             </Button>
           </div>
         </div>
