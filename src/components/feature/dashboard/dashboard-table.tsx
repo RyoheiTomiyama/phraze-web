@@ -26,11 +26,11 @@ export const DashboardTable = () => {
           </Link>
         </Button>
       </CardHeader>
-      <CardContent className="grid gap-8">
+      <CardContent className="flex flex-col gap-8">
         <div className="flex items-center gap-4">
           <div className="grid gap-1 flex-1">
             <p className="text-sm font-medium leading-none">Olivia Martin</p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground break-all">
               olivia.martin@email.com
             </p>
           </div>
@@ -44,7 +44,7 @@ export const DashboardTable = () => {
         <div className="flex items-center gap-4">
           <div className="grid gap-1 flex-1">
             <p className="text-sm font-medium leading-none">Olivia Martin</p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground break-all">
               olivia.martin@email.com
             </p>
           </div>
