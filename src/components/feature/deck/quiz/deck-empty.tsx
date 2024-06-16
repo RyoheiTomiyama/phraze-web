@@ -26,7 +26,7 @@ export const DeckEmpty = ({ deckId, className, ...props }: DeckEmptyProps) => {
         <span>学習カードを作成しましょう。</span>
       </p>
       <Button className="mt-4" asChild>
-        <Link href={`/deck/${deckId}/card/new`}>Create Card</Link>
+        <Link href={`/deck/${deckId}/edit`}>Create Card</Link>
       </Button>
     </Card>
   )

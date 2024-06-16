@@ -1,5 +1,5 @@
 import { DeckShow } from '@/components/template/deck'
 
-export default function DeckId() {
+export default function DeckIdPage() {
   return <DeckShow />
 }
