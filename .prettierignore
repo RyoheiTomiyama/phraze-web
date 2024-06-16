@@ -9,3 +9,6 @@
 .vscode
 public
 yarn.lock
+
+# pathpida
+src/lib/pathpida/$path.ts

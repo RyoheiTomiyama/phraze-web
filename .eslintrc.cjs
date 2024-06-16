@@ -1,4 +1,4 @@
-/** @type {import ('eslint').Linter.Config} */
+/** @type {import ('eslint').ESLint.ConfigData} */
 const config = {
   extends: ['eslint:recommended', 'next/core-web-vitals', 'prettier'],
   rules: {
@@ -11,6 +11,7 @@ const config = {
     'no-var': 'error',
     'prefer-template': 'error',
   },
+  ignorePatterns: ['src/lib/pathpida/$path.ts'],
 }
 
 module.exports = config
