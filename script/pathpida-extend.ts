@@ -1,12 +1,32 @@
 /** pathpidaで生成されたファイルからpathnameのリストを生成する */
+import chokidar from 'chokidar'
 import fs from 'fs/promises'
 import minimist from 'minimist'
 import path from 'path'
-import { PagesPath, pagesPath } from '@/lib/pathpida/$path'
 import * as prettier from 'prettier'
+import { PagesPath, pagesPath } from '@/lib/pathpida/$path'
 
 const outDir = 'src/lib/pathpida'
+const filename = 'pathnames.ts'
 const generateComment = '// NO EDIT. this is generated file.'
+
+const escapeRegExp = (str: string) => {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+const watch = (callback: (...args: any) => void) => {
+  // 監視対象
+  const inputPath = path.posix.join(outDir, '$path.ts')
+  // 更新するファイルは無視する
+  const ignorePath = path.join(outDir, filename)
+
+  chokidar
+    .watch(inputPath, {
+      ignoreInitial: true,
+      ignored: new RegExp(`${escapeRegExp(ignorePath)}`),
+    })
+    .on('all', callback)
+}
 
 const writeFile = async ({
   filePath,
@@ -52,7 +72,7 @@ export const pathnames = [${pathnames
 
 export type Pathname = typeof pathnames[number]`
 
-  const filePath = path.posix.join(outDir, 'pathnames.ts')
+  const filePath = path.posix.join(outDir, filename)
   const prettierOpt = (await prettier.resolveConfig(filePath)) ?? undefined
   const text = await prettier.format(template, {
     ...prettierOpt,
@@ -68,11 +88,12 @@ const main = () => {
     alias: { w: 'watch' },
   })
 
-  if ('watch' in argv) {
-    console.log('runwatch mode')
+  const watchMode = 'watch' in argv
+  if (watchMode) {
+    console.log('run watch mode...')
   }
 
-  generate()
+  watchMode ? watch(() => generate()) : generate()
 }
 
 main()
