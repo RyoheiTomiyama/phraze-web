@@ -12,3 +12,4 @@ yarn.lock
 
 # pathpida
 src/lib/pathpida/$path.ts
+src/lib/pathpida/pathnames.ts
