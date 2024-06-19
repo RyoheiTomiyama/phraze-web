@@ -1,4 +1,4 @@
-import { DeckTable } from '@/components/feature/deck'
+import { CardTable } from '@/components/feature/card'
 import { DefaultLayout } from '@/components/feature/layout'
 import { useRouter } from 'next/router'
 
@@ -7,7 +7,7 @@ export const DeckEdit = () => {
 
   return (
     <DefaultLayout title={router.asPath.toUpperCase()}>
-      <DeckTable />
+      <CardTable />
     </DefaultLayout>
   )
 }
