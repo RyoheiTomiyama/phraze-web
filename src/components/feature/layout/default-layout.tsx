@@ -1,22 +1,27 @@
 import { LayoutWithSidebar } from '@/components/common/layout'
 import { Heading } from '@/components/ui/heading'
-import React, { PropsWithChildren } from 'react'
+import React, { HTMLAttributes, PropsWithChildren } from 'react'
 import { SideNav } from './sidebar/side-nav'
+import { cn } from '@/lib/utils'
 
 type DefaultLayoutProps = {
   title: string
+  className?: string
 }
 
 export const DefaultLayout = ({
   title,
+  className,
   children,
 }: PropsWithChildren<DefaultLayoutProps>) => {
   return (
-    <LayoutWithSidebar sidebar={<SideNav />}>
+    <LayoutWithSidebar sidebar={<SideNav />} className={className}>
       <header className="container">
         <Heading variant="h1">{title}</Heading>
       </header>
-      <main className="container">{children}</main>
+      <main className="container flex flex-col flex-auto overflow-hidden">
+        {children}
+      </main>
     </LayoutWithSidebar>
   )
 }

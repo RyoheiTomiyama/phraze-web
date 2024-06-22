@@ -38,7 +38,7 @@ export const CardTable = () => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Name</TableHead>
+              <TableHead>Words</TableHead>
               <TableHead className="hidden md:table-cell">Price</TableHead>
               <TableHead className="hidden md:table-cell">
                 Total Sales
