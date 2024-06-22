@@ -3,11 +3,8 @@ import {
   InitialConfigType,
   LexicalComposer,
 } from '@lexical/react/LexicalComposer'
-import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
-import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
-import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary'
-import { Fragment, ReactElement } from 'react'
+import { Fragment, PropsWithChildren, ReactElement } from 'react'
 
 export type EditorBaseProps = {
   autofocus?: boolean
@@ -22,11 +19,11 @@ export type EditorBaseProps = {
 
 export const EditorBase = ({
   autofocus = false,
+  children,
   namespace = 'editor',
   nodes = [],
-  placeholder = null,
   plugins = [],
-}: EditorBaseProps) => {
+}: PropsWithChildren<EditorBaseProps>) => {
   const initialConfig: InitialConfigType = {
     namespace,
     nodes,
@@ -37,20 +34,7 @@ export const EditorBase = ({
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
-      <div
-        className="flex h-10 w-full rounded-md border border-input bg-background 
-      px-3 py-2 text-sm ring-offset-background 
-      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
-      disabled:cursor-not-allowed disabled:opacity-50"
-      >
-        <RichTextPlugin
-          contentEditable={
-            <ContentEditable className="w-full leading-6 focus-visible:outline-none"></ContentEditable>
-          }
-          placeholder={placeholder}
-          ErrorBoundary={LexicalErrorBoundary}
-        />
-      </div>
+      {children}
 
       <HistoryPlugin />
       {autofocus && <AutoFocusPlugin />}

@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useForm } from 'react-hook-form'
+import PhraseInput from './phrase-input'
 
 export const CardEdit = () => {
   const form = useForm()
@@ -53,8 +54,8 @@ export const CardEdit = () => {
             )
           }}
         />
-        <InputEditor namespace="phrase" />
-        {/* <Editor namespace="editor" /> */}
+        {/* <PhraseInput /> */}
+        <Editor namespace="editor" />
       </div>
     </Form>
   )
