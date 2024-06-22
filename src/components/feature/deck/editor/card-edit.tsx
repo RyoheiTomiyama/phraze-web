@@ -1,3 +1,4 @@
+import { Editor, InputEditor } from '@/components/common/editor'
 import {
   Form,
   FormControl,
@@ -19,35 +20,41 @@ export const CardEdit = () => {
         <FormField
           control={form.control}
           name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Phrase / Word</FormLabel>
-              <FormDescription className="text-xs">
-                フレーズの中で覚えたい単語があれば太字にしてください
-              </FormDescription>
-              <FormControl>
-                <Input placeholder="覚えたいフレーズ・単語" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel>Phrase / Word</FormLabel>
+                <FormDescription className="text-xs">
+                  フレーズの中で覚えたい単語があれば太字にしてください
+                </FormDescription>
+                <FormControl>
+                  <Input placeholder="覚えたいフレーズ・単語" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )
+          }}
         />
         <FormField
           control={form.control}
           name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Phrase / Word</FormLabel>
-              <FormDescription className="text-xs">
-                フレーズの中で覚えたい単語があれば太字にしてください
-              </FormDescription>
-              <FormControl>
-                <Input placeholder="覚えたいフレーズ・単語" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel>Phrase / Word</FormLabel>
+                <FormDescription className="text-xs">
+                  フレーズの中で覚えたい単語があれば太字にしてください
+                </FormDescription>
+                <FormControl>
+                  <Input placeholder="覚えたいフレーズ・単語" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )
+          }}
         />
+        <InputEditor namespace="phrase" />
+        {/* <Editor namespace="editor" /> */}
       </div>
     </Form>
   )

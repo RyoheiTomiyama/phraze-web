@@ -1,6 +1,11 @@
 /** @type {import ('eslint').ESLint.ConfigData} */
 const config = {
-  extends: ['eslint:recommended', 'next/core-web-vitals', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'next/core-web-vitals',
+    'prettier',
+  ],
   plugins: ['@typescript-eslint'],
   rules: {
     'arrow-body-style': ['error', 'always'],
