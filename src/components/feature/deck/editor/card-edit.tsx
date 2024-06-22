@@ -1,4 +1,3 @@
-import { Editor, InputEditor } from '@/components/common/editor'
 import {
   Form,
   FormControl,
@@ -54,8 +53,8 @@ export const CardEdit = () => {
             )
           }}
         />
-        {/* <PhraseInput /> */}
-        <Editor namespace="editor" />
+        <PhraseInput />
+        {/* <Editor namespace="editor" /> */}
       </div>
     </Form>
   )
