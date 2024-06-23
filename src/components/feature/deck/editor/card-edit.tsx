@@ -12,14 +12,19 @@ import { useForm } from 'react-hook-form'
 import PhraseInput from './phrase-input'
 
 export const CardEdit = () => {
-  const form = useForm()
+  const form = useForm({
+    defaultValues: {
+      question: '',
+      answer: 'hoge',
+    },
+  })
 
   return (
     <Form {...form}>
       <div className="flex flex-col gap-4 px-6 py-6">
         <FormField
           control={form.control}
-          name="username"
+          name="question"
           render={({ field }) => {
             return (
               <FormItem>
@@ -28,7 +33,7 @@ export const CardEdit = () => {
                   フレーズの中で覚えたい単語があれば太字にしてください
                 </FormDescription>
                 <FormControl>
-                  <Input placeholder="覚えたいフレーズ・単語" {...field} />
+                  <PhraseInput />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -37,7 +42,7 @@ export const CardEdit = () => {
         />
         <FormField
           control={form.control}
-          name="username"
+          name="answer"
           render={({ field }) => {
             return (
               <FormItem>
@@ -53,7 +58,6 @@ export const CardEdit = () => {
             )
           }}
         />
-        <PhraseInput />
         {/* <Editor namespace="editor" /> */}
       </div>
     </Form>

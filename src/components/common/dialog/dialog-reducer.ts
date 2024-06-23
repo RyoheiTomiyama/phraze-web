@@ -1,23 +1,33 @@
-import { useReducer } from 'react'
+import { ComponentType, useReducer } from 'react'
 import { DialogId, DialogStore } from './dialog-state'
 
-export type DialogAction = {
-  type: 'show' | 'hide' | 'remove'
-  payload: {
-    id: DialogId
-    args?: Record<string, unknown>
-  }
-}
+export type DialogAction =
+  | {
+      type: 'show'
+      payload: {
+        id: DialogId
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        Component: ComponentType<any>
+        args?: Record<string, unknown>
+      }
+    }
+  | {
+      type: 'hide' | 'remove'
+      payload: {
+        id: DialogId
+      }
+    }
 
-const reducer = (store: DialogStore, action: DialogAction) => {
+const reducer = (store: DialogStore, action: DialogAction): DialogStore => {
   switch (action.type) {
     case 'show': {
-      const { id, args = {} } = action.payload
+      const { id, Component, args = {} } = action.payload
       return {
         ...store,
         [id]: {
           ...store[id],
           id,
+          Component,
           args,
           open: true,
         },
