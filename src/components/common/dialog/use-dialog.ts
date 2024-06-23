@@ -1,4 +1,5 @@
 import { ComponentType, useCallback, useMemo } from 'react'
+import { v7 as uuid } from 'uuid'
 import { useDialogDispatchContext } from './dialog-context'
 
 type UseDialogReturnType<P> = {
@@ -19,6 +20,7 @@ export const useDialog = <P extends Record<string, unknown>>(
   Component: ComponentType<P>,
   args?: NoInfer<P>,
 ): UseDialogReturnType<P> => {
+  const id = uuid()
   const dispatch = useDialogDispatchContext()
 
   const show = useCallback(
@@ -26,23 +28,23 @@ export const useDialog = <P extends Record<string, unknown>>(
       dispatch({
         type: 'show',
         payload: {
-          id: '1',
+          id,
           Component,
           args: innerArgs || args,
         },
       })
     },
-    [Component, args, dispatch],
+    [Component, args, dispatch, id],
   )
 
   const hide = useCallback(async () => {
     dispatch({
       type: 'hide',
       payload: {
-        id: '1',
+        id,
       },
     })
-  }, [dispatch])
+  }, [dispatch, id])
 
   return useMemo(() => {
     return { show, hide }
