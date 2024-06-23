@@ -20,7 +20,9 @@ export const useDialog = <P extends Record<string, unknown>>(
   Component: ComponentType<P>,
   args?: NoInfer<P>,
 ): UseDialogReturnType<P> => {
-  const id = uuid()
+  const id = useMemo(() => {
+    return uuid()
+  }, [])
   const dispatch = useDialogDispatchContext()
 
   const show = useCallback(
