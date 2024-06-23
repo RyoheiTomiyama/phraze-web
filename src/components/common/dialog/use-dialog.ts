@@ -20,6 +20,7 @@ export const useDialog = <P extends Record<string, unknown>>(
   args?: NoInfer<P>,
 ): UseDialogReturnType<P> => {
   const dispatch = useDialogDispatchContext()
+
   const show = useCallback(
     async (innerArgs?: P) => {
       dispatch({

@@ -1,6 +1,3 @@
-export {
-  DialogProvider,
-  useDialogContext,
-  useDialogDispatchContext,
-} from './dialog-context'
+export { DialogProvider } from './dialog-provider'
 export { useDialog } from './use-dialog'
+export { useDialogComponent } from './use-dialog-component'

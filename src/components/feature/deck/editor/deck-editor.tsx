@@ -21,7 +21,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { useDialog } from '@/components/common/dialog'
+import { useDialog, useDialogComponent } from '@/components/common/dialog'
 
 type DeckEditorProps = {
   className?: string
@@ -106,6 +106,8 @@ export const DeckEditor = ({ className }: DeckEditorProps) => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function D() {
+  const { hide } = useDialogComponent()
+
   return (
     <DialogContent>
       <DialogHeader>
@@ -114,6 +116,7 @@ function D() {
           This action cannot be undone. This will permanently delete your
           account and remove your data from our servers.
         </DialogDescription>
+        <Button onClick={hide}>close</Button>
       </DialogHeader>
     </DialogContent>
   )

@@ -27,7 +27,10 @@ const config = {
       },
     ],
   },
-  ignorePatterns: ['src/lib/pathpida/{$path, pathnames}.ts'],
+  ignorePatterns: [
+    'src/lib/pathpida/{$path, pathnames}.ts',
+    'src/components/ui/**',
+  ],
 }
 
 module.exports = config
