@@ -1,0 +1,1 @@
+export { getMarkdownString } from './getMarkdownString'

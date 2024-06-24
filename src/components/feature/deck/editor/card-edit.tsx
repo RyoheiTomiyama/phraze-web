@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useForm } from 'react-hook-form'
-import PhraseInput from './phrase-input'
+import { PhraseInput } from './phrase-input'
 
 export const CardEdit = () => {
   const form = useForm({
@@ -33,7 +33,7 @@ export const CardEdit = () => {
                   フレーズの中で覚えたい単語があれば太字にしてください
                 </FormDescription>
                 <FormControl>
-                  <PhraseInput />
+                  <PhraseInput onChange={field.onChange} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

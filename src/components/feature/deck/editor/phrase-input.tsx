@@ -3,18 +3,48 @@ import {
   InputEditor,
   ToolBold,
 } from '@/components/common/editor'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import {
   $getSelection,
   $isRangeSelection,
   COMMAND_PRIORITY_EDITOR,
+  EditorState,
   FORMAT_TEXT_COMMAND,
+  LexicalEditor,
   TextFormatType,
 } from 'lexical'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
+import { getMarkdownString } from '@/lib/lexical'
 
-export function PhraseInput() {
-  const plugins = [<ToolbarPlugin key="ToolbarPlugin" />]
+// 必要なものを渡す
+// onChange: (...event: any[]) => void;
+// onBlur: Noop;
+// value: FieldPathValue<TFieldValues, TName>;
+// disabled?: boolean;
+// name: TName;
+// ref: RefCallBack;
+type PhraseInputProps = {
+  onChange: (mdString: string) => void
+}
+
+export function PhraseInput({ onChange }: PhraseInputProps) {
+  const handleChange = useCallback(
+    (editorState: EditorState, _editor: LexicalEditor) => {
+      const mdString = getMarkdownString(editorState)
+      onChange(mdString)
+    },
+    [onChange],
+  )
+
+  const plugins = [
+    <ToolbarPlugin key="ToolbarPlugin" />,
+    <OnChangePlugin
+      key="OnChangePlugin"
+      onChange={handleChange}
+      ignoreSelectionChange
+    />,
+  ]
 
   return (
     <InputEditor
@@ -54,5 +84,3 @@ const ToolbarPlugin = () => {
     </InlineToolbar>
   )
 }
-
-export default PhraseInput
