@@ -13,23 +13,14 @@ import {
 } from '@/components/ui/resizable'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { cn } from '@/lib/utils'
-import { PlusCircle } from 'lucide-react'
 import { CardEdit } from './card-edit'
-import {
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
-import { useDialog, useDialogComponent } from '@/components/common/dialog'
+import { CardAdd } from './card-add'
 
 type DeckEditorProps = {
   className?: string
 }
 
 export const DeckEditor = ({ className }: DeckEditorProps) => {
-  const { show } = useDialog(D)
-
   return (
     <ResizablePanelGroup
       direction="horizontal"
@@ -82,17 +73,7 @@ export const DeckEditor = ({ className }: DeckEditorProps) => {
             </ScrollArea>
           </CardContent>
           <CardFooter className="border-t flex justify-center py-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="gap-2"
-              onClick={() => {
-                return show()
-              }}
-            >
-              <PlusCircle className="h-3.5 w-3.5" />
-              Add Card
-            </Button>
+            <CardAdd />
           </CardFooter>
         </Card>
       </ResizablePanel>
@@ -101,23 +82,5 @@ export const DeckEditor = ({ className }: DeckEditorProps) => {
         <CardEdit />
       </ResizablePanel>
     </ResizablePanelGroup>
-  )
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function D() {
-  const { hide } = useDialogComponent()
-
-  return (
-    <DialogContent>
-      <DialogHeader>
-        <DialogTitle>Are you absolutely sure?</DialogTitle>
-        <DialogDescription>
-          This action cannot be undone. This will permanently delete your
-          account and remove your data from our servers.
-        </DialogDescription>
-        <Button onClick={hide}>close</Button>
-      </DialogHeader>
-    </DialogContent>
   )
 }
