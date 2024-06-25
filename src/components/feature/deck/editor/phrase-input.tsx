@@ -25,14 +25,14 @@ import { getMarkdownString } from '@/lib/lexical'
 // name: TName;
 // ref: RefCallBack;
 type PhraseInputProps = {
-  onChange: (mdString: string) => void
+  onChange?: (mdString: string) => void
 }
 
 export function PhraseInput({ onChange }: PhraseInputProps) {
   const handleChange = useCallback(
     (editorState: EditorState, _editor: LexicalEditor) => {
       const mdString = getMarkdownString(editorState)
-      onChange(mdString)
+      onChange?.(mdString)
     },
     [onChange],
   )
