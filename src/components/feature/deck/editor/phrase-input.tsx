@@ -3,7 +3,7 @@ import {
   InputEditor,
   ToolBold,
 } from '@/components/common/editor'
-import { useCallback, useEffect } from 'react'
+import { forwardRef, useCallback, useEffect } from 'react'
 import {
   $getSelection,
   $isRangeSelection,
@@ -31,40 +31,49 @@ import {
 // ref: RefCallBack;
 type PhraseInputProps = {
   defaultValue?: string // markdown string
+  disabled?: boolean
+  onBlur?: () => void
   onChange?: (mdString: string) => void
 }
 
-export function PhraseInput({ defaultValue = '', onChange }: PhraseInputProps) {
-  const editorState = useCallback(() => {
-    $convertFromMarkdownString(defaultValue, [BOLD_STAR, BOLD_UNDERSCORE])
-  }, [defaultValue])
+export const PhraseInput = forwardRef<HTMLDivElement, PhraseInputProps>(
+  function PhraseInput(
+    { defaultValue = '', disabled, onBlur, onChange },
+    _ref,
+  ) {
+    const editorState = useCallback(() => {
+      $convertFromMarkdownString(defaultValue, [BOLD_STAR, BOLD_UNDERSCORE])
+    }, [defaultValue])
 
-  const handleChange = useCallback(
-    (editorState: EditorState, _editor: LexicalEditor) => {
-      const mdString = getMarkdownString(editorState)
-      onChange?.(mdString)
-    },
-    [onChange],
-  )
+    const handleChange = useCallback(
+      (editorState: EditorState, _editor: LexicalEditor) => {
+        const mdString = getMarkdownString(editorState)
+        onChange?.(mdString)
+      },
+      [onChange],
+    )
 
-  const plugins = [
-    <ToolbarPlugin key="ToolbarPlugin" />,
-    <OnChangePlugin
-      key="OnChangePlugin"
-      onChange={handleChange}
-      ignoreSelectionChange
-    />,
-  ]
+    const plugins = [
+      <ToolbarPlugin key="ToolbarPlugin" />,
+      <OnChangePlugin
+        key="OnChangePlugin"
+        onChange={handleChange}
+        ignoreSelectionChange
+      />,
+    ]
 
-  return (
-    <InputEditor
-      defaultEditorState={editorState}
-      className="min-h-10 h-auto py-[7px]"
-      namespace="phrase"
-      plugins={plugins}
-    />
-  )
-}
+    return (
+      <InputEditor
+        onBlue={onBlur}
+        defaultEditorState={editorState}
+        disabled={disabled}
+        className="min-h-10 h-auto py-[7px]"
+        namespace="phrase"
+        plugins={plugins}
+      />
+    )
+  },
+)
 
 const ToolbarPlugin = () => {
   const [editor] = useLexicalComposerContext()
