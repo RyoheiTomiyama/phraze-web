@@ -1,6 +1,7 @@
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
 import {
   InitialConfigType,
+  InitialEditorStateType,
   LexicalComposer,
 } from '@lexical/react/LexicalComposer'
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
@@ -8,6 +9,7 @@ import { Fragment, PropsWithChildren, ReactElement } from 'react'
 
 export type EditorBaseProps = {
   autofocus?: boolean
+  defaultEditorState?: InitialEditorStateType
   namespace?: InitialConfigType['namespace']
   nodes?: InitialConfigType['nodes']
   placeholder?:
@@ -20,11 +22,13 @@ export type EditorBaseProps = {
 export const EditorBase = ({
   autofocus = false,
   children,
+  defaultEditorState,
   namespace = 'editor',
   nodes = [],
   plugins = [],
 }: PropsWithChildren<EditorBaseProps>) => {
   const initialConfig: InitialConfigType = {
+    editorState: defaultEditorState,
     namespace,
     nodes,
     theme: {},

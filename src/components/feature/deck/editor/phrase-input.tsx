@@ -16,6 +16,11 @@ import {
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
 import { getMarkdownString } from '@/lib/lexical'
+import {
+  $convertFromMarkdownString,
+  BOLD_STAR,
+  BOLD_UNDERSCORE,
+} from '@lexical/markdown'
 
 // 必要なものを渡す
 // onChange: (...event: any[]) => void;
@@ -25,10 +30,15 @@ import { getMarkdownString } from '@/lib/lexical'
 // name: TName;
 // ref: RefCallBack;
 type PhraseInputProps = {
+  defaultValue?: string // markdown string
   onChange?: (mdString: string) => void
 }
 
-export function PhraseInput({ onChange }: PhraseInputProps) {
+export function PhraseInput({ defaultValue = '', onChange }: PhraseInputProps) {
+  const editorState = useCallback(() => {
+    $convertFromMarkdownString(defaultValue, [BOLD_STAR, BOLD_UNDERSCORE])
+  }, [defaultValue])
+
   const handleChange = useCallback(
     (editorState: EditorState, _editor: LexicalEditor) => {
       const mdString = getMarkdownString(editorState)
@@ -48,6 +58,7 @@ export function PhraseInput({ onChange }: PhraseInputProps) {
 
   return (
     <InputEditor
+      defaultEditorState={editorState}
       className="min-h-10 h-auto py-[7px]"
       namespace="phrase"
       plugins={plugins}

@@ -10,11 +10,12 @@ import {
 import { Input } from '@/components/ui/input'
 import { useForm } from 'react-hook-form'
 import { PhraseInput } from './phrase-input'
+import { DevTool } from '@/components/common/form'
 
 export const CardEdit = () => {
   const form = useForm({
     defaultValues: {
-      question: '',
+      question: 'hoge *bold*',
       answer: 'hoge',
     },
   })
@@ -33,7 +34,10 @@ export const CardEdit = () => {
                   フレーズの中で覚えたい単語があれば太字にしてください
                 </FormDescription>
                 <FormControl>
-                  <PhraseInput onChange={field.onChange} />
+                  <PhraseInput
+                    defaultValue={field.value}
+                    onChange={field.onChange}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -60,6 +64,7 @@ export const CardEdit = () => {
         />
         {/* <Editor namespace="editor" /> */}
       </div>
+      <DevTool control={form.control} />
     </Form>
   )
 }
