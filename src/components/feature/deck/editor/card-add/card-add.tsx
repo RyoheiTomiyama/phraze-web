@@ -12,7 +12,7 @@ import { PlusCircle } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import { PhraseInput } from '../phrase-input'
 import { useForm } from '@/hook/useForm'
-import { cardSchema } from './schema'
+import { CardSchemaOutput, cardSchema } from './schema'
 import {
   Form,
   FormControl,
@@ -20,6 +20,7 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form'
+import { SubmitHandler } from 'react-hook-form'
 
 export const CardAdd = () => {
   const [open, setOpen] = useState(false)
@@ -30,8 +31,9 @@ export const CardAdd = () => {
     },
   })
 
-  const handleCreate = useCallback(() => {
+  const handleSubmit = useCallback<SubmitHandler<CardSchemaOutput>>((data) => {
     // TODO create
+    console.log(data.question)
     setOpen(false)
   }, [])
 
@@ -45,31 +47,43 @@ export const CardAdd = () => {
           </Button>
         </DialogTrigger>
         <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create New Card</DialogTitle>
-          </DialogHeader>
-          <DialogDescription>
-            覚えたいフレーズ・単語を入力してください。
-            <br />
-            フレーズの中で覚えたい単語があれば太字にすると、AIがより高い精度で回答を生成してくれます。
-          </DialogDescription>
-          <FormField
-            control={form.control}
-            name="question"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormControl>
-                    <PhraseInput />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )
-            }}
-          />
-          <DialogFooter>
-            <Button size="sm">Create</Button>
-          </DialogFooter>
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="flex flex-col gap-4"
+          >
+            <DialogHeader>
+              <DialogTitle>Create New Card</DialogTitle>
+            </DialogHeader>
+            <DialogDescription>
+              覚えたいフレーズ・単語を入力してください。
+              <br />
+              フレーズの中で覚えたい単語があれば太字にすると、AIがより高い精度で回答を生成してくれます。
+            </DialogDescription>
+            <FormField
+              control={form.control}
+              name="question"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormControl>
+                      <PhraseInput
+                        disabled={field.disabled}
+                        onBlur={field.onBlur}
+                        defaultValue={field.value}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+            <DialogFooter>
+              <Button type="submit" size="sm">
+                Create
+              </Button>
+            </DialogFooter>
+          </form>
         </DialogContent>
       </Form>
     </Dialog>

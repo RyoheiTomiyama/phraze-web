@@ -35,6 +35,8 @@ export const CardEdit = () => {
                 </FormDescription>
                 <FormControl>
                   <PhraseInput
+                    disabled={field.disabled}
+                    onBlur={field.onBlur}
                     defaultValue={field.value}
                     onChange={field.onChange}
                   />
