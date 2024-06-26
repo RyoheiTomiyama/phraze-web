@@ -1,5 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm as useReactHookForm, UseFormProps } from 'react-hook-form'
+import {
+  useForm as useReactHookForm,
+  UseFormProps,
+  useFormContext as useReactFormContext,
+} from 'react-hook-form'
 import { Schema, z } from 'zod'
 
 type Input<T extends Schema> = z.input<T>
@@ -13,4 +17,8 @@ export const useForm = <T extends Schema, TContext = unknown>(
     ...options,
     resolver: zodResolver(schema),
   })
+}
+
+export const useFormContext = <T extends Schema, TContext = unknown>() => {
+  return useReactFormContext<Input<T>, TContext, Output<T>>()
 }

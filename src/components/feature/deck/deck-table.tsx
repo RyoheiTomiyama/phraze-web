@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/card'
 import { ArrowRight, Plus } from 'lucide-react'
 import Link from 'next/link'
+import { CreateDeckButton } from './create-deck'
 
 export const DeckTable = () => {
   return (
@@ -19,12 +20,7 @@ export const DeckTable = () => {
           Manage your products and view their sales performance.
         </CardDescription> */}
         </div>
-        <Button asChild variant="outline" size="sm" className="gap-2">
-          <Link href="#">
-            <Plus className="w-4" />
-            新規作成
-          </Link>
-        </Button>
+        <CreateDeckButton />
       </CardHeader>
       <CardContent className="flex flex-col gap-8">
         <div className="flex items-center gap-4">
