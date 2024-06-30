@@ -1,6 +1,26 @@
 # Phraze
 
-## Development
+## Development セットアップ
+
+### FirebaseのConfigファイルを配置
+
+`src/lib/firebase/config.ts`を設置する必要があります。Firebaseコンソールのプロジェクトの設定から下記の部分を埋めてファイルを作成してください
+
+```ts
+const firebaseConfig = {
+  apiKey: 'xxxx',
+  authDomain: 'phraze-xxxx.firebaseapp.com',
+  projectId: 'phraze-xxxx',
+  storageBucket: 'phraze-xxxx.appspot.com',
+  messagingSenderId: 'xxxx',
+  appId: 'xxx',
+  measurementId: 'G-xxx',
+}
+
+export default firebaseConfig
+```
+
+### 起動
 
 ```bash
 yarn

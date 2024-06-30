@@ -37,3 +37,6 @@ next-env.d.ts
 
 # script
 script/dist/pathpida-extend.js
+
+# firebase
+src/lib/firebase/config.ts
