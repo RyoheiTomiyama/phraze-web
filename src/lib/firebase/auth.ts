@@ -47,3 +47,8 @@ export const getIdToken = async () => {
   }
   return user.getIdToken()
 }
+
+export const signOut = async () => {
+  const auth = getAuth()
+  return auth.signOut()
+}

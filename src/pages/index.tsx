@@ -2,6 +2,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
+import { Button } from '@/components/ui/button'
+import { signInGoogle } from '@/lib/firebase'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -48,6 +50,9 @@ export default function Home() {
             height={37}
             priority
           />
+        </div>
+        <div className="text-center">
+          <Button onClick={signInGoogle}>Googleログイン</Button>
         </div>
 
         <div className={styles.grid}>

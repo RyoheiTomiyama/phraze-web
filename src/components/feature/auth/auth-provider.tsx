@@ -1,4 +1,4 @@
-import { getIdToken, verify } from '@/lib/firebase'
+import { getIdToken, signOut, verify } from '@/lib/firebase'
 import {
   PropsWithChildren,
   createContext,
@@ -24,8 +24,12 @@ export const context = createContext<State>({ logined: false })
 
 export const dispatchContext = createContext<{
   getToken: () => Promise<string | undefined>
+  logout: () => Promise<void>
 }>({
   getToken: () => {
+    throw new Error('do not implement')
+  },
+  logout: () => {
     throw new Error('do not implement')
   },
 })
@@ -60,8 +64,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     const getToken = async (): Promise<string | undefined> => {
       return getIdToken()
     }
+    const logout = signOut
 
-    return { getToken }
+    return { getToken, logout }
   }, [])
 
   return (
