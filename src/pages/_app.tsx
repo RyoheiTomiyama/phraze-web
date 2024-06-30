@@ -1,14 +1,17 @@
 import { DialogProvider } from '@/components/common/dialog'
 import { AuthProvider } from '@/components/feature/auth'
+import { GraphProvider } from '@/components/feature/graph'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
-      <DialogProvider>
-        <Component {...pageProps} />
-      </DialogProvider>
+      <GraphProvider>
+        <DialogProvider>
+          <Component {...pageProps} />
+        </DialogProvider>
+      </GraphProvider>
     </AuthProvider>
   )
 }
