@@ -42,7 +42,7 @@ export const getIdToken = async () => {
   const expired = new Date(result.expirationTime)
 
   // 期限が近い場合は、トークンを更新しておく
-  if (expired > add(new Date(), { minutes: -1 })) {
+  if (expired < add(new Date(), { minutes: 5 })) {
     return user.getIdToken(true)
   }
   return user.getIdToken()
