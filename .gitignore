@@ -40,3 +40,8 @@ script/dist/pathpida-extend.js
 
 # firebase
 src/lib/firebase/config.ts
+
+# codegen
+graphql.schema.json
+src/lib/gql/type.ts
+src/**/*.generated.ts
