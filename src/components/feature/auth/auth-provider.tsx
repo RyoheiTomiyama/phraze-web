@@ -13,14 +13,14 @@ type User = { name: string }
 type State =
   | {
       user: User
-      logined: true
+      isLogin: true
     }
   | {
       user?: undefined
-      logined?: false
+      isLogin?: false
     }
 
-export const context = createContext<State>({ logined: false })
+export const context = createContext<State>({ isLogin: false })
 
 export const dispatchContext = createContext<{
   getToken: () => Promise<string | undefined>
@@ -59,9 +59,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const value = useMemo(() => {
     if (user) {
-      return { user, logined: true as const }
+      return { user, isLogin: true as const }
     }
-    return { user: undefined, logined: false as const }
+    return { user: undefined, isLogin: false as const }
   }, [user])
 
   const dispatch = useMemo(() => {
