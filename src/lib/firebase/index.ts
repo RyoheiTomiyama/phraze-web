@@ -1,1 +1,7 @@
-export { signInGoogle, verify, getIdToken, signOut } from './auth'
+export {
+  signInGoogle,
+  verify,
+  getIdToken,
+  refreshIdToken,
+  signOut,
+} from './auth'

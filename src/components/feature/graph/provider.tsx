@@ -1,35 +1,47 @@
-import {
-  useAuthContext,
-  useAuthDispatchContext,
-} from '@/components/feature/auth'
+import { useAuthDispatchContext } from '@/components/feature/auth'
 import { clientEnv } from '@/lib/env'
 import { UrqlProvider, createClient } from '@/lib/urql'
-import { PropsWithChildren, useEffect, useMemo, useState } from 'react'
-import useMountedState from '@/hook/useMountedState'
+import { PropsWithChildren, useMemo } from 'react'
 
 export const GraphProvider = ({ children }: PropsWithChildren) => {
-  const [token, setToken] = useState<string>()
-  const { logined } = useAuthContext()
-  const { getToken } = useAuthDispatchContext()
-  const mounted = useMountedState()
-
-  useEffect(() => {
-    if (logined) {
-      getToken().then((token) => {
-        if (mounted()) {
-          setToken(token)
-        }
-      })
-    } else {
-      setToken(undefined)
-    }
-  }, [getToken, logined, mounted])
+  const { getToken, refreshToken } = useAuthDispatchContext()
 
   const client = useMemo(() => {
-    // TODO header詰める
-    console.log(token)
-    return createClient(clientEnv.NEXT_PUBLIC_GRAPH_API_URL)
-  }, [token])
+    console.log('urql client initialized')
+
+    return createClient({
+      url: clientEnv.NEXT_PUBLIC_GRAPH_API_URL,
+      authHandler: async (utils) => {
+        const token = await getToken()
+        return {
+          addAuthToOperation(operaion) {
+            if (!token) {
+              return operaion
+            }
+            return utils.appendHeaders(operaion, {
+              Authorization: `Bearer ${token}`,
+            })
+          },
+          // 事前にJWT検証して期限切れを更新したい
+          // async willAuthError(operation) {
+          //   const result = await getTokenResult()
+          //   const expired = new Date(result.expirationTime)
+
+          //   // 期限が近い場合は、トークンを更新しておく
+          //   if (expired < add(new Date(), { minutes: 5 })) {
+          //     return refreshIdToken()
+          //   }
+          // },
+          didAuthError(error, _operation) {
+            return error.response.status === 401
+          },
+          async refreshAuth() {
+            await refreshToken()
+          },
+        }
+      },
+    })
+  }, [getToken, refreshToken])
 
   return <UrqlProvider client={client}>{children}</UrqlProvider>
 }

@@ -6,7 +6,6 @@ import {
   signInWithPopup,
 } from 'firebase/auth'
 import { firebase } from './firebase'
-import { add } from '@/lib/date-util'
 
 export const signInGoogle = async () => {
   try {
@@ -38,14 +37,16 @@ export const getIdToken = async () => {
     return
   }
 
-  const result = await user.getIdTokenResult()
-  const expired = new Date(result.expirationTime)
-
-  // 期限が近い場合は、トークンを更新しておく
-  if (expired < add(new Date(), { minutes: 5 })) {
-    return user.getIdToken(true)
-  }
   return user.getIdToken()
+}
+
+export const refreshIdToken = async (): Promise<string | undefined> => {
+  const user = getAuth(firebase).currentUser
+  if (!user) {
+    return
+  }
+
+  return user.getIdToken(true)
 }
 
 export const signOut = async () => {
