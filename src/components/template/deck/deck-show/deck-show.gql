@@ -1,5 +1,6 @@
-query DeckShow {
-  todos {
+query DeckShow($id: ID!) {
+  deck(id: $id) {
     id
+    name
   }
 }

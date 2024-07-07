@@ -5,8 +5,14 @@ const config: CodegenConfig = {
   schema: 'http://localhost:8080/query',
   documents: 'src/**/*.gql',
   generates: {
-    'src/lib/gql/type.ts': {
+    'src/lib/gql/type.generated.ts': {
       plugins: ['typescript'],
+      config: {
+        scalars: {
+          ID: 'number',
+          Timestamp: 'string',
+        },
+      },
     },
     'src/lib/gql/': {
       preset: 'near-operation-file',
@@ -16,8 +22,14 @@ const config: CodegenConfig = {
           'typescript-urql': {},
         },
       ],
+      config: {
+        scalars: {
+          ID: 'number',
+          Timestamp: 'string',
+        },
+      },
       presetConfig: {
-        baseTypesPath: 'type.ts',
+        baseTypesPath: 'type.generated.ts',
       },
     },
     './graphql.schema.json': {

@@ -43,5 +43,4 @@ src/lib/firebase/config.ts
 
 # codegen
 graphql.schema.json
-src/lib/gql/type.ts
 src/**/*.generated.ts
