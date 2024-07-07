@@ -7,8 +7,6 @@ export const GraphProvider = ({ children }: PropsWithChildren) => {
   const { getToken, refreshToken } = useAuthDispatchContext()
 
   const client = useMemo(() => {
-    console.log('urql client initialized')
-
     return createClient({
       url: clientEnv.NEXT_PUBLIC_GRAPH_API_URL,
       authHandler: async (utils) => {
