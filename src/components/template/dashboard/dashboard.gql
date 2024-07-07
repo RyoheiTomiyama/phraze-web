@@ -1,0 +1,6 @@
+query DecksOnDashboard {
+  decks {
+    id
+    ...DeckOnDeckTable
+  }
+}

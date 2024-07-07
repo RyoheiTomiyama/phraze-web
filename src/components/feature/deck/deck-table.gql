@@ -1,0 +1,4 @@
+fragment DeckOnDeckTable on Deck {
+  id
+  name
+}
