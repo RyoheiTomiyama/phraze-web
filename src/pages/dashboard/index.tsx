@@ -1,10 +1,5 @@
-import { DeckTable } from '@/components/feature/deck'
-import { DefaultLayout } from '@/components/feature/layout'
+import { Dashboard } from '@/components/template/dashboard'
 
 export default function DashboardPage() {
-  return (
-    <DefaultLayout title="Dashboard">
-      <DeckTable />
-    </DefaultLayout>
-  )
+  return <Dashboard />
 }
