@@ -4,7 +4,7 @@ import { UrqlProvider, createClient } from '@/lib/urql'
 import { PropsWithChildren, useMemo } from 'react'
 
 export const GraphProvider = ({ children }: PropsWithChildren) => {
-  const { getToken, refreshToken } = useAuthDispatchContext()
+  const { getToken } = useAuthDispatchContext()
 
   const client = useMemo(() => {
     return createClient({
@@ -20,26 +20,16 @@ export const GraphProvider = ({ children }: PropsWithChildren) => {
               Authorization: `Bearer ${token}`,
             })
           },
-          // 事前にJWT検証して期限切れを更新したい
-          // async willAuthError(operation) {
-          //   const result = await getTokenResult()
-          //   const expired = new Date(result.expirationTime)
-
-          //   // 期限が近い場合は、トークンを更新しておく
-          //   if (expired < add(new Date(), { minutes: 5 })) {
-          //     return refreshIdToken()
-          //   }
-          // },
-          didAuthError(error, _operation) {
-            return error.response.status === 401
+          didAuthError(_error, _operation) {
+            return false
           },
           async refreshAuth() {
-            await refreshToken()
+            // await refreshToken()
           },
         }
       },
     })
-  }, [getToken, refreshToken])
+  }, [getToken])
 
   return <UrqlProvider client={client}>{children}</UrqlProvider>
 }
