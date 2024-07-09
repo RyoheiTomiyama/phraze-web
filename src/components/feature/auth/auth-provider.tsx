@@ -10,7 +10,7 @@ import {
 
 type User = { name: string }
 
-type State =
+type State = { loading: boolean } & (
   | {
       user: User
       isLogin: true
@@ -19,8 +19,9 @@ type State =
       user?: undefined
       isLogin?: false
     }
+)
 
-export const context = createContext<State>({ isLogin: false })
+export const context = createContext<State>({ isLogin: false, loading: true })
 
 export const dispatchContext = createContext<{
   getToken: () => Promise<string | undefined>
@@ -48,21 +49,23 @@ export const useAuthDispatchContext = () => {
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<User>()
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     return verify((firebaseUser) => {
       setUser({
         name: firebaseUser?.displayName ?? 'unknown',
       })
+      setLoading(false)
     })
   }, [])
 
   const value = useMemo(() => {
     if (user) {
-      return { user, isLogin: true as const }
+      return { user, isLogin: true as const, loading }
     }
-    return { user: undefined, isLogin: false as const }
-  }, [user])
+    return { user: undefined, isLogin: false as const, loading }
+  }, [loading, user])
 
   const dispatch = useMemo(() => {
     const getToken = getIdToken

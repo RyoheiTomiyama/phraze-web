@@ -10,21 +10,25 @@ export const GraphProvider = ({ children }: PropsWithChildren) => {
     return createClient({
       url: clientEnv.NEXT_PUBLIC_GRAPH_API_URL,
       authHandler: async (utils) => {
-        const token = await getToken()
+        let token: string | undefined
+
         return {
-          addAuthToOperation(operaion) {
+          addAuthToOperation(operation) {
             if (!token) {
-              return operaion
+              return operation
             }
-            return utils.appendHeaders(operaion, {
+            return utils.appendHeaders(operation, {
               Authorization: `Bearer ${token}`,
             })
+          },
+          willAuthError(_operation) {
+            return true
           },
           didAuthError(_error, _operation) {
             return false
           },
           async refreshAuth() {
-            // await refreshToken()
+            token = await getToken()
           },
         }
       },
