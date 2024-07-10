@@ -1,6 +1,8 @@
 query DecksOnDashboard {
   decks {
-    id
-    ...DeckOnDeckTable
+    decks {
+      id
+      ...DeckOnDeckTable
+    }
   }
 }

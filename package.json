@@ -16,7 +16,8 @@
     "prepare": "husky",
     "script:path": "yarn script:path:build && node script/dist/pathpida-extend.js",
     "script:path:build": "esbuild script/pathpida-extend.ts --outdir=script/dist --bundle --platform=node --format=esm --target=node20 --packages=external --sourcemap=inline",
-    "start": "next start"
+    "start": "next start",
+    "tslint": "tsc --noEmit --pretty"
   },
   "dependencies": {
     "@floating-ui/react": "^0.26.17",

@@ -6,7 +6,7 @@ export const Dashboard = () => {
   const [{ data, fetching, error }] = useDecksOnDashboardQuery()
   return (
     <DefaultLayout title="Dashboard">
-      <DeckTable decks={data?.decks || []} />
+      <DeckTable decks={data?.decks.decks || []} />
     </DefaultLayout>
   )
 }

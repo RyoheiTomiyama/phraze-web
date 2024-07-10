@@ -22,6 +22,7 @@ const reducer = (store: DialogStore, action: DialogAction): DialogStore => {
   switch (action.type) {
     case 'show': {
       const { id, Component, args = {} } = action.payload
+
       return {
         ...store,
         [id]: {
@@ -35,9 +36,10 @@ const reducer = (store: DialogStore, action: DialogAction): DialogStore => {
     }
     case 'hide': {
       const { id } = action.payload
-      if (!(id in store)) {
+      if (!store[id]) {
         return store
       }
+
       return {
         ...store,
         [id]: {
@@ -50,6 +52,7 @@ const reducer = (store: DialogStore, action: DialogAction): DialogStore => {
       const { id } = action.payload
       const newStore = { ...store }
       delete newStore[id]
+
       return newStore
     }
     default: {
