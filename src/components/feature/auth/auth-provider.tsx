@@ -70,7 +70,10 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const dispatch = useMemo(() => {
     const getToken = getIdToken
     const refreshToken = refreshIdToken
-    const logout = signOut
+    const logout = async () => {
+      await signOut()
+      setUser(undefined)
+    }
 
     return { getToken, refreshToken, logout }
   }, [])
