@@ -1,0 +1,7 @@
+mutation CreateDeckOnCreateDeckButton($input: CreateDeckInput!) {
+  createDeck(input: $input) {
+    deck {
+      id
+    }
+  }
+}

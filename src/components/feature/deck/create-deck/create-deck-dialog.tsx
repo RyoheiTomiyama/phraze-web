@@ -13,10 +13,11 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { DeckSchemaOutput, deckSchema } from './schema'
 import { SubmitHandler } from 'react-hook-form'
 import { useFormContext } from '@/hook/useForm/useForm'
+import { Loader2 } from 'lucide-react'
 
 type CreateDeckDialogProps = {
   onSubmit?: (data: DeckSchemaOutput) => void
@@ -24,12 +25,13 @@ type CreateDeckDialogProps = {
 
 export const CreateDeckDialog = ({ onSubmit }: CreateDeckDialogProps) => {
   const form = useFormContext<typeof deckSchema>()
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = useCallback<SubmitHandler<DeckSchemaOutput>>(
-    (data) => {
-      // TODO create
-      console.log(data)
-      onSubmit?.(data)
+    async (data) => {
+      setLoading(true)
+      await onSubmit?.(data)
+      setLoading(false)
     },
     [onSubmit],
   )
@@ -63,7 +65,8 @@ export const CreateDeckDialog = ({ onSubmit }: CreateDeckDialogProps) => {
           }}
         />
         <DialogFooter>
-          <Button type="submit" size="sm">
+          <Button type="submit" size="sm" className="gap-1" disabled={loading}>
+            {loading && <Loader2 className="w-4 animate-spin" />}
             Create
           </Button>
         </DialogFooter>
