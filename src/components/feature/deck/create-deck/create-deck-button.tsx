@@ -7,6 +7,8 @@ import { useCallback, useState } from 'react'
 import { deckSchema, DeckSchemaOutput } from './schema'
 import { CreateDeckDialog } from './create-deck-dialog'
 import { useCreateDeckOnCreateDeckButtonMutation } from './create-deck-button.generated'
+import { toast } from 'sonner'
+import { parseGQLError } from '@/lib/gql'
 
 export const CreateDeckButton = () => {
   const [open, setOpen] = useState(false)
@@ -33,13 +35,19 @@ export const CreateDeckButton = () => {
       const { data, error } = await createDeck({
         input: { name: output.name },
       })
-      console.log(data, error)
 
-      if (!error) {
+      if (error) {
+        const e = parseGQLError(error)
+        toast.error(e.message)
+      } else {
         setOpen(false)
+        form.reset()
+        toast.success('Deck has been created')
       }
+
+      return { data, error }
     },
-    [createDeck],
+    [createDeck, form],
   )
 
   return (
