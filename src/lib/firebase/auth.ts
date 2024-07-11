@@ -7,18 +7,22 @@ import {
 } from 'firebase/auth'
 import { firebase } from './firebase'
 import { add } from '@/lib/date-util'
+import { logger } from '@/lib/logger'
 
 export const signInGoogle = async () => {
   try {
     const auth = getAuth(firebase)
-    const result = await signInWithPopup(auth, new GoogleAuthProvider())
+    const _result = await signInWithPopup(auth, new GoogleAuthProvider())
 
-    const credential = GoogleAuthProvider.credentialFromResult(result)
-    const token = credential?.idToken
+    // TODO ログイン後の処理
 
-    console.log(result, token)
+    // const credential = GoogleAuthProvider.credentialFromResult(result)
+    // credential.
+    // const token = credential?.idToken
+
+    // console.log(result, token)
   } catch (e) {
-    console.error(e)
+    logger.error(e)
   }
 }
 

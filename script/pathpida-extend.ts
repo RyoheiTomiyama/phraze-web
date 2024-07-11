@@ -14,7 +14,7 @@ const escapeRegExp = (str: string) => {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
-const watch = (callback: (...args: any) => void) => {
+const watch = (callback: (...args: unknown[]) => void) => {
   // 監視対象
   const inputPath = path.posix.join(outDir, '$path.ts')
   // 更新するファイルは無視する
@@ -36,6 +36,7 @@ const writeFile = async ({
   filePath: string
 }) => {
   await fs.writeFile(filePath, text, 'utf-8')
+  // eslint-disable-next-line no-console
   console.log(`${filePath} was built successfully.`)
 }
 
@@ -43,6 +44,7 @@ const writeFile = async ({
 function createPathnames(pagesPathObj: PagesPath): string[] {
   const urls: string[] = []
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function traverse(obj: any) {
     for (const key in obj) {
       if (key === '$url') {
@@ -90,10 +92,15 @@ const main = () => {
 
   const watchMode = 'watch' in argv
   if (watchMode) {
+    // eslint-disable-next-line no-console
     console.log('run watch mode...')
   }
 
-  watchMode ? watch(() => generate()) : generate()
+  watchMode
+    ? watch(() => {
+        return generate()
+      })
+    : generate()
 }
 
 main()

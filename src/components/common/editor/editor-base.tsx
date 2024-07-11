@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
 import {
   InitialConfigType,
@@ -32,8 +33,7 @@ export const EditorBase = ({
     namespace,
     nodes,
     theme: {},
-    // eslint-disable-next-line no-console
-    onError: console.error,
+    onError: logger.error,
   }
 
   return (
