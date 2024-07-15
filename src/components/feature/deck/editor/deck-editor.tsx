@@ -14,12 +14,14 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { cn } from '@/lib/utils'
 import { CardEdit } from './card-edit'
 import { CardAdd } from './card-add'
+import { CardOnDeckEditorFragment } from './deck-editor.generated'
 
 type DeckEditorProps = {
   className?: string
+  cards: CardOnDeckEditorFragment[]
 }
 
-export const DeckEditor = ({ className }: DeckEditorProps) => {
+export const DeckEditor = ({ cards, className }: DeckEditorProps) => {
   return (
     <ResizablePanelGroup
       direction="horizontal"
@@ -33,41 +35,18 @@ export const DeckEditor = ({ className }: DeckEditorProps) => {
           <CardContent className="flex-auto overflow-hidden pb-0">
             <ScrollArea className="-mx-6 h-full">
               <div>
-                <div className="px-6 py-2 cursor-pointer hover:bg-muted">
-                  <span className=" line-clamp-1 text-muted-foreground">
-                    list hoge hoge fuga fuga hige line-clamp-1 line-clamp-1
-                  </span>
-                </div>
-                <div className="px-6 py-2 cursor-pointer hover:bg-muted">
-                  <span className=" line-clamp-1 text-muted-foreground">
-                    list hoge hoge fuga fuga hige line-clamp-1 line-clamp-1
-                  </span>
-                </div>
-                <div className="px-6 py-2 cursor-pointer hover:bg-muted">
-                  <span className=" line-clamp-1 text-muted-foreground">
-                    list hoge hoge fuga fuga hige line-clamp-1 line-clamp-1
-                  </span>
-                </div>
-                <div className="px-6 py-2 cursor-pointer hover:bg-muted">
-                  <span className=" line-clamp-1 text-muted-foreground">
-                    list hoge hoge fuga fuga hige line-clamp-1 line-clamp-1
-                  </span>
-                </div>
-                <div className="px-6 py-2 cursor-pointer hover:bg-muted">
-                  <span className=" line-clamp-1 text-muted-foreground">
-                    list hoge hoge fuga fuga hige line-clamp-1 line-clamp-1
-                  </span>
-                </div>
-                <div className="px-6 py-2 cursor-pointer hover:bg-muted">
-                  <span className=" line-clamp-1 text-muted-foreground">
-                    list hoge hoge fuga fuga hige line-clamp-1 line-clamp-1
-                  </span>
-                </div>
-                <div className="px-6 py-2 cursor-pointer hover:bg-muted">
-                  <span className=" line-clamp-1 text-muted-foreground">
-                    list hoge hoge fuga fuga hige line-clamp-1 line-clamp-1
-                  </span>
-                </div>
+                {cards.map((card) => {
+                  return (
+                    <div
+                      key={card.id}
+                      className="px-6 py-2 cursor-pointer hover:bg-muted"
+                    >
+                      <span className=" line-clamp-1 text-muted-foreground">
+                        {card.question}
+                      </span>
+                    </div>
+                  )
+                })}
               </div>
             </ScrollArea>
           </CardContent>
