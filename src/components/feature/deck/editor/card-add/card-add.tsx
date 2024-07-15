@@ -21,13 +21,24 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { SubmitHandler } from 'react-hook-form'
+import { useCreateCardOnCardAddMutation } from './card-add.generated'
+import { parseGQLError } from '@/lib/gql'
+import { toast } from 'sonner'
 
 type CardAddProps = {
+  deckId: number
   disabled?: boolean
+  onCreated?: (id: number) => void
 }
 
-export const CardAdd = ({ disabled = false }: CardAddProps) => {
+export const CardAdd = ({
+  deckId,
+  disabled = false,
+  onCreated,
+}: CardAddProps) => {
   const [open, setOpen] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [_, createCard] = useCreateCardOnCardAddMutation()
 
   const form = useForm(cardSchema, {
     defaultValues: {
@@ -35,11 +46,33 @@ export const CardAdd = ({ disabled = false }: CardAddProps) => {
     },
   })
 
-  const handleSubmit = useCallback<SubmitHandler<CardSchemaOutput>>((data) => {
-    // TODO create
-    console.log(data.question)
-    setOpen(false)
-  }, [])
+  const handleSubmit = useCallback<SubmitHandler<CardSchemaOutput>>(
+    async (data) => {
+      setSubmitting(true)
+      const { data: result, error } = await createCard({
+        input: {
+          deckId,
+          question: data.question,
+        },
+      })
+      setSubmitting(false)
+
+      if (error) {
+        const e = parseGQLError(error)
+        toast.error(e.message)
+      } else {
+        setOpen(false)
+        form.reset()
+        toast.success('Card has been created')
+      }
+
+      setOpen(false)
+      if (result?.createCard.card.id) {
+        onCreated?.(result?.createCard.card.id)
+      }
+    },
+    [createCard, deckId, form, onCreated],
+  )
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -88,7 +121,7 @@ export const CardAdd = ({ disabled = false }: CardAddProps) => {
               }}
             />
             <DialogFooter>
-              <Button type="submit" size="sm">
+              <Button type="submit" size="sm" disabled={submitting}>
                 Create
               </Button>
             </DialogFooter>

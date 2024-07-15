@@ -1,0 +1,7 @@
+mutation CreateCardOnCardAdd($input: CreateCardInput!) {
+  createCard(input: $input) {
+    card {
+      id
+    }
+  }
+}

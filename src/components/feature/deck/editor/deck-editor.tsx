@@ -22,12 +22,14 @@ import { useEffect } from 'react'
 type DeckEditorProps = {
   className?: string
   cards: CardOnDeckEditorFragment[]
+  deckId: number
   loading?: boolean
 }
 
 export const DeckEditor = ({
   cards,
   className,
+  deckId,
   loading = false,
 }: DeckEditorProps) => {
   const { open, setOpen, elemetRef } = useTooltipGuide<HTMLSpanElement>({})
@@ -90,7 +92,7 @@ export const DeckEditor = ({
               学習したフレーズ・単語を登録しましょう
             </TooltipGuide>
             <span ref={elemetRef}>
-              <CardAdd disabled={loading} />
+              <CardAdd deckId={deckId} disabled={loading} />
             </span>
           </CardFooter>
         </Card>

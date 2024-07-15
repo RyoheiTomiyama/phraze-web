@@ -40,6 +40,7 @@ export const DeckEdit = ({ deckId }: DeckEditProps) => {
       <DeckEditor
         className="flex-auto"
         cards={data?.cards.cards || []}
+        deckId={deckId}
         loading={fetching}
       />
       {/* <CardTable /> */}
