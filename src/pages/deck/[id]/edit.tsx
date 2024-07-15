@@ -1,3 +1,4 @@
+import { AuthRequired } from '@/components/feature/auth'
 import { DeckEdit } from '@/components/template/deck'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
@@ -17,5 +18,9 @@ export default function DeckIdEditPage() {
     return querySchema.parse(router.query)
   }, [router.query])
 
-  return <DeckEdit deckId={id} />
+  return (
+    <AuthRequired>
+      <DeckEdit deckId={id} />
+    </AuthRequired>
+  )
 }

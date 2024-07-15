@@ -16,6 +16,8 @@ import { CardEdit } from './card-edit'
 import { CardAdd } from './card-add'
 import { CardOnDeckEditorFragment } from './deck-editor.generated'
 import { Loader2 } from 'lucide-react'
+import { TooltipGuide, useTooltipGuide } from '@/components/common/tooltip'
+import { useEffect } from 'react'
 
 type DeckEditorProps = {
   className?: string
@@ -28,6 +30,14 @@ export const DeckEditor = ({
   className,
   loading = false,
 }: DeckEditorProps) => {
+  const { open, setOpen, elemetRef } = useTooltipGuide<HTMLSpanElement>({})
+
+  useEffect(() => {
+    if (!loading) {
+      setOpen(!cards.length)
+    }
+  }, [cards.length, loading, setOpen])
+
   return (
     <ResizablePanelGroup
       direction="horizontal"
@@ -69,8 +79,19 @@ export const DeckEditor = ({
               </ScrollArea>
             )}
           </CardContent>
-          <CardFooter className="border-t flex justify-center py-4">
-            <CardAdd />
+          <CardFooter className={cn('border-t flex justify-center py-4')}>
+            <TooltipGuide
+              elementRef={elemetRef.current}
+              open={open}
+              onClose={() => {
+                return setOpen(false)
+              }}
+            >
+              学習したフレーズ・単語を登録しましょう
+            </TooltipGuide>
+            <span ref={elemetRef}>
+              <CardAdd disabled={loading} />
+            </span>
           </CardFooter>
         </Card>
       </ResizablePanel>

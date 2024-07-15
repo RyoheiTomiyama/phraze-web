@@ -22,7 +22,11 @@ import {
 } from '@/components/ui/form'
 import { SubmitHandler } from 'react-hook-form'
 
-export const CardAdd = () => {
+type CardAddProps = {
+  disabled?: boolean
+}
+
+export const CardAdd = ({ disabled = false }: CardAddProps) => {
   const [open, setOpen] = useState(false)
 
   const form = useForm(cardSchema, {
@@ -41,7 +45,12 @@ export const CardAdd = () => {
     <Dialog open={open} onOpenChange={setOpen}>
       <Form {...form}>
         <DialogTrigger asChild>
-          <Button variant="ghost" size="sm" className="gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="gap-2"
+            disabled={disabled}
+          >
             <PlusCircle className="h-3.5 w-3.5" />
             Add Card
           </Button>
