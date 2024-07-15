@@ -1,6 +1,9 @@
 import type { Query as Query_1dmjqw } from '../../pages/deck/[id]/edit';
 
 export const pagesPath = {
+  "$404": {
+    $url: (url?: { hash?: string | undefined } | undefined) => ({ pathname: '/404' as const, hash: url?.hash })
+  },
   "dashboard": {
     $url: (url?: { hash?: string | undefined } | undefined) => ({ pathname: '/dashboard' as const, hash: url?.hash })
   },
