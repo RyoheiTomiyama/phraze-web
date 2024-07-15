@@ -4,10 +4,6 @@ import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { z } from 'zod'
 
-export type Query = {
-  id: number
-}
-
 const querySchema = z.object({
   id: z.coerce.number().default(0),
 })
