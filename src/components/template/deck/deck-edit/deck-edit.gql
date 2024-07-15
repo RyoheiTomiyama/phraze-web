@@ -1,0 +1,8 @@
+query CardsOnDeckEdit($input: CardsInput!) {
+  cards(input: $input) {
+    cards {
+      id
+      ...CardOnDeckEditor
+    }
+  }
+}

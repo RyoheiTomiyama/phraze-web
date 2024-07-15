@@ -2,9 +2,20 @@
 import { DeckEditor } from '@/components/feature/deck'
 import { DefaultLayout } from '@/components/feature/layout'
 import { useRouter } from 'next/router'
+import { useCardsOnDeckEditQuery } from './deck-edit.generated'
 
-export const DeckEdit = () => {
+type DeckEditProps = {
+  deckId: number
+}
+export const DeckEdit = ({ deckId }: DeckEditProps) => {
   const router = useRouter()
+
+  const [{ data, fetching, error }] = useCardsOnDeckEditQuery({
+    pause: !deckId,
+    variables: {
+      input: { where: { deckId } },
+    },
+  })
 
   return (
     <DefaultLayout
@@ -12,7 +23,7 @@ export const DeckEdit = () => {
       title={router.asPath.toUpperCase()}
       // mainProps={{ className: 'max-h-dvh' }}
     >
-      <DeckEditor className="flex-auto" />
+      <DeckEditor className="flex-auto" cards={data?.cards.cards || []} />
       {/* <CardTable /> */}
     </DefaultLayout>
   )
