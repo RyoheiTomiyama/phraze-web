@@ -12,6 +12,7 @@ export const DeckList = ({ decks }: DeckListProps) => {
       {decks.map((deck) => {
         return <DeckItem key={deck.id} item={deck} />
       })}
+      <ItemAdd />
     </div>
   )
 }
