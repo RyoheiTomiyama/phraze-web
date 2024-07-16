@@ -14,10 +14,14 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { cn } from '@/lib/utils'
 import { CardEdit } from './card-edit'
 import { CardAdd } from './card-add'
-import { CardOnDeckEditorFragment } from './deck-editor.generated'
+import {
+  CardOnDeckEditorFragment,
+  useGetCardOnDeckEditorQuery,
+} from './deck-editor.generated'
 import { Loader2 } from 'lucide-react'
 import { TooltipGuide, useTooltipGuide } from '@/components/common/tooltip'
-import { useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { logger } from '@/lib/logger'
 
 type DeckEditorProps = {
   className?: string
@@ -32,13 +36,33 @@ export const DeckEditor = ({
   deckId,
   loading = false,
 }: DeckEditorProps) => {
+  const [activeCard, setActiveCard] = useState<number>()
   const { open, setOpen, elemetRef } = useTooltipGuide<HTMLSpanElement>({})
+
+  const [{ data, fetching, error }] = useGetCardOnDeckEditorQuery({
+    pause: !activeCard,
+    variables: {
+      id: activeCard || 0,
+    },
+  })
+
+  useEffect(() => {
+    if (error) {
+      logger.error(error)
+    }
+  }, [error])
 
   useEffect(() => {
     if (!loading) {
       setOpen(!cards.length)
     }
   }, [cards.length, loading, setOpen])
+
+  const handleSelectCard = useCallback((id: number) => {
+    return () => {
+      setActiveCard(id)
+    }
+  }, [])
 
   return (
     <ResizablePanelGroup
@@ -62,7 +86,9 @@ export const DeckEditor = ({
                     return (
                       <div
                         key={card.id}
-                        className="px-6 py-2 cursor-pointer hover:bg-muted"
+                        data-active={card.id === activeCard}
+                        className="px-6 py-2 cursor-pointer hover:bg-muted data-[active='true']:font-bold"
+                        onClick={handleSelectCard(card.id)}
                       >
                         <span className=" line-clamp-1 text-muted-foreground">
                           {card.question}
@@ -99,7 +125,9 @@ export const DeckEditor = ({
       </ResizablePanel>
       <ResizableHandle className="hidden sm:flex" />
       <ResizablePanel defaultSize={70} minSize={50} className="hidden sm:block">
-        <CardEdit />
+        {!fetching && !!data?.card && (
+          <CardEdit card={data?.card} key={data.card.id} />
+        )}
       </ResizablePanel>
     </ResizablePanelGroup>
   )

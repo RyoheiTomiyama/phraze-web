@@ -67,6 +67,9 @@ const config = {
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
     },
+    fontFamily: {
+      sans: '-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,sans-serif,"Segoe UI Emoji"',
+    },
   },
   plugins: [require('tailwindcss-animate')],
 }

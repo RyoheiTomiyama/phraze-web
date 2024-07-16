@@ -2,3 +2,10 @@ fragment CardOnDeckEditor on Card {
   id
   question
 }
+
+query GetCardOnDeckEditor($id: ID!) {
+  card(id: $id) {
+    id
+    ...CardOnCardEdit
+  }
+}

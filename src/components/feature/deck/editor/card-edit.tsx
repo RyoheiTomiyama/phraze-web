@@ -11,12 +11,16 @@ import { Input } from '@/components/ui/input'
 import { useForm } from 'react-hook-form'
 import { PhraseInput } from './phrase-input'
 import { DevTool } from '@/components/common/form'
+import { CardOnCardEditFragment } from './card-edit.generated'
 
-export const CardEdit = () => {
+type CardEditProps = {
+  card: CardOnCardEditFragment
+}
+export const CardEdit = ({ card }: CardEditProps) => {
   const form = useForm({
     defaultValues: {
-      question: 'hoge *bold*',
-      answer: 'hoge',
+      question: card.question,
+      answer: card.answer,
     },
   })
 

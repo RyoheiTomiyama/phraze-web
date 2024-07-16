@@ -34,7 +34,7 @@ export const DeckEdit = ({ deckId }: DeckEditProps) => {
   return (
     <DefaultLayout
       className="max-h-dvh"
-      title={router.asPath.toUpperCase()}
+      title="Edit a deck"
       // mainProps={{ className: 'max-h-dvh' }}
     >
       <DeckEditor
