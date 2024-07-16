@@ -2,7 +2,7 @@ query DecksOnDashboard {
   decks {
     decks {
       id
-      ...DeckOnDeckTable
+      ...DeckOnDeckList
     }
   }
 }
