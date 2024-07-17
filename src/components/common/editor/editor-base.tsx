@@ -18,6 +18,7 @@ export type EditorBaseProps = {
     | null
     | JSX.Element
   plugins?: ReactElement[]
+  theme?: InitialConfigType['theme']
 }
 
 export const EditorBase = ({
@@ -27,12 +28,13 @@ export const EditorBase = ({
   namespace = 'editor',
   nodes = [],
   plugins = [],
+  theme = {},
 }: PropsWithChildren<EditorBaseProps>) => {
   const initialConfig: InitialConfigType = {
     editorState: defaultEditorState,
     namespace,
     nodes,
-    theme: {},
+    theme,
     onError: logger.error,
   }
 
