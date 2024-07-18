@@ -23,14 +23,14 @@ type EditorProps = EditorBaseProps & {
 }
 
 const theme = {
-  // quote: 'editor-quote',
-  // heading: {
-  //   h1: 'text-3xl font-extrabold dark:text-white',
-  //   h2: 'text-2xl font-bold dark:text-white',
-  //   h3: 'text-xl font-bold dark:text-white',
-  //   h4: 'text-lg font-bold dark:text-white',
-  //   h5: 'font-bold dark:text-white',
-  // },
+  quote: 'border-l-4 border-l-border pl-3',
+  heading: {
+    h1: 'text-3xl font-bold',
+    h2: 'text-2xl font-bold',
+    h3: 'text-xl font-bold',
+    h4: 'text-lg font-bold',
+    h5: 'font-bold',
+  },
   list: {
     nested: {
       listitem: 'list-none',
@@ -40,16 +40,14 @@ const theme = {
     listitem: '',
   },
   // image: 'editor-image',
-  // link: 'font-medium text-blue-600 dark:text-blue-500 hover:underline',
-  // text: {
-  //   bold: 'font-bold',
-  //   italic: 'italic',
-  //   overflowed: 'editor-text-overflowed',
-  //   hashtag: 'editor-text-hashtag',
-  //   underline: 'underline',
-  //   strikethrough: 'line-through',
-  //   underlineStrikethrough: 'underline line-through',
-  // },
+  link: 'underline text-accent-foreground cursor-pointer',
+  text: {
+    bold: 'font-bold',
+    italic: 'italic',
+    underline: 'underline',
+    strikethrough: 'line-through',
+    underlineStrikethrough: 'underline line-through',
+  },
 } satisfies EditorThemeClasses
 
 export const Editor = ({
