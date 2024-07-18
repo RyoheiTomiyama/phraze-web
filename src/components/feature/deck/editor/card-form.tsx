@@ -1,12 +1,12 @@
 import { PropsWithChildren } from 'react'
-import { CardOnCardEditFragment } from './card-edit.generated'
 import { useForm } from '@/hook/useForm'
 import { cardEditSchema } from './card-edit-schema'
 import { Form } from '@/components/ui/form'
 import { DevTool } from '@/components/common/form'
+import { CardOnCardFormFragment } from './card-form.generated'
 
 type CardFormProps = {
-  card: CardOnCardEditFragment
+  card: CardOnCardFormFragment
 }
 
 export const CardForm = ({

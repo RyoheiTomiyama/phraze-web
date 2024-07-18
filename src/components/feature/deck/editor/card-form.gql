@@ -1,0 +1,5 @@
+fragment CardOnCardForm on Card {
+  id
+  question
+  answer
+}

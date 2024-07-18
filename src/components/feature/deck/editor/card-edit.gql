@@ -1,5 +1,0 @@
-fragment CardOnCardEdit on Card {
-  id
-  question
-  answer
-}
