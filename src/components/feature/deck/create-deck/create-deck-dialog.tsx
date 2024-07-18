@@ -16,7 +16,7 @@ import { Input } from '@/components/ui/input'
 import { useCallback, useState } from 'react'
 import { DeckSchemaOutput, deckSchema } from './schema'
 import { SubmitHandler } from 'react-hook-form'
-import { useFormContext } from '@/hook/useForm/useForm'
+import { useFormContext } from '@/hook/useForm'
 import { Loader2 } from 'lucide-react'
 
 type CreateDeckDialogProps = {

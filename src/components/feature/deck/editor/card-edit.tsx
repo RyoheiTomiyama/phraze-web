@@ -7,10 +7,9 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { PhraseInput } from './phrase-input'
-import { DevTool } from '@/components/common/form'
 import { AnswerInput } from './answer-input'
 import { cardEditSchema } from './card-edit-schema'
-import { useFormContext } from '@/hook/useForm/useForm'
+import { useFormContext } from '@/hook/useForm'
 
 export const CardEdit = () => {
   const form = useFormContext<typeof cardEditSchema>()
