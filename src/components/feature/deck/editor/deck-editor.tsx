@@ -22,6 +22,7 @@ import { Loader2 } from 'lucide-react'
 import { TooltipGuide, useTooltipGuide } from '@/components/common/tooltip'
 import { useCallback, useEffect, useState } from 'react'
 import { logger } from '@/lib/logger'
+import { CardForm } from './card-form'
 
 type DeckEditorProps = {
   className?: string
@@ -124,12 +125,18 @@ export const DeckEditor = ({
         </Card>
       </ResizablePanel>
       <ResizableHandle className="hidden sm:flex" />
-      <ResizablePanel defaultSize={70} minSize={50} className="hidden sm:block">
-        <ScrollArea className="h-full">
-          {!fetching && !!data?.card && (
-            <CardEdit card={data?.card} key={data.card.id} />
-          )}
-        </ScrollArea>
+      <ResizablePanel
+        defaultSize={70}
+        minSize={50}
+        className="hidden sm:block flex-col"
+      >
+        {!fetching && !!data?.card && (
+          <CardForm card={data.card} key={data.card.id}>
+            <ScrollArea className="h-full flex-auto">
+              <CardEdit />
+            </ScrollArea>
+          </CardForm>
+        )}
       </ResizablePanel>
     </ResizablePanelGroup>
   )
