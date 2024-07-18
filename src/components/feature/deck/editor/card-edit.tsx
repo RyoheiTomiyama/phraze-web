@@ -12,10 +12,12 @@ import { PhraseInput } from './phrase-input'
 import { DevTool } from '@/components/common/form'
 import { CardOnCardEditFragment } from './card-edit.generated'
 import { AnswerInput } from './answer-input'
+import { clientEnv } from '@/lib/env'
 
 type CardEditProps = {
   card: CardOnCardEditFragment
 }
+
 export const CardEdit = ({ card }: CardEditProps) => {
   const form = useForm({
     defaultValues: {
@@ -74,7 +76,9 @@ export const CardEdit = ({ card }: CardEditProps) => {
           }}
         />
       </div>
-      <DevTool control={form.control} />
+      {clientEnv.NODE_ENV === 'development' && (
+        <DevTool control={form.control} />
+      )}
     </Form>
   )
 }
