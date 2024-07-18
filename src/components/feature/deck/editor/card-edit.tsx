@@ -7,11 +7,11 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
 import { useForm } from 'react-hook-form'
 import { PhraseInput } from './phrase-input'
 import { DevTool } from '@/components/common/form'
 import { CardOnCardEditFragment } from './card-edit.generated'
+import { AnswerInput } from './answer-input'
 
 type CardEditProps = {
   card: CardOnCardEditFragment
@@ -56,19 +56,23 @@ export const CardEdit = ({ card }: CardEditProps) => {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Phrase / Word</FormLabel>
+                <FormLabel>Answer</FormLabel>
                 <FormDescription className="text-xs">
-                  フレーズの中で覚えたい単語があれば太字にしてください
+                  Phrase/Word に対する翻訳や解説
                 </FormDescription>
                 <FormControl>
-                  <Input placeholder="覚えたいフレーズ・単語" {...field} />
+                  <AnswerInput
+                    disabled={field.disabled}
+                    onBlur={field.onBlur}
+                    defaultValue={field.value}
+                    onChange={field.onChange}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )
           }}
         />
-        {/* <Editor namespace="editor" /> */}
       </div>
       <DevTool control={form.control} />
     </Form>

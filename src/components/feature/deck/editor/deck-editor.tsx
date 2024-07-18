@@ -125,9 +125,11 @@ export const DeckEditor = ({
       </ResizablePanel>
       <ResizableHandle className="hidden sm:flex" />
       <ResizablePanel defaultSize={70} minSize={50} className="hidden sm:block">
-        {!fetching && !!data?.card && (
-          <CardEdit card={data?.card} key={data.card.id} />
-        )}
+        <ScrollArea className="h-full">
+          {!fetching && !!data?.card && (
+            <CardEdit card={data?.card} key={data.card.id} />
+          )}
+        </ScrollArea>
       </ResizablePanel>
     </ResizablePanelGroup>
   )
