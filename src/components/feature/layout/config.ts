@@ -5,17 +5,21 @@ export const layoutConfig = {
   '/dashboard': {
     name: 'Dashboard',
     Icon: Home,
-    isActive: (_) => true,
+    isActive: (_) => {
+      return true
+    },
   },
   '/': {
     name: 'Top',
     Icon: Banana,
-    isActive: (_) => false,
+    isActive: (_) => {
+      return false
+    },
   },
 } as const satisfies {
   [key in Pathname]?: {
     name: string
     Icon: React.ElementType
-    isActive: (props: { pathname: string }) => {}
+    isActive: (props: { pathname: string }) => boolean
   }
 }
