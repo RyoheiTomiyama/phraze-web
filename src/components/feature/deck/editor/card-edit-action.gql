@@ -1,0 +1,7 @@
+mutation UpdateCardOnCardEditAction($input: UpdateCardInput!) {
+  updateCard(input: $input) {
+    card {
+      id
+    }
+  }
+}

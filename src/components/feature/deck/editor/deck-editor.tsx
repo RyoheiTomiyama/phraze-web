@@ -23,6 +23,7 @@ import { TooltipGuide, useTooltipGuide } from '@/components/common/tooltip'
 import { useCallback, useEffect, useState } from 'react'
 import { logger } from '@/lib/logger'
 import { CardForm } from './card-form'
+import { CardEditAction } from './card-edit-action'
 
 type DeckEditorProps = {
   className?: string
@@ -128,10 +129,11 @@ export const DeckEditor = ({
       <ResizablePanel
         defaultSize={70}
         minSize={50}
-        className="hidden sm:block flex-col"
+        className="hidden sm:flex flex-col"
       >
         {!fetching && !!data?.card && (
           <CardForm card={data.card} key={data.card.id}>
+            <CardEditAction cardId={data.card.id} />
             <ScrollArea className="h-full flex-auto">
               <CardEdit />
             </ScrollArea>
