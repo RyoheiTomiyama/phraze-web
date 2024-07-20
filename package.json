@@ -11,7 +11,7 @@
     "dev:path-ext": "yarn script:path --watch",
     "codegen": "graphql-codegen --config codegen.ts",
     "format": "prettier --write .",
-    "generate:path": "pathpida --output src/lib/pathpida --ignorePath .gitignore --enableStatic ",
+    "generate:path": "pathpida --output src/lib/pathpida --ignorePath .gitignore --enableStatic",
     "lint": "next lint",
     "prepare": "husky",
     "script:path": "yarn script:path:build && node script/dist/pathpida-extend.js",

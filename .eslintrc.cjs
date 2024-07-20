@@ -28,7 +28,8 @@ const config = {
     ],
   },
   ignorePatterns: [
-    'src/lib/pathpida/{$path,pathnames}.ts',
+    'src/lib/pathpida/$path.ts',
+    'src/lib/pathpida/pathnames.ts',
     'src/components/ui/**',
     'src/**/*.generated.ts',
   ],

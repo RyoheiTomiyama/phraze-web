@@ -37,7 +37,7 @@ export const CardEditAction = ({ cardId }: CardEditActionProps) => {
   }, [cardId, handleSubmit, reset, updateCard])
 
   return (
-    <div className="px-6 py-2 md:pt-4  flex flex-row justify-end">
+    <div className="px-6 py-2 md:pt-4 flex flex-row justify-end gap-4">
       <Button
         size="sm"
         variant="outline"
