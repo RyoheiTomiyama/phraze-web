@@ -8,9 +8,10 @@ import { parseGQLError, ResponseError } from '@/lib/gql'
 import { pagesPath } from '@/lib/pathpida/$path'
 
 type DeckEditProps = {
+  cardId?: number
   deckId: number
 }
-export const DeckEdit = ({ deckId }: DeckEditProps) => {
+export const DeckEdit = ({ cardId, deckId }: DeckEditProps) => {
   const router = useRouter()
 
   const [{ data, fetching, error }] = useCardsOnDeckEditQuery({
@@ -40,6 +41,7 @@ export const DeckEdit = ({ deckId }: DeckEditProps) => {
       <DeckEditor
         className="flex-auto"
         cards={data?.cards.cards || []}
+        cardId={cardId}
         deckId={deckId}
         loading={fetching}
       />

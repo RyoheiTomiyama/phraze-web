@@ -20,31 +20,35 @@ import {
 } from './deck-editor.generated'
 import { Loader2 } from 'lucide-react'
 import { TooltipGuide, useTooltipGuide } from '@/components/common/tooltip'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import { logger } from '@/lib/logger'
 import { CardForm } from './card-form'
 import { CardEditAction } from './card-edit-action'
+import { useRouter } from 'next/router'
+import { pagesPath } from '@/lib/pathpida/$path'
 
 type DeckEditorProps = {
   className?: string
   cards: CardOnDeckEditorFragment[]
+  cardId?: number
   deckId: number
   loading?: boolean
 }
 
 export const DeckEditor = ({
   cards,
+  cardId,
   className,
   deckId,
   loading = false,
 }: DeckEditorProps) => {
-  const [activeCard, setActiveCard] = useState<number>()
+  const router = useRouter()
   const { open, setOpen, elemetRef } = useTooltipGuide<HTMLSpanElement>({})
 
   const [{ data, fetching, error }] = useGetCardOnDeckEditorQuery({
-    pause: !activeCard,
+    pause: !cardId,
     variables: {
-      id: activeCard || 0,
+      id: cardId || 0,
     },
   })
 
@@ -60,11 +64,16 @@ export const DeckEditor = ({
     }
   }, [cards.length, loading, setOpen])
 
-  const handleSelectCard = useCallback((id: number) => {
-    return () => {
-      setActiveCard(id)
-    }
-  }, [])
+  const handleSelectCard = useCallback(
+    (id: number) => {
+      return () => {
+        router.push(
+          pagesPath.deck._id(deckId).edit.$url({ query: { cardId: id } }),
+        )
+      }
+    },
+    [deckId, router],
+  )
 
   return (
     <ResizablePanelGroup
@@ -88,7 +97,7 @@ export const DeckEditor = ({
                     return (
                       <div
                         key={card.id}
-                        data-active={card.id === activeCard}
+                        data-active={card.id === cardId}
                         className="px-6 py-2 cursor-pointer hover:bg-muted data-[active='true']:font-bold"
                         onClick={handleSelectCard(card.id)}
                       >
