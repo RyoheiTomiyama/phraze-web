@@ -6,8 +6,9 @@ import { AnswerViewer, QuestionViewer } from '@/components/feature/card'
 type QuizCardProps = {
   card: CardOnQuizCardFragment
   className?: string
+  show: boolean
 }
-export const QuizCard = ({ card, className }: QuizCardProps) => {
+export const QuizCard = ({ card, className, show }: QuizCardProps) => {
   return (
     <div
       className={cn(
@@ -18,7 +19,7 @@ export const QuizCard = ({ card, className }: QuizCardProps) => {
     >
       <QuestionViewer value={card.question} />
       <Separator />
-      <AnswerViewer value={card.answer} />
+      <AnswerViewer value={card.answer} show={show} />
       <span
         className="
         absolute top-0 left-0 w-full h-full
