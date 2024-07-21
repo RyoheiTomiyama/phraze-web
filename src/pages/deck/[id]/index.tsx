@@ -1,3 +1,4 @@
+import { AuthRequired } from '@/components/feature/auth'
 import { DeckShow } from '@/components/template/deck'
 import { useRouter } from 'next/router'
 import { z } from 'zod'
@@ -10,5 +11,9 @@ export default function DeckIdPage() {
   const router = useRouter()
   const { id } = paramSchema.parse(router.query)
 
-  return <DeckShow deckId={id} />
+  return (
+    <AuthRequired>
+      <DeckShow deckId={id} />
+    </AuthRequired>
+  )
 }
