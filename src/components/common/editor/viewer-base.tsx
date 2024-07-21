@@ -27,6 +27,7 @@ export const ViewerBase = ({
   theme = {},
 }: PropsWithChildren<ViewerBaseProps>) => {
   const initialConfig: InitialConfigType = {
+    editable: false,
     editorState: defaultEditorState,
     namespace,
     nodes,

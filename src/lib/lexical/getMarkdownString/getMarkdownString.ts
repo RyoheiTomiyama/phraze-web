@@ -3,6 +3,6 @@ import { EditorState } from 'lexical'
 
 export const getMarkdownString = (editorState: EditorState): string => {
   return editorState.read(() => {
-    return $convertToMarkdownString()
+    return $convertToMarkdownString(undefined, undefined, true)
   })
 }

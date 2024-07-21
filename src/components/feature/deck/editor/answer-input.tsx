@@ -38,7 +38,7 @@ export const AnswerInput = forwardRef<HTMLDivElement, AnswerInputProps>(
     _ref,
   ) {
     const editorState = useCallback(() => {
-      $convertFromMarkdownString(defaultValue, [BOLD_STAR, BOLD_UNDERSCORE])
+      $convertFromMarkdownString(defaultValue, undefined, undefined, true)
     }, [defaultValue])
 
     const handleChange = useCallback(
