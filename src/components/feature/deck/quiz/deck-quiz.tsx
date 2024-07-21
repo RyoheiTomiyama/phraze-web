@@ -6,6 +6,7 @@ import {
   DeckOnDeckQuizFragment,
 } from './deck-quiz.generated'
 import { DeckQuizProgress } from './deck-quiz-progress'
+import { QuizCard } from './quiz-card'
 
 type DeckQuizProps = HTMLAttributes<HTMLDivElement> & {
   deck: DeckOnDeckQuizFragment
@@ -21,10 +22,13 @@ export const DeckQuiz = ({
   return (
     <div
       {...props}
-      className={cn('flex-1 flex flex-col items-stretch', className)}
+      className={cn('flex-auto flex flex-col items-stretch', className)}
     >
-      {cards.length > 0 ? (
-        <DeckQuizProgress totalCount={2} count={1} />
+      {cards.length > 0 && cards[0] ? (
+        <div className="flex-auto flex flex-col gap-6">
+          <DeckQuizProgress totalCount={2} count={1} />
+          <QuizCard card={cards[0]} className="flex-auto" />
+        </div>
       ) : (
         <DeckEmpty deckId={deck.id} />
       )}

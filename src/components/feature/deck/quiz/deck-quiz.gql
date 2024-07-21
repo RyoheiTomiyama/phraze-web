@@ -1,5 +1,6 @@
 fragment CardOnDeckQuiz on Card {
   id
+  ...CardOnQuizCard
 }
 
 fragment DeckOnDeckQuiz on Deck {
