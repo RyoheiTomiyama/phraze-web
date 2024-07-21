@@ -1,0 +1,4 @@
+fragment DeckOnDeckQuiz on Deck {
+  id
+  ...DeckOnDeckEmpty
+}

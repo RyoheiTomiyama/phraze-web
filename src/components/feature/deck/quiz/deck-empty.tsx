@@ -4,9 +4,10 @@ import { Heading } from '@/components/ui/heading'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { ComponentProps } from 'react'
+import { DeckOnDeckEmptyFragment } from './deck-empty.generated'
 
 type DeckEmptyProps = {
-  deckId: number
+  deckId: DeckOnDeckEmptyFragment['id']
 } & ComponentProps<typeof Card>
 
 export const DeckEmpty = ({ deckId, className, ...props }: DeckEmptyProps) => {
