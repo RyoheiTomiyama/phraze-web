@@ -1,3 +1,7 @@
+fragment CardOnDeckQuiz on Card {
+  id
+}
+
 fragment DeckOnDeckQuiz on Deck {
   id
   ...DeckOnDeckEmpty

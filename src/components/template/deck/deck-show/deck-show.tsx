@@ -36,7 +36,9 @@ export const DeckShow = ({ deckId }: DeckShowProps) => {
         <Heading variant="h1">{router.asPath.toUpperCase()}</Heading>
       </header>
       <main className="container flex flex-col flex-1">
-        {data?.deck && <DeckQuiz deck={data?.deck} />}
+        {data?.deck && (
+          <DeckQuiz cards={data.cards.cards || []} deck={data?.deck} />
+        )}
       </main>
     </DeckLayout>
   )
