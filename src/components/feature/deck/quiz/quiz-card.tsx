@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils'
 import { CardOnQuizCardFragment } from './quiz-card.generated'
 import { Separator } from '@/components/ui/separator'
+import { QuestionViewer } from '@/components/feature/card'
 
 type QuizCardProps = {
   card: CardOnQuizCardFragment
@@ -15,7 +16,7 @@ export const QuizCard = ({ card, className }: QuizCardProps) => {
         className,
       )}
     >
-      {card.question}
+      <QuestionViewer value={card.question} />
       <Separator />
       {card.answer}
     </div>
