@@ -13,7 +13,7 @@ export const DeckQuizProgress = ({
         <span>{count}</span>
         <span className="text-xs">&nbsp;/&nbsp;{totalCount}</span>
       </div>
-      <div className="relative h-3 w-full rounded-lg border shadow-sm">
+      <div className="relative h-3 w-full rounded-lg border border-primary shadow-sm">
         <span
           className="absolute top-0 left-0 h-full rounded-lg bg-primary transition-all"
           style={{ width: `${Math.max(count / totalCount, 0) * 100}%` }}
