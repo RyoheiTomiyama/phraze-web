@@ -11,14 +11,28 @@ export const QuizCard = ({ card, className }: QuizCardProps) => {
   return (
     <div
       className={cn(
-        'border shadow-sm max-w-3xl w-full px-4 py-6',
-        'flex flex-col gap-6',
+        'border rounded-sm shadow-sm max-w-3xl w-full px-4 py-6',
+        'relative flex flex-col gap-6 bg-primary-foreground',
         className,
       )}
     >
       <QuestionViewer value={card.question} />
       <Separator />
       <AnswerViewer value={card.answer} />
+      <span
+        className="
+        absolute top-0 left-0 w-full h-full
+        border rounded-sm shadow-sm -z-10
+        rotate-2 bg-primary-foreground -translate-y-2 translate-x-2
+      "
+      />
+      <span
+        className="
+        absolute top-0 left-0 w-full h-full
+        border rounded-sm shadow-sm -z-10
+        rotate-1 bg-primary-foreground -translate-y-1 translate-x-1
+      "
+      />
     </div>
   )
 }
