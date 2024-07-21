@@ -12,11 +12,7 @@ import {
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
 import { getMarkdownString } from '@/lib/lexical'
-import {
-  $convertFromMarkdownString,
-  BOLD_STAR,
-  BOLD_UNDERSCORE,
-} from '@lexical/markdown'
+import { $convertFromMarkdownString } from '@lexical/markdown'
 
 // 必要なものを渡す
 // onChange: (...event: any[]) => void;
