@@ -7,7 +7,11 @@ type QuizActionProps = {
   onResponse?: () => void
 }
 
-export const QuizAction = ({ show, onShowAnswer }: QuizActionProps) => {
+export const QuizAction = ({
+  show,
+  onShowAnswer,
+  onResponse,
+}: QuizActionProps) => {
   if (!show) {
     return (
       <div className="min-w-32 md:pt-10">
@@ -22,7 +26,7 @@ export const QuizAction = ({ show, onShowAnswer }: QuizActionProps) => {
     <div className="flex-auto flex flex-row-reverse md:flex-col justify-between md:justify-normal gap-4 md:gap-6 min-w-32 md:pt-10">
       <Button
         className="rounded-full w-full max-w-36 gap-2 md:justify-start md:px-6"
-        onClick={onShowAnswer}
+        onClick={onResponse}
       >
         <Laugh className="w-5" />
         Easy
@@ -30,7 +34,7 @@ export const QuizAction = ({ show, onShowAnswer }: QuizActionProps) => {
       <Button
         variant="secondary"
         className="rounded-full w-full max-w-36 border border-primary gap-2 md:justify-start md:px-6"
-        onClick={onShowAnswer}
+        onClick={onResponse}
       >
         <Frown className="w-5" />
         Again

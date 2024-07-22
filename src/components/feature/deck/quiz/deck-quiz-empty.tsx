@@ -4,13 +4,17 @@ import { Heading } from '@/components/ui/heading'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { ComponentProps } from 'react'
-import { DeckOnDeckEmptyFragment } from './deck-empty.generated'
+import { DeckOnDeckQuizEmptyFragment } from './deck-quiz-empty.generated'
 
-type DeckEmptyProps = {
-  deckId: DeckOnDeckEmptyFragment['id']
+type DeckQuizEmptyProps = {
+  deckId: DeckOnDeckQuizEmptyFragment['id']
 } & ComponentProps<typeof Card>
 
-export const DeckEmpty = ({ deckId, className, ...props }: DeckEmptyProps) => {
+export const DeckQuizEmpty = ({
+  deckId,
+  className,
+  ...props
+}: DeckQuizEmptyProps) => {
   return (
     <Card
       {...props}

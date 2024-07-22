@@ -1,4 +1,4 @@
-import { DeckLayout, DeckQuiz } from '@/components/feature/deck'
+import { DeckLayout, DeckQuiz, DeckQuizEmpty } from '@/components/feature/deck'
 import { Heading } from '@/components/ui/heading'
 import { useRouter } from 'next/router'
 import { useDeckShowQuery } from './deck-show.generated'
@@ -30,14 +30,21 @@ export const DeckShow = ({ deckId }: DeckShowProps) => {
     }
   }, [data, error, fetching, router])
 
+  if (!data) {
+    return null
+  }
+
   return (
     <DeckLayout>
       <header className="container">
         <Heading variant="h1">{router.asPath.toUpperCase()}</Heading>
       </header>
       <main className="container flex flex-col flex-1">
-        {data?.deck && (
-          <DeckQuiz cards={data.cards.cards || []} deck={data?.deck} />
+        {data?.cards.pageInfo.totalCount === 0 && (
+          <DeckQuizEmpty deckId={data.deck.id} />
+        )}
+        {data?.cards.pageInfo.totalCount > 0 && (
+          <DeckQuiz cards={data.cards.cards || []} />
         )}
       </main>
     </DeckLayout>

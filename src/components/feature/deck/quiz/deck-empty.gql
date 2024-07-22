@@ -1,3 +1,0 @@
-fragment DeckOnDeckEmpty on Deck {
-  id
-}

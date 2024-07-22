@@ -2,13 +2,16 @@ query DeckShow($id: ID!) {
   deck(id: $id) {
     id
     name
-    ...DeckOnDeckQuiz
+    ...DeckOnDeckQuizEmpty
   }
 
   cards(input: { where: { deckId: $id } }) {
     cards {
       id
       ...CardOnDeckQuiz
+    }
+    pageInfo {
+      totalCount
     }
   }
 }

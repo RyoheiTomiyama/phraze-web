@@ -17,7 +17,7 @@ export const AnswerViewer = ({ value, show }: AnswerViewerProps) => {
     <Viewer
       defaultEditorState={editorState}
       namespace="phrase"
-      className={cn('transition-all filter blur-md', show && 'blur-0')}
+      className={cn('transition-all filter ', show ? 'blur-0' : 'blur-md')}
     />
   )
 }
