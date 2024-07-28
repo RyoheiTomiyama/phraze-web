@@ -6,12 +6,15 @@ query DeckShow($id: ID!) {
   }
 
   cards(input: { where: { deckId: $id } }) {
+    pageInfo {
+      totalCount
+    }
+  }
+
+  pendingCards(input: { where: { deckId: $id } }) {
     cards {
       id
       ...CardOnDeckQuiz
-    }
-    pageInfo {
-      totalCount
     }
   }
 }
