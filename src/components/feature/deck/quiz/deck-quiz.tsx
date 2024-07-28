@@ -2,6 +2,7 @@ import { HTMLAttributes, useCallback, useMemo, useState } from 'react'
 import { cn } from '@/lib/utils'
 import {
   CardOnDeckQuizFragment,
+  DeckOnDeckQuizFragment,
   useReviewCardOnDeckQuizMutation,
 } from './deck-quiz.generated'
 import { DeckQuizProgress } from './deck-quiz-progress'
@@ -9,12 +10,19 @@ import { QuizCard } from './quiz-card'
 import { QuizAction } from './quiz-action'
 import { parseGQLError } from '@/lib/gql'
 import { toast } from 'sonner'
+import { DeckQuizCompleted } from './deck-quiz-completed'
 
 type DeckQuizProps = HTMLAttributes<HTMLDivElement> & {
   cards: CardOnDeckQuizFragment[]
+  deck: DeckOnDeckQuizFragment
 }
 
-export const DeckQuiz = ({ cards, className, ...props }: DeckQuizProps) => {
+export const DeckQuiz = ({
+  cards,
+  deck,
+  className,
+  ...props
+}: DeckQuizProps) => {
   const [current, setCurrent] = useState(0)
   const [show, setShow] = useState(false)
   const [, reviewCard] = useReviewCardOnDeckQuizMutation()
@@ -74,7 +82,7 @@ export const DeckQuiz = ({ cards, className, ...props }: DeckQuizProps) => {
               />
             </>
           ) : (
-            'already completed'
+            <DeckQuizCompleted deckId={deck.id} />
           )}
         </div>
       </div>

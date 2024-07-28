@@ -1,0 +1,3 @@
+fragment DeckOnDeckQuizCompleted on Deck {
+  id
+}

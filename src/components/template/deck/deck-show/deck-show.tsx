@@ -44,7 +44,7 @@ export const DeckShow = ({ deckId }: DeckShowProps) => {
           <DeckQuizEmpty deckId={data.deck.id} />
         )}
         {data?.cards.pageInfo.totalCount > 0 && (
-          <DeckQuiz cards={data.pendingCards.cards || []} />
+          <DeckQuiz cards={data.pendingCards.cards || []} deck={data.deck} />
         )}
       </main>
     </DeckLayout>

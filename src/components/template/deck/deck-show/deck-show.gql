@@ -2,6 +2,7 @@ query DeckShow($id: ID!) {
   deck(id: $id) {
     id
     name
+    ...DeckOnDeckQuiz
     ...DeckOnDeckQuizEmpty
   }
 
