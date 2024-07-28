@@ -2,3 +2,9 @@ fragment CardOnDeckQuiz on Card {
   id
   ...CardOnQuizCard
 }
+
+mutation ReviewCardOnDeckQuiz($input: ReviewCardInput!) {
+  reviewCard(input: $input) {
+    cardId
+  }
+}

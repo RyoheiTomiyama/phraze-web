@@ -1,9 +1,14 @@
 import { HTMLAttributes, useCallback, useMemo, useState } from 'react'
 import { cn } from '@/lib/utils'
-import { CardOnDeckQuizFragment } from './deck-quiz.generated'
+import {
+  CardOnDeckQuizFragment,
+  useReviewCardOnDeckQuizMutation,
+} from './deck-quiz.generated'
 import { DeckQuizProgress } from './deck-quiz-progress'
 import { QuizCard } from './quiz-card'
 import { QuizAction } from './quiz-action'
+import { parseGQLError } from '@/lib/gql'
+import { toast } from 'sonner'
 
 type DeckQuizProps = HTMLAttributes<HTMLDivElement> & {
   cards: CardOnDeckQuizFragment[]
@@ -12,6 +17,7 @@ type DeckQuizProps = HTMLAttributes<HTMLDivElement> & {
 export const DeckQuiz = ({ cards, className, ...props }: DeckQuizProps) => {
   const [current, setCurrent] = useState(0)
   const [show, setShow] = useState(false)
+  const [, reviewCard] = useReviewCardOnDeckQuizMutation()
 
   const card = useMemo(() => {
     return cards[current]
@@ -21,14 +27,26 @@ export const DeckQuiz = ({ cards, className, ...props }: DeckQuizProps) => {
     setShow(true)
   }, [])
 
-  const handleResponse = useCallback(() => {
-    if (current < cards.length - 1) {
-      setCurrent((c) => {
-        return c + 1
-      })
-      setShow(false)
-    }
-  }, [cards.length, current])
+  const handleResponse = useCallback(
+    async (grade: number) => {
+      if (card) {
+        const { error } = await reviewCard({
+          input: { cardId: card.id, grade },
+        })
+
+        if (error) {
+          const e = parseGQLError(error)
+          toast.error(e.message)
+        }
+
+        setCurrent((c) => {
+          return c + 1
+        })
+        setShow(false)
+      }
+    },
+    [card, reviewCard],
+  )
 
   return (
     <div
@@ -36,7 +54,10 @@ export const DeckQuiz = ({ cards, className, ...props }: DeckQuizProps) => {
       className={cn('flex-auto flex flex-col items-stretch', className)}
     >
       <div className="flex-auto flex flex-col gap-6 md:gap-10">
-        <DeckQuizProgress totalCount={cards.length} count={current + 1} />
+        <DeckQuizProgress
+          totalCount={cards.length}
+          count={Math.min(current + 1, cards.length)}
+        />
         <div className="flex-auto flex flex-col md:flex-row gap-6 md:gap-10 w-full max-w-screen-lg mx-auto">
           {card ? (
             <>
