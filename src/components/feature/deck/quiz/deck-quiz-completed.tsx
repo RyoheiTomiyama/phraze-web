@@ -3,6 +3,7 @@ import { Heading } from '@/components/ui/heading'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { DeckOnDeckQuizCompletedFragment } from './deck-quiz-completed.generated'
+import { pagesPath } from '@/lib/pathpida/$path'
 
 type DeckQuizCompletedProps = {
   deckId: DeckOnDeckQuizCompletedFragment['id']
@@ -17,7 +18,7 @@ export const DeckQuizCompleted = ({
     <div
       {...props}
       className={cn(
-        'flex-1 flex flex-col items-center justify-center p-4 gap-1',
+        'flex-1 flex flex-col items-center justify-center p-4 gap-2',
         className,
       )}
     >
@@ -29,7 +30,10 @@ export const DeckQuizCompleted = ({
         <span>すべてのカードを学習しました。</span>
       </p>
       <Button className="mt-4" asChild>
-        <Link href={`/deck/${deckId}/edit`}>Add Card</Link>
+        <Link href={pagesPath.dashboard.$url()}>Back to Dashboard</Link>
+      </Button>
+      <Button className="mt-2" asChild variant="outline">
+        <Link href={pagesPath.deck._id(deckId).edit.$url()}>Add Card</Link>
       </Button>
     </div>
   )
