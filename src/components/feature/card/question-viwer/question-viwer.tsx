@@ -15,5 +15,11 @@ export const QuestionViewer = ({ value }: QuestionViewerProps) => {
     $convertFromMarkdownString(value, [BOLD_STAR, BOLD_UNDERSCORE])
   }, [value])
 
-  return <InputViewer defaultEditorState={editorState} namespace="phrase" />
+  return (
+    <InputViewer
+      defaultEditorState={editorState}
+      namespace="phrase"
+      className="[font-size:1.2em]"
+    />
+  )
 }
