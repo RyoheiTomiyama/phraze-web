@@ -72,7 +72,7 @@ export const DeckItem = ({
           </p>
           <Link
             href={startLink}
-            className="data-[disabled]:pointer-events-none"
+            className="data-[disabled='true']:pointer-events-none"
             data-disabled={pendingCount <= 0}
           >
             <Button
