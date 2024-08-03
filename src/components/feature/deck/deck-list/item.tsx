@@ -74,12 +74,16 @@ export const DeckItem = ({
               </>
             )}
           </p>
-          <Button asChild size="sm" className="rounded-full gap-1">
-            <Link href={startLink}>
+          <Link href={startLink}>
+            <Button
+              size="sm"
+              className="rounded-full gap-1"
+              disabled={pendingCount <= 0}
+            >
               Start Now
               <ArrowRight className="w-4" />
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </div>
       </CardFooter>
     </Card>
