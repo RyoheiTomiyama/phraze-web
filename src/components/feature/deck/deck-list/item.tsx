@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 import { ArrowRight, Pencil } from 'lucide-react'
 import Link from 'next/link'
 import { UrlObject } from 'url'
-import { formatDistanceToNow } from '@/lib/date-util/date-fns'
+import { formatDistanceToNowStrict } from '@/lib/date-util/date-fns'
 
 type Url = UrlObject | string
 
@@ -68,13 +68,13 @@ export const DeckItem = ({
       <CardFooter>
         <div className="flex-auto flex flex-row items-end justify-between gap-4">
           <p className="text-xs text-muted-foreground">
-            {schduleAt && (
-              <>
-                Next: <span>{formatDistanceToNow(schduleAt)}</span>
-              </>
-            )}
+            {schduleAt && <span>{formatDistanceToNowStrict(schduleAt)}</span>}
           </p>
-          <Link href={startLink}>
+          <Link
+            href={startLink}
+            className="data-[disabled]:pointer-events-none"
+            data-disabled={pendingCount <= 0}
+          >
             <Button
               size="sm"
               className="rounded-full gap-1"

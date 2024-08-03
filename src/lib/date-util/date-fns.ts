@@ -5,6 +5,6 @@ export const add = (d: Date, duration: Duration) => {
   return datefns.add(d, duration)
 }
 
-export const formatDistanceToNow = (d: Date | string) => {
-  return datefns.formatDistanceToNow(d)
+export const formatDistanceToNowStrict = (d: Date | string) => {
+  return datefns.formatDistanceToNowStrict(d, { addSuffix: true })
 }
