@@ -11,6 +11,15 @@ type DeckEditProps = {
   cardId?: number
   deckId: number
 }
+
+// contextが静的でないと、無限ループになる
+// https://github.com/urql-graphql/urql/discussions/1132
+const cardsContext = {
+  // 空配列返してるときカード新規作成しても、このクエリがリフェッチしてくれない対策
+  // https://commerce.nearform.com/open-source/urql/docs/basics/document-caching
+  additionalTypenames: ['Card'],
+}
+
 export const DeckEdit = ({ cardId, deckId }: DeckEditProps) => {
   const router = useRouter()
 
@@ -19,6 +28,7 @@ export const DeckEdit = ({ cardId, deckId }: DeckEditProps) => {
     variables: {
       input: { where: { deckId } },
     },
+    context: cardsContext,
   })
 
   useEffect(() => {
