@@ -47,6 +47,7 @@ export const DeckEditor = ({
 
   const [{ data, fetching, error }] = useGetCardOnDeckEditorQuery({
     pause: !cardId,
+    requestPolicy: 'cache-and-network',
     variables: {
       id: cardId || 0,
     },

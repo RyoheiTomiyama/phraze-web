@@ -14,6 +14,7 @@ export const DeckShow = ({ deckId }: DeckShowProps) => {
 
   const [{ data, fetching, error }] = useDeckShowQuery({
     pause: !deckId,
+    requestPolicy: 'network-only',
     variables: {
       id: deckId || 0,
     },
@@ -36,9 +37,9 @@ export const DeckShow = ({ deckId }: DeckShowProps) => {
 
   return (
     <DeckLayout>
-      <header className="container">
+      {/* <header className="container">
         <Heading variant="h1">{router.asPath.toUpperCase()}</Heading>
-      </header>
+      </header> */}
       <main className="container flex flex-col flex-1">
         {data?.cards.pageInfo.totalCount === 0 && (
           <DeckQuizEmpty deckId={data.deck.id} />
