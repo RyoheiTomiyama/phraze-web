@@ -3,6 +3,10 @@ query DecksOnDashboard {
     decks {
       id
       ...DeckOnDeckList
+      deckInfo {
+        totalCardCount
+        pendingCardCount
+      }
     }
   }
 }

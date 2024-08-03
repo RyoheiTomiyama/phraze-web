@@ -1,4 +1,13 @@
 fragment DeckOnDeckList on Deck {
   id
   name
+  deckInfo {
+    ...DeckInfoOnDeckList
+  }
+}
+
+fragment DeckInfoOnDeckList on DeckInfo {
+  totalCardCount
+  pendingCardCount
+  scheduleAt
 }
