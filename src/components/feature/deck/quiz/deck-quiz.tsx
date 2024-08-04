@@ -66,7 +66,7 @@ export const DeckQuiz = ({
           totalCount={cards.length}
           count={Math.min(current + 1, cards.length)}
         />
-        <div className="flex-auto flex flex-col md:flex-row gap-6 md:gap-10 w-full max-w-screen-lg mx-auto">
+        <div className="flex-auto flex flex-col gap-6 w-full max-w-screen-md mx-auto pb-6">
           {card ? (
             <>
               <QuizCard
@@ -76,6 +76,7 @@ export const DeckQuiz = ({
                 show={show}
               />
               <QuizAction
+                className="absolute bottom-4 w-full max-w-md"
                 show={show}
                 onShowAnswer={handleShowAnswer}
                 onResponse={handleResponse}

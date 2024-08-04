@@ -1,14 +1,17 @@
 import { Button } from '@/components/ui/button'
-import { Frown, Laugh } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Frown, Laugh, Meh } from 'lucide-react'
 import { useCallback } from 'react'
 
 type QuizActionProps = {
+  className?: string
   show: boolean
   onShowAnswer?: () => void
   onResponse?: (grade: number) => void
 }
 
 export const QuizAction = ({
+  className,
   show,
   onShowAnswer,
   onResponse,
@@ -24,7 +27,12 @@ export const QuizAction = ({
 
   if (!show) {
     return (
-      <div className="min-w-32 md:pt-10">
+      <div
+        className={cn(
+          'flex justify-center min-w-32 p-1 rounded-full self-center',
+          className,
+        )}
+      >
         <Button
           className="rounded-full w-full max-w-36"
           size="lg"
@@ -37,9 +45,17 @@ export const QuizAction = ({
   }
 
   return (
-    <div className="flex-0 md:flex-auto flex flex-row-reverse md:flex-col justify-between md:justify-normal gap-4 md:gap-6 min-w-32 md:pt-10">
+    <div
+      className={cn(
+        `
+      flex flex-row-reverse justify-center gap-2 min-w-32 p-1 rounded-full
+      bg-black bg-opacity-30 self-center backdrop-blur-sm
+      `,
+        className,
+      )}
+    >
       <Button
-        className="rounded-full w-full max-w-36 gap-2 md:justify-start md:px-6"
+        className="flex-auto rounded-full min-w-24 max-w-36 gap-0 flex-col h-auto px-6 py-1 font-bold"
         size="lg"
         onClick={handleResponse(5)}
       >
@@ -47,8 +63,17 @@ export const QuizAction = ({
         Easy
       </Button>
       <Button
+        className="flex-auto rounded-full min-w-24 max-w-36 border border-muted-foreground gap-0 flex-col h-auto px-6 py-1 font-bold"
+        size="lg"
         variant="secondary"
-        className="rounded-full w-full max-w-36 border border-primary gap-2 md:justify-start md:px-6"
+        onClick={handleResponse(3)}
+      >
+        <Meh className="w-5" />
+        Unsure
+      </Button>
+      <Button
+        variant="secondary"
+        className="flex-auto rounded-full min-w-24 max-w-36 gap-0 flex-col h-auto px-6 py-1 font-bold"
         size="lg"
         onClick={handleResponse(1)}
       >
