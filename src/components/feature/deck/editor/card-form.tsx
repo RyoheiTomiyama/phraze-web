@@ -14,9 +14,9 @@ export const CardForm = ({
   children,
 }: PropsWithChildren<CardFormProps>) => {
   const form = useForm(cardEditSchema, {
-    defaultValues: {
+    values: {
       question: card.question,
-      answer: card.answer,
+      answer: card.answer || card.aiAnswer,
     },
   })
 

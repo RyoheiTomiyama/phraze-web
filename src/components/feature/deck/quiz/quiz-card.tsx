@@ -19,7 +19,7 @@ export const QuizCard = ({ card, className, show }: QuizCardProps) => {
     >
       <QuestionViewer value={card.question} />
       <Separator />
-      <AnswerViewer value={card.answer} show={show} />
+      <AnswerViewer value={card.answer || card.aiAnswer} show={show} />
       <span
         className="
         absolute top-0 left-0 w-full h-full

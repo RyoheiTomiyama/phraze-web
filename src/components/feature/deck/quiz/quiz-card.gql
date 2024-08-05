@@ -2,4 +2,5 @@ fragment CardOnQuizCard on Card {
   id
   question
   answer
+  aiAnswer
 }
