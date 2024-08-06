@@ -145,7 +145,7 @@ export const DeckEditor = ({
           <CardForm card={data.card} key={data.card.id}>
             <CardEditAction cardId={data.card.id} />
             <ScrollArea className="h-full flex-auto">
-              <CardEdit />
+              <CardEdit cardId={data.card.id} />
             </ScrollArea>
           </CardForm>
         )}

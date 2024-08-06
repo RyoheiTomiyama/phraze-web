@@ -10,10 +10,13 @@ import { PhraseInput } from './phrase-input'
 import { AnswerInput } from './answer-input'
 import { cardEditSchema } from './card-edit-schema'
 import { useFormContext } from '@/hook/useForm'
-import { Ai } from '@/components/common/icon'
-import { Button } from '@/components/ui/button'
+import { GenerateAnswerButton } from '@/components/feature/card'
 
-export const CardEdit = () => {
+type CardEditProps = {
+  cardId: number
+}
+
+export const CardEdit = ({ cardId }: CardEditProps) => {
   const form = useFormContext<typeof cardEditSchema>()
 
   return (
@@ -55,9 +58,7 @@ export const CardEdit = () => {
                   </FormDescription>
                 </div>
                 <div>
-                  <Button variant="ghost" size="icon">
-                    <Ai className="h-5 w-5" />
-                  </Button>
+                  <GenerateAnswerButton cardId={cardId} />
                 </div>
               </div>
               <FormControl>
