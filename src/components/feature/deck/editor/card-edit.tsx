@@ -10,6 +10,8 @@ import { PhraseInput } from './phrase-input'
 import { AnswerInput } from './answer-input'
 import { cardEditSchema } from './card-edit-schema'
 import { useFormContext } from '@/hook/useForm'
+import { Ai } from '@/components/common/icon'
+import { Button } from '@/components/ui/button'
 
 export const CardEdit = () => {
   const form = useFormContext<typeof cardEditSchema>()
@@ -45,10 +47,19 @@ export const CardEdit = () => {
         render={({ field }) => {
           return (
             <FormItem>
-              <FormLabel>Answer</FormLabel>
-              <FormDescription className="text-xs">
-                Phrase/Word に対する翻訳や解説
-              </FormDescription>
+              <div className="flex align-bottom justify-between gap-2">
+                <div>
+                  <FormLabel>Answer</FormLabel>
+                  <FormDescription className="text-xs">
+                    Phrase/Word に対する翻訳や解説
+                  </FormDescription>
+                </div>
+                <div>
+                  <Button variant="ghost" size="icon">
+                    <Ai className="h-5 w-5" />
+                  </Button>
+                </div>
+              </div>
               <FormControl>
                 <AnswerInput
                   disabled={field.disabled}
