@@ -11,12 +11,16 @@ import { AnswerInput } from './answer-input'
 import { cardEditSchema } from './card-edit-schema'
 import { useFormContext } from '@/hook/useForm'
 import { GenerateAnswerButton } from '@/components/feature/card'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Quantum } from '@/components/common/loader'
 
 type CardEditProps = {
   cardId: number
+  /** AIAnswer生成待ち */
+  loadingAnswer?: boolean
 }
 
-export const CardEdit = ({ cardId }: CardEditProps) => {
+export const CardEdit = ({ cardId, loadingAnswer = false }: CardEditProps) => {
   const form = useFormContext<typeof cardEditSchema>()
 
   return (
@@ -61,14 +65,22 @@ export const CardEdit = ({ cardId }: CardEditProps) => {
                   <GenerateAnswerButton cardId={cardId} />
                 </div>
               </div>
-              <FormControl>
-                <AnswerInput
-                  disabled={field.disabled}
-                  onBlur={field.onBlur}
-                  defaultValue={field.value}
-                  onChange={field.onChange}
-                />
-              </FormControl>
+              <div className="relative">
+                <FormControl>
+                  <AnswerInput
+                    disabled={loadingAnswer || field.disabled}
+                    onBlur={field.onBlur}
+                    defaultValue={field.value}
+                    onChange={field.onChange}
+                  />
+                </FormControl>
+                {loadingAnswer && (
+                  <Skeleton className="absolute top-0 left-0 w-full h-full flex flex-col gap-4 items-center justify-center">
+                    <Quantum />
+                    <p className="text-sm">Generating Answer...</p>
+                  </Skeleton>
+                )}
+              </div>
               <FormMessage />
             </FormItem>
           )

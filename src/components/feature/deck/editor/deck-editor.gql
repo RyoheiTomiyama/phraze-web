@@ -6,6 +6,7 @@ fragment CardOnDeckEditor on Card {
 query GetCardOnDeckEditor($id: ID!) {
   card(id: $id) {
     id
+    createdAt
     ...CardOnCardForm
   }
 }

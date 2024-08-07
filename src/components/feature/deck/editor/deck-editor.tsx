@@ -20,12 +20,14 @@ import {
 } from './deck-editor.generated'
 import { Loader2 } from 'lucide-react'
 import { TooltipGuide, useTooltipGuide } from '@/components/common/tooltip'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { logger } from '@/lib/logger'
 import { CardForm } from './card-form'
 import { CardEditAction } from './card-edit-action'
 import { useRouter } from 'next/router'
 import { pagesPath } from '@/lib/pathpida/$path'
+import useSWR from 'swr'
+import { add } from '@/lib/date-util'
 
 type DeckEditorProps = {
   className?: string
@@ -45,13 +47,45 @@ export const DeckEditor = ({
   const router = useRouter()
   const { open, setOpen, elemetRef } = useTooltipGuide<HTMLSpanElement>({})
 
-  const [{ data, fetching, error }] = useGetCardOnDeckEditorQuery({
-    pause: !cardId,
-    requestPolicy: 'cache-and-network',
-    variables: {
-      id: cardId || 0,
+  const [{ data, fetching, error }, fetchGetCard] = useGetCardOnDeckEditorQuery(
+    {
+      pause: true,
+      requestPolicy: 'cache-and-network',
+      variables: {
+        id: cardId || 0,
+      },
     },
-  })
+  )
+
+  /** AI生成結果を取得するためにポーリングする
+   * - AIAnswer持ってたら停止
+   * - 作成から10秒以上経過していたら停止
+   */
+  const shouldPolling = useMemo(() => {
+    if (!cardId) {
+      return false
+    }
+    if (!data) {
+      return true
+    }
+    if (data.card.id !== cardId) {
+      return true
+    }
+    if (data.card.aiAnswer.length) {
+      return false
+    }
+    return new Date(data?.card.createdAt) > add(new Date(), { seconds: -10 })
+  }, [cardId, data])
+
+  useSWR(
+    shouldPolling
+      ? ['DeckEditor', 'useGetCardOnDeckEditorQuery', cardId]
+      : null,
+    async () => {
+      await fetchGetCard({ requestPolicy: 'network-only' })
+    },
+    { refreshInterval: 1000 },
+  )
 
   useEffect(() => {
     if (error) {
@@ -145,7 +179,7 @@ export const DeckEditor = ({
           <CardForm card={data.card} key={data.card.id}>
             <CardEditAction cardId={data.card.id} />
             <ScrollArea className="h-full flex-auto">
-              <CardEdit cardId={data.card.id} />
+              <CardEdit cardId={data.card.id} loadingAnswer={shouldPolling} />
             </ScrollArea>
           </CardForm>
         )}
