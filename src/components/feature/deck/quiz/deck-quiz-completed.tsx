@@ -18,7 +18,7 @@ export const DeckQuizCompleted = ({
     <div
       {...props}
       className={cn(
-        'flex-1 flex flex-col items-center justify-center p-4 gap-2',
+        'flex-1 flex flex-col items-center justify-center p-4 gap-4',
         className,
       )}
     >
@@ -29,12 +29,14 @@ export const DeckQuizCompleted = ({
         <span>お疲れ様です！</span>
         <span>すべてのカードを学習しました。</span>
       </p>
-      <Button className="mt-4" asChild>
-        <Link href={pagesPath.dashboard.$url()}>Back to Dashboard</Link>
-      </Button>
-      <Button className="mt-2" asChild variant="outline">
-        <Link href={pagesPath.deck._id(deckId).edit.$url()}>Add Card</Link>
-      </Button>
+      <div className="flex flex-col gap-2">
+        <Button className="mt-4" asChild>
+          <Link href={pagesPath.dashboard.$url()}>Back to Dashboard</Link>
+        </Button>
+        <Button className="mt-2 text-muted-foreground" asChild variant="link">
+          <Link href={pagesPath.deck._id(deckId).edit.$url()}>Edit Deck</Link>
+        </Button>
+      </div>
     </div>
   )
 }
