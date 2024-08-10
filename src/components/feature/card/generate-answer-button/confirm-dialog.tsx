@@ -21,7 +21,7 @@ export const ConfirmDialog = ({ loading, onSubmit }: ConfirmDialogProps) => {
       <DialogDescription className="text-sm leading-relaxed">
         AIで解答を自動生成します。
         <br />
-        現在入力されているAnswerを上書きしますがよろしいですか？
+        現在入力されているAnswerを上書きして保存されますがよろしいですか？
       </DialogDescription>
 
       <DialogFooter>

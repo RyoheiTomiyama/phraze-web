@@ -1,0 +1,9 @@
+mutation UpdateCardWithGenAnswerOnGenerateAnswerButton(
+  $input: UpdateCardWithGenAnswerInput!
+) {
+  updateCardWithGenAnswer(input: $input) {
+    card {
+      id
+    }
+  }
+}

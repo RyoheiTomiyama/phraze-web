@@ -62,7 +62,10 @@ export const CardEdit = ({ cardId, loadingAnswer = false }: CardEditProps) => {
                   </FormDescription>
                 </div>
                 <div>
-                  <GenerateAnswerButton cardId={cardId} />
+                  <GenerateAnswerButton
+                    cardId={cardId}
+                    question={form.watch('question') ?? ''}
+                  />
                 </div>
               </div>
               <div className="relative">
