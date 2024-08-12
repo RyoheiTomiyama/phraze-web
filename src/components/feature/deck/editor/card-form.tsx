@@ -24,6 +24,7 @@ export const CardForm = ({
     <Form {...form}>
       {children}
 
+      {/* FIXME 開発環境でerror https://github.com/react-hook-form/devtools/issues/208 */}
       <DevTool control={form.control} />
     </Form>
   )
