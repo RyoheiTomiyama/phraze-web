@@ -28,6 +28,7 @@ import { useRouter } from 'next/router'
 import { pagesPath } from '@/lib/pathpida/$path'
 import useSWR from 'swr'
 import { add } from '@/lib/date-util'
+import { CardList } from './card-list'
 
 type DeckEditorProps = {
   className?: string
@@ -101,11 +102,9 @@ export const DeckEditor = ({
 
   const handleSelectCard = useCallback(
     (id: number) => {
-      return () => {
-        router.push(
-          pagesPath.deck._id(deckId).edit.$url({ query: { cardId: id } }),
-        )
-      }
+      router.push(
+        pagesPath.deck._id(deckId).edit.$url({ query: { cardId: id } }),
+      )
     },
     [deckId, router],
   )
@@ -127,29 +126,11 @@ export const DeckEditor = ({
               </div>
             ) : (
               <ScrollArea className="-mx-6 h-full">
-                <div>
-                  {cards.map((card) => {
-                    return (
-                      <div
-                        key={card.id}
-                        data-active={card.id === cardId}
-                        className="px-6 py-2 cursor-pointer hover:bg-muted data-[active='true']:font-bold"
-                        onClick={handleSelectCard(card.id)}
-                      >
-                        <span className=" line-clamp-1 text-muted-foreground">
-                          {card.question}
-                        </span>
-                      </div>
-                    )
-                  })}
-                  {!cards.length && (
-                    <p className="px-6 text-xs">
-                      カードが一つも登録されていません。
-                      <br />
-                      学習カードを作成しましょう。
-                    </p>
-                  )}
-                </div>
+                <CardList
+                  activeCardId={cardId}
+                  cards={cards}
+                  onClick={handleSelectCard}
+                />
               </ScrollArea>
             )}
           </CardContent>

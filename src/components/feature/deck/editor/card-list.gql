@@ -1,0 +1,4 @@
+fragment CardOnCardList on Card {
+  id
+  question
+}
