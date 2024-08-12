@@ -109,12 +109,21 @@ export const DeckEditor = ({
     [deckId, router],
   )
 
+  const handleGoEditTop = useCallback(() => {
+    router.push(pagesPath.deck._id(deckId).edit.$url())
+  }, [deckId, router])
+
   return (
     <ResizablePanelGroup
       direction="horizontal"
       className={cn('rounded-lg border bg-white', className)}
     >
-      <ResizablePanel defaultSize={30} minSize={10}>
+      <ResizablePanel
+        defaultSize={30}
+        minSize={10}
+        data-selected={!!cardId}
+        className="data-[selected=true]:hidden data-[selected=true]:sm:flex"
+      >
         <Card className="flex flex-col border-none h-full">
           <CardHeader>
             <CardTitle>Cards</CardTitle>
@@ -154,11 +163,12 @@ export const DeckEditor = ({
       <ResizablePanel
         defaultSize={70}
         minSize={50}
-        className="hidden sm:flex flex-col"
+        className="flex flex-col data-[selected=false]:hidden data-[selected=false]:sm:flex"
+        data-selected={!!cardId}
       >
         {!fetching && !!data?.card && (
           <CardForm card={data.card} key={data.card.id}>
-            <CardEditAction cardId={data.card.id} />
+            <CardEditAction cardId={data.card.id} onBack={handleGoEditTop} />
             <ScrollArea className="h-full flex-auto">
               <CardEdit cardId={data.card.id} loadingAnswer={shouldPolling} />
             </ScrollArea>

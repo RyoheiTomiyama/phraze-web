@@ -9,9 +9,9 @@ import { toast } from 'sonner'
 
 type CardEditActionProps = {
   cardId: number
-  onSubmitted?: () => void
+  onBack?: () => void
 }
-export const CardEditAction = ({ cardId }: CardEditActionProps) => {
+export const CardEditAction = ({ cardId, onBack }: CardEditActionProps) => {
   const [_, updateCard] = useUpdateCardOnCardEditActionMutation()
   const { formState, handleSubmit, reset } =
     useFormContext<typeof cardEditSchema>()
@@ -37,10 +37,18 @@ export const CardEditAction = ({ cardId }: CardEditActionProps) => {
   }, [cardId, handleSubmit, reset, updateCard])
 
   return (
-    <div className="px-6 py-2 md:pt-4 flex flex-row justify-end gap-4">
+    <div className="px-6 py-2 md:pt-4 flex flex-row justify-between sm:justify-end gap-4">
       <Button
         size="sm"
         variant="outline"
+        onClick={onBack}
+        className="sm:hidden"
+      >
+        Back
+      </Button>
+      <Button
+        size="sm"
+        variant="default"
         onClick={handleClick}
         disabled={!formState.isDirty}
       >
