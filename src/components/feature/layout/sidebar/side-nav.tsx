@@ -23,7 +23,6 @@ export const SideNav = () => {
       </nav>
       <nav className="flex flex-col items-center gap-4">
         <NavAccount />
-        el
       </nav>
     </div>
   )

@@ -40,7 +40,7 @@ export const DeckShow = ({ deckId }: DeckShowProps) => {
       {/* <header className="container">
         <Heading variant="h1">{router.asPath.toUpperCase()}</Heading>
       </header> */}
-      <main className="container flex flex-col flex-1">
+      <main className="container flex flex-col flex-1 px-4">
         {data?.cards.pageInfo.totalCount === 0 && (
           <DeckQuizEmpty deckId={data.deck.id} />
         )}
