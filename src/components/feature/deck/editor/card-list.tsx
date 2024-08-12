@@ -1,5 +1,11 @@
 import { useCallback } from 'react'
 import { CardOnCardListFragment } from './card-list.generated'
+import {
+  $convertFromMarkdownString,
+  BOLD_STAR,
+  BOLD_UNDERSCORE,
+} from '@lexical/markdown'
+import { InputViewer } from '@/components/common/editor'
 
 type CardListProps = {
   activeCardId?: number
@@ -27,7 +33,7 @@ export const CardList = ({ activeCardId, cards, onClick }: CardListProps) => {
             onClick={handleClick(card.id)}
           >
             <span className=" line-clamp-1 text-muted-foreground">
-              {card.question}
+              <CardViewer value={card.question} />
             </span>
           </div>
         )
@@ -41,4 +47,13 @@ export const CardList = ({ activeCardId, cards, onClick }: CardListProps) => {
       )}
     </div>
   )
+}
+
+type CardViewerProps = { value: string }
+const CardViewer = (props: CardViewerProps) => {
+  const editorState = useCallback(() => {
+    $convertFromMarkdownString(props.value, [BOLD_STAR, BOLD_UNDERSCORE])
+  }, [props.value])
+
+  return <InputViewer defaultEditorState={editorState} namespace="phrase" />
 }
