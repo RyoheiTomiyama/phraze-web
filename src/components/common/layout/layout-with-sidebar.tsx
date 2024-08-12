@@ -14,12 +14,18 @@ export const LayoutWithSidebar = ({
     <div
       className={cn('flex min-h-dvh w-full flex-col bg-muted/40', className)}
     >
-      <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
+      <aside
+        className="
+        fixed left-0 z-10 backdrop-blur-sm bg-white bg-opacity-50
+        flex flex-row inset-x-0 h-11
+        sm:flex-col sm:inset-y-0 sm:w-14 sm:h-auto sm:border-r sm:border-b-0
+        "
+      >
         {sidebar}
       </aside>
       <div
         className={cn(
-          'flex flex-col gap-4 flex-auto min-h-dvh py-4 sm:pl-14',
+          'flex flex-col gap-4 flex-auto min-h-dvh py-4 pt-14 sm:pt-4 sm:pl-14',
           className,
         )}
       >

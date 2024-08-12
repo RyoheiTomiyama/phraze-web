@@ -5,8 +5,9 @@ export const layoutConfig = {
   '/dashboard': {
     name: 'Dashboard',
     Icon: Home,
-    isActive: (_) => {
-      return true
+    isActive: ({ pathname }) => {
+      const p: Pathname = '/dashboard'
+      return pathname === p
     },
   },
   '/': {

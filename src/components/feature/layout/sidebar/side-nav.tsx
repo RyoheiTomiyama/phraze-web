@@ -16,15 +16,16 @@ import { pagesPath } from '@/lib/pathpida/$path'
 
 export const SideNav = () => {
   return (
-    <>
-      <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
-        <NavItem variant="/" />
+    <div className="flex-auto flex flex-row items-center gap-4 px-6 sm:px-0 sm:py-4 sm:flex-col">
+      <nav className="flex-auto flex sm:flex-col items-center gap-4 ">
+        {/* <NavItem variant="/" /> */}
         <NavItem variant="/dashboard" />
       </nav>
-      <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+      <nav className="flex flex-col items-center gap-4">
         <NavAccount />
+        el
       </nav>
-    </>
+    </div>
   )
 }
 
@@ -37,7 +38,7 @@ const NavItem = ({ variant }: { variant: keyof typeof layoutConfig }) => {
     <Link
       href={{ pathname: variant }}
       className={cn(
-        'group flex h-9 w-9 items-center justify-center rounded-full transition-colors md:h-8 md:w-8',
+        'group flex h-8 w-8 items-center justify-center rounded-full transition-colors',
         active
           ? 'bg-primary text-primary-foreground'
           : 'text-muted-foreground transition-colors hover:text-foreground',
