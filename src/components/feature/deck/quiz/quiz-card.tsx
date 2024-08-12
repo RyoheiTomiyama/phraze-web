@@ -12,7 +12,7 @@ export const QuizCard = ({ card, className, show }: QuizCardProps) => {
   return (
     <div
       className={cn(
-        'border border-primary rounded-sm shadow-sm max-w-3xl w-full px-4 py-6',
+        'border border-primary rounded-sm shadow-sm max-w-3xl w-full px-4 py-6 pb-10',
         'relative flex flex-col gap-6 bg-background',
         className,
       )}
