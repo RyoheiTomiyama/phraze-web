@@ -5,7 +5,7 @@ import {
   BOLD_UNDERSCORE,
 } from '@lexical/markdown'
 import { Volume2 } from 'lucide-react'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 
 type QuestionViewerProps = {
   /** markdown string */
@@ -16,7 +16,17 @@ export const QuestionViewer = ({ value }: QuestionViewerProps) => {
     $convertFromMarkdownString(value, [BOLD_STAR, BOLD_UNDERSCORE])
   }, [value])
 
+  useEffect(() => {
+    return () => {
+      speechSynthesis.cancel()
+    }
+  }, [])
+
   const pronouceWords = useCallback(() => {
+    if (speechSynthesis.speaking) {
+      return
+    }
+
     const utter = new SpeechSynthesisUtterance(value)
     utter.lang = 'en-US'
     speechSynthesis.speak(utter)
