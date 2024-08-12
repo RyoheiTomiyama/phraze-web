@@ -6,6 +6,7 @@ import { useUpdateCardOnCardEditActionMutation } from './card-edit-action.genera
 import { logger } from '@/lib/logger'
 import { parseGQLError } from '@/lib/gql'
 import { toast } from 'sonner'
+import { ChevronLeft } from 'lucide-react'
 
 type CardEditActionProps = {
   cardId: number
@@ -37,14 +38,14 @@ export const CardEditAction = ({ cardId, onBack }: CardEditActionProps) => {
   }, [cardId, handleSubmit, reset, updateCard])
 
   return (
-    <div className="px-6 py-2 md:pt-4 flex flex-row justify-between sm:justify-end gap-4">
+    <div className="px-6 pt-4 flex flex-row justify-between sm:justify-end gap-4">
       <Button
-        size="sm"
-        variant="outline"
+        size="icon"
+        variant="ghost"
         onClick={onBack}
-        className="sm:hidden"
+        className="sm:hidden w-9 h-9 -ml-3"
       >
-        Back
+        <ChevronLeft className="w-6" />
       </Button>
       <Button
         size="sm"
