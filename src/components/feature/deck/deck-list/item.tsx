@@ -59,7 +59,7 @@ export const DeckItem = ({
           </div>
           <div className="flex-auto">
             <p className="text-sm text-muted-foreground mb-2">Done</p>
-            <p className="text-xl text-black font-bold text-opacity-25">
+            <p className="text-xl text-card-foreground/25 font-bold">
               {totalCount - pendingCount}
             </p>
           </div>

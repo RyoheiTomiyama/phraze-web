@@ -51,7 +51,7 @@ export const TooltipGuide = ({
         rounded-md border bg-popover text-popover-foregroundoutline-none text-sm min-w-[200px] p-4
         filter drop-shadow-md
         after:top-[50%] after:left-0
-        after:content-[''] after:w-3 after:h-3 after:absolute after:bg-white 
+        after:content-[''] after:w-3 after:h-3 after:absolute after:bg-background 
         after:transform after:translate-x-[-50%] after:translate-y-[-50%] after:rotate-45 after:origin-center
         data-[placement='top']:after:left-[50%] data-[placement='top']:after:top-full data-[placement='top']:after:border-bottom data-[placement='top']:after:border-right
         data-[placement='bottom']:after:left-[50%] data-[placement='bottom']:after:top-0 data-[placement='bottom']:after:border-top data-[placement='bottom']:after:border-left

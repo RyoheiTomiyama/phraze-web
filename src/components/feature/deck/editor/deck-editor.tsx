@@ -116,7 +116,7 @@ export const DeckEditor = ({
   return (
     <ResizablePanelGroup
       direction="horizontal"
-      className={cn('rounded-lg border bg-white', className)}
+      className={cn('rounded-lg border bg-card', className)}
     >
       <ResizablePanel
         defaultSize={30}

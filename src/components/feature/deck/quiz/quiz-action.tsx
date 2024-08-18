@@ -63,7 +63,7 @@ export const QuizAction = ({
         Easy
       </Button>
       <Button
-        className="flex-auto rounded-full min-w-24 max-w-36 border border-muted-foreground gap-0 flex-col h-auto px-6 py-1 font-bold"
+        className="flex-auto rounded-full min-w-24 max-w-36 border border-muted-foreground/50 gap-0 flex-col h-auto px-6 py-1 font-bold"
         size="lg"
         variant="secondary"
         onClick={handleResponse(3)}
@@ -72,7 +72,7 @@ export const QuizAction = ({
         Unsure
       </Button>
       <Button
-        variant="secondary"
+        variant="destructive"
         className="flex-auto rounded-full min-w-24 max-w-36 gap-0 flex-col h-auto px-6 py-1 font-bold"
         size="lg"
         onClick={handleResponse(1)}
