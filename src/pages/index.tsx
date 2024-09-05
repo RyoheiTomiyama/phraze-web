@@ -4,8 +4,9 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { Button } from '@/components/ui/button'
 import { signInGoogle } from '@/lib/firebase'
-import { BrowserFrame } from '@/components/common/frame'
+import { BrowserFrame, IphoneFrame } from '@/components/common/frame'
 import { staticPath } from '@/lib/pathpida/$path'
+import { IphoneBrowserFrame } from '@/components/common/frame/iphone-browser-frame'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,11 +20,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        <BrowserFrame innerWidth={1280} innerHeight={800}>
+        <BrowserFrame innerWidth={1280 * 0.5} innerHeight={800 * 0.5}>
           <video autoPlay loop muted={true}>
             <source src={staticPath.videos.hero_browser_mp4} />
           </video>
         </BrowserFrame>
+        <IphoneFrame>
+          <IphoneBrowserFrame>
+            <video autoPlay loop muted={true}>
+              <source src={staticPath.videos.hero_mobile_mp4} />
+            </video>
+          </IphoneBrowserFrame>
+        </IphoneFrame>
         <div className={styles.description}>
           <p>
             Get started by editing&nbsp;
