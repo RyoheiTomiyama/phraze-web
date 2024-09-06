@@ -1,9 +1,11 @@
+import { cn } from '@/lib/utils'
 import { forwardRef, PropsWithChildren, useMemo } from 'react'
 
 // NOTE 428 x 926 の画面を埋め込む
 
 type IphoneFrameProps = {
   innerWidth?: number
+  className?: string
 }
 
 const defaultInnerWidth = 428
@@ -14,7 +16,10 @@ const defaultHeight = 962
 export const IphoneFrame = forwardRef<
   SVGSVGElement,
   PropsWithChildren<IphoneFrameProps>
->(function IphoneFrame({ children, innerWidth = 428, ...props }, ref) {
+>(function IphoneFrame(
+  { children, className, innerWidth = 428, ...props },
+  ref,
+) {
   const {
     width,
     height,
@@ -37,7 +42,7 @@ export const IphoneFrame = forwardRef<
     return {
       width: `${width}`,
       height: `${height}`,
-      viewBox: `0 0 ${width} ${height}`,
+      viewBox: `0 0 ${defaultWidth} ${defaultHeight}`,
       top: padding,
       left: padding,
       right: padding,
@@ -49,7 +54,7 @@ export const IphoneFrame = forwardRef<
 
   return (
     <div
-      className="shadow-2xl w-fit h-fit"
+      className={cn('w-fit h-fit', className)}
       style={{ borderRadius: `${round}px` }}
     >
       <div

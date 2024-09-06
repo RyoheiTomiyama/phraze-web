@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import { forwardRef, PropsWithChildren, useMemo } from 'react'
 
 // NOTE 1280 x 800 の画面を埋め込む
@@ -5,6 +6,7 @@ import { forwardRef, PropsWithChildren, useMemo } from 'react'
 // {...props}
 
 type BrowserFrameProps = {
+  className?: string
   innerWidth?: number
   innerHeight?: number
 }
@@ -13,7 +15,7 @@ export const BrowserFrame = forwardRef<
   SVGSVGElement,
   PropsWithChildren<BrowserFrameProps>
 >(function BrowserFrame(
-  { children, innerWidth = 1280, innerHeight = 800, ...props },
+  { children, className, innerWidth = 1280, innerHeight = 800, ...props },
   ref,
 ) {
   const { width, height, viewBox } = useMemo(() => {
@@ -28,7 +30,7 @@ export const BrowserFrame = forwardRef<
   }, [innerHeight, innerWidth])
 
   return (
-    <div className="rounded-[10px] shadow-2xl w-fit h-fit border">
+    <div className={cn('rounded-[10px] w-fit h-fit border', className)}>
       <div className="relative rounded-[10px] w-fit h-fit overflow-hidden">
         <svg
           width={width}

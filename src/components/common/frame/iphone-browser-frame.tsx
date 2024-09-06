@@ -29,14 +29,14 @@ export const IphoneBrowserFrame = forwardRef<
       return {
         width: `${width}`,
         height: `${height}`,
-        viewBox: `0 0 ${width} ${height}`,
+        viewBox: `0 0 ${defaultWidth} ${defaultHeight}`,
         statusBarHeight,
         bottomBarHeight,
       }
     }, [innerWidth])
 
   return (
-    <div className="shadow-2xl w-fit h-fit">
+    <div className="w-fit h-fit">
       <div className="relative w-fit h-fit overflow-hidden">
         <svg
           width={width}
