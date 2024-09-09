@@ -10,11 +10,17 @@ import { staticPath } from '@/lib/pathpida/$path'
 export const Home = () => {
   return (
     <>
-      <header className="flex flex-row px-6 py-2">
+      <header className="flex flex-row items-center justify-between px-6 py-4">
         <div className="text-4xl font-bold">Phraze</div>
+        <div className="flex gap-4">
+          <Button variant="outline" size="sm">
+            Sign In
+          </Button>
+          <Button size="sm">Sign Up</Button>
+        </div>
       </header>
       <main>
-        <section className="flex flex-row h-[600px] container">
+        <section className="flex flex-row h-[600px] container overflow-hidden">
           <div className="flex-1 flex flex-col items-center justify-center">
             <div className="flex flex-col gap-8 items-start">
               <Heading variant="h1" className="text-5xl leading-normal">
