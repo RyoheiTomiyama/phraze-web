@@ -15,6 +15,9 @@ export const pagesPath = {
       $url: (url?: { hash?: string | undefined } | undefined) => ({ pathname: '/deck/[id]' as const, query: { id }, hash: url?.hash })
     })
   },
+  "signin": {
+    $url: (url?: { hash?: string | undefined } | undefined) => ({ pathname: '/signin' as const, hash: url?.hash })
+  },
   $url: (url?: { hash?: string | undefined } | undefined) => ({ pathname: '/' as const, hash: url?.hash })
 };
 
