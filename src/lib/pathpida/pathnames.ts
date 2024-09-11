@@ -4,6 +4,7 @@ export const pathnames = [
   '/dashboard',
   '/deck/[id]/edit',
   '/deck/[id]',
+  '/signin',
   '/',
 ] as const
 

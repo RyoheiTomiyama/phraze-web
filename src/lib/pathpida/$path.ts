@@ -25,8 +25,6 @@ export type PagesPath = typeof pagesPath;
 
 export const staticPath = {
   favicon_ico: '/favicon.ico',
-  next_svg: '/next.svg',
-  vercel_svg: '/vercel.svg',
   videos: {
     hero_browser_mp4: '/videos/hero-browser.mp4',
     hero_mobile_mp4: '/videos/hero-mobile.mp4'
