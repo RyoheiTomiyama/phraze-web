@@ -82,5 +82,6 @@
   }
   #__next {
     min-height: 100dvh;
+    overflow-x: hidden;
   }
 }

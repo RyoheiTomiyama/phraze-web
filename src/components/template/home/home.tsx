@@ -23,7 +23,7 @@ export const Home = () => {
         </div>
       </header>
       <main>
-        <section className="flex flex-row h-[600px] container overflow-hidden">
+        <section className="flex flex-row h-[600px] container py-6">
           <div className="flex-1 flex flex-col items-center justify-center">
             <div className="flex flex-col gap-8 items-start">
               <Heading variant="h1" className="text-5xl leading-normal">
