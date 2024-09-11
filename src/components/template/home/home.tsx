@@ -5,7 +5,8 @@ import {
 } from '@/components/common/frame'
 import { Button } from '@/components/ui/button'
 import { Heading } from '@/components/ui/heading'
-import { staticPath } from '@/lib/pathpida/$path'
+import { pagesPath, staticPath } from '@/lib/pathpida/$path'
+import Link from 'next/link'
 
 export const Home = () => {
   return (
@@ -13,10 +14,12 @@ export const Home = () => {
       <header className="flex flex-row items-center justify-between px-6 py-4">
         <div className="text-4xl font-bold">Phraze</div>
         <div className="flex gap-4">
-          <Button variant="outline" size="sm">
-            Sign In
+          <Button variant="outline" size="sm" asChild>
+            <Link href={pagesPath.signin.$url()}>Sign In</Link>
           </Button>
-          <Button size="sm">Sign Up</Button>
+          <Button size="sm" asChild>
+            <Link href={pagesPath.signin.$url()}>Sign Up</Link>
+          </Button>
         </div>
       </header>
       <main>
@@ -28,8 +31,8 @@ export const Home = () => {
                 <br />
                 英語学習アプリ
               </Heading>
-              <Button size="lg" className="rounded-full">
-                Get Started
+              <Button size="lg" className="rounded-full" asChild>
+                <Link href={pagesPath.signin.$url()}>Get Started</Link>
               </Button>
             </div>
           </div>

@@ -1,4 +1,10 @@
-import { getIdToken, refreshIdToken, signOut, verify } from '@/lib/firebase'
+import {
+  getIdToken,
+  refreshIdToken,
+  signInGoogle,
+  signOut,
+  verify,
+} from '@/lib/firebase'
 import {
   PropsWithChildren,
   createContext,
@@ -21,17 +27,23 @@ type State = { loading: boolean } & (
     }
 )
 
+type Provider = 'google'
+
 export const context = createContext<State>({ isLogin: false, loading: true })
 
 export const dispatchContext = createContext<{
   getToken: () => Promise<string | undefined>
   refreshToken: () => Promise<string | undefined>
+  login: (provider: Provider) => Promise<boolean>
   logout: () => Promise<void>
 }>({
   getToken: () => {
     throw new Error('do not implement')
   },
   refreshToken: () => {
+    throw new Error('do not implement')
+  },
+  login: () => {
     throw new Error('do not implement')
   },
   logout: () => {
@@ -70,12 +82,22 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const dispatch = useMemo(() => {
     const getToken = getIdToken
     const refreshToken = refreshIdToken
+    const login = async (provider: Provider) => {
+      switch (provider) {
+        case 'google': {
+          return signInGoogle()
+        }
+        default: {
+          throw new Error(`failed login: invalid provider: ${provider}`)
+        }
+      }
+    }
     const logout = async () => {
       await signOut()
       setUser(undefined)
     }
 
-    return { getToken, refreshToken, logout }
+    return { getToken, refreshToken, login, logout }
   }, [])
 
   return (

@@ -12,17 +12,15 @@ import { logger } from '@/lib/logger'
 export const signInGoogle = async () => {
   try {
     const auth = getAuth(firebase)
-    const _result = await signInWithPopup(auth, new GoogleAuthProvider())
+    const result = await signInWithPopup(auth, new GoogleAuthProvider())
 
-    // TODO ログイン後の処理
+    logger.debug(result)
 
-    // const credential = GoogleAuthProvider.credentialFromResult(result)
-    // credential.
-    // const token = credential?.idToken
-
-    // console.log(result, token)
+    return true
   } catch (e) {
     logger.error(e)
+
+    return false
   }
 }
 
