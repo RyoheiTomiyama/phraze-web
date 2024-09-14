@@ -23,11 +23,14 @@ export const Home = () => {
         </div>
       </header>
       <main>
-        <section className="flex flex-row h-[600px] container py-6">
+        <section className="flex flex-col sm:flex-row gap-16 sm:gap-0 px-6 py-6">
           <div className="flex-1 flex flex-col items-center justify-center">
             <div className="flex flex-col gap-8 items-start">
-              <Heading variant="h1" className="text-5xl leading-normal">
-                <span className="text-3xl">反復学習に特化した</span>
+              <Heading
+                variant="h1"
+                className="text-4xl md:text-5xl leading-normal"
+              >
+                <span className="text-2xl md:text-3xl">反復学習に特化した</span>
                 <br />
                 英語学習アプリ
               </Heading>
@@ -36,11 +39,14 @@ export const Home = () => {
               </Button>
             </div>
           </div>
-          <div className="flex-1 relative">
+          <div className="flex-auto md:flex-1 relative h-[420px] sm:h-[420px] md:h-[600px]">
             <BrowserFrame
               innerWidth={1280 * 0.6}
               innerHeight={800 * 0.6}
-              className="shadow-2xl absolute left-10 top-0"
+              className="shadow-2xl absolute top-0 origin-top-left 
+               scale-75 left-20
+               sm:scale-75 sm:left-32
+               md:scale-100 md:left-10"
             >
               <video autoPlay loop muted={true}>
                 <source src={staticPath.videos.hero_browser_mp4} />
@@ -48,7 +54,7 @@ export const Home = () => {
             </BrowserFrame>
             <IphoneFrame
               innerWidth={160}
-              className="shadow-2xl absolute z-0 bottom-0"
+              className="shadow-2xl absolute z-0 bottom-0 left-0"
             >
               <IphoneBrowserFrame innerWidth={160}>
                 <video autoPlay loop muted={true}>
