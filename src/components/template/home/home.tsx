@@ -3,23 +3,38 @@ import {
   IphoneBrowserFrame,
   IphoneFrame,
 } from '@/components/common/frame'
+import { useAuthContext } from '@/components/feature/auth'
 import { Button } from '@/components/ui/button'
 import { Heading } from '@/components/ui/heading'
 import { pagesPath, staticPath } from '@/lib/pathpida/$path'
+import { CircleUser } from 'lucide-react'
 import Link from 'next/link'
 
 export const Home = () => {
+  const { isLogin } = useAuthContext()
   return (
     <>
       <header className="flex flex-row items-center justify-between px-6 py-4">
         <div className="text-4xl font-bold">Phraze</div>
         <div className="flex gap-4">
-          <Button variant="outline" size="sm" asChild>
-            <Link href={pagesPath.signin.$url()}>Sign In</Link>
-          </Button>
-          <Button size="sm" asChild>
-            <Link href={pagesPath.signin.$url()}>Sign Up</Link>
-          </Button>
+          {isLogin ? (
+            <>
+              <Button variant="ghost" size="icon" asChild>
+                <Link href={pagesPath.dashboard.$url()}>
+                  <CircleUser className="h-8 w-8" />
+                </Link>
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="outline" size="sm" asChild>
+                <Link href={pagesPath.signin.$url()}>Sign In</Link>
+              </Button>
+              <Button size="sm" asChild>
+                <Link href={pagesPath.signin.$url()}>Sign Up</Link>
+              </Button>
+            </>
+          )}
         </div>
       </header>
       <main>
