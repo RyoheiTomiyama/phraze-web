@@ -65,9 +65,14 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     return verify((firebaseUser) => {
-      setUser({
-        name: firebaseUser?.displayName ?? 'unknown',
-      })
+      if (firebaseUser) {
+        setUser({
+          name: firebaseUser?.displayName ?? 'unknown',
+        })
+      } else {
+        setUser(undefined)
+      }
+
       setLoading(false)
     })
   }, [])
