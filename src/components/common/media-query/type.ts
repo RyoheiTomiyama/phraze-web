@@ -1,5 +1,6 @@
-// tailwindで設定されているscreensと同じkeyを小さい順に指定する
-export const screens = ['sm', 'md', 'lg', 'xl'] as const
+import { config } from './config'
+
+const screens = config.screens
 
 export type Screen = (typeof screens)[number]
 

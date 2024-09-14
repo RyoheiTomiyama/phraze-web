@@ -6,34 +6,18 @@ import {
   useRef,
   useState,
 } from 'react'
-import { MediaQueryState, Screen, screens } from './type'
+import { MediaQueryState, Screen } from './type'
 import { mediaQueryContext } from './media-query-context'
 import { cn } from '@/lib/utils'
-
-const classNames: { [key in Screen]: string } = {
-  sm: 'sm:block',
-  md: 'md:block',
-  lg: 'lg:block',
-  xl: 'xl:block',
-}
+import { config } from './config'
 
 // cssで隠し要素を表示させて、現在のスクリーンサイズを検知する
 // providerで管理する
 export const MediaQueryProvider = ({ children }: PropsWithChildren) => {
   const [screenState, setScreenState] = useState<
     MediaQueryState['screenState']
-  >({
-    sm: true,
-    md: true,
-    lg: true,
-    xl: true,
-  })
-  const ref = useRef<{ [key in Screen]: HTMLSpanElement | null }>({
-    sm: null,
-    md: null,
-    lg: null,
-    xl: null,
-  })
+  >({})
+  const ref = useRef<{ [key in Screen]?: HTMLSpanElement | null }>({})
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -88,7 +72,7 @@ export const MediaQueryProvider = ({ children }: PropsWithChildren) => {
       <mediaQueryContext.Provider value={{ screenState }}>
         {children}
       </mediaQueryContext.Provider>
-      {Object.entries(classNames).map(([key, className]) => {
+      {Object.entries(config.displayClasses).map(([key, className]) => {
         return (
           <span
             key={key}
@@ -107,7 +91,7 @@ function isScreen(screen: string | undefined): screen is Screen {
     return false
   }
 
-  return screens.some((s) => {
+  return config.screens.some((s) => {
     return s === screen
   })
 }
