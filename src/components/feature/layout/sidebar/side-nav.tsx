@@ -67,7 +67,7 @@ const NavAccount = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <CircleUser className="h-8 w-8" />
+        <CircleUser className="h-7 w-7" />
         <span className="sr-only">Settings</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" side="right" align="end">

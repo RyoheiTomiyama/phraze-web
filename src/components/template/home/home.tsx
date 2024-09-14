@@ -21,7 +21,7 @@ export const Home = () => {
             <>
               <Button variant="ghost" size="icon" asChild>
                 <Link href={pagesPath.dashboard.$url()}>
-                  <CircleUser className="h-8 w-8" />
+                  <CircleUser className="h-7 w-7" />
                 </Link>
               </Button>
             </>

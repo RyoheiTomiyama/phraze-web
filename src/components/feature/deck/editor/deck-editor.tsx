@@ -124,7 +124,7 @@ export const DeckEditor = ({
         data-selected={!!cardId}
         className="data-[selected=true]:hidden data-[selected=true]:sm:flex"
       >
-        <Card className="flex flex-col border-none h-full">
+        <Card className="flex flex-col border-none h-full w-full">
           <CardHeader>
             <CardTitle>Cards</CardTitle>
           </CardHeader>
