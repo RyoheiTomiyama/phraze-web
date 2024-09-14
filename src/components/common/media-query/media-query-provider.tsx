@@ -6,26 +6,28 @@ import {
   useRef,
   useState,
 } from 'react'
-import { Screen, screens } from './type'
+import { MediaQueryState, Screen, screens } from './type'
 import { mediaQueryContext } from './media-query-context'
-// 0 ------- sm ------ md ------ lg ----- xl
-//   <--sm-->
-//   <-------md------->
-//   <------------lg------------->
-//   <------------------xl---------------->
+import { cn } from '@/lib/utils'
 
-// {
-//     sm: true,
-//     md: true,
-//     lg: false,
-//     xl: false
-// }
-// この持ち方が良さそう
+const classNames: { [key in Screen]: string } = {
+  sm: 'sm:block',
+  md: 'md:block',
+  lg: 'lg:block',
+  xl: 'xl:block',
+}
 
 // cssで隠し要素を表示させて、現在のスクリーンサイズを検知する
 // providerで管理する
 export const MediaQueryProvider = ({ children }: PropsWithChildren) => {
-  const [currentScreen, setCurrentScreen] = useState<Screen>('')
+  const [screenState, setScreenState] = useState<
+    MediaQueryState['screenState']
+  >({
+    sm: true,
+    md: true,
+    lg: true,
+    xl: true,
+  })
   const ref = useRef<{ [key in Screen]: HTMLSpanElement | null }>({
     sm: null,
     md: null,
@@ -42,12 +44,13 @@ export const MediaQueryProvider = ({ children }: PropsWithChildren) => {
       if (!isScreen(s)) {
         return
       }
-      if (entry.isIntersecting) {
-        // 画面から対象が表示されるとき
-        setCurrentScreen(s)
-      } else {
-        // 画面から対象が非表示になるとき
-      }
+
+      setScreenState((state) => {
+        return {
+          ...state,
+          [s]: entry.isIntersecting,
+        }
+      })
     })
     Object.entries(ref.current).map(([_screen, node]) => {
       if (node) {
@@ -60,41 +63,41 @@ export const MediaQueryProvider = ({ children }: PropsWithChildren) => {
     }
   }, [])
 
+  // Note: refひとつでSpanを管理するためにCallback Refを使う
   const entryRef = useCallback<RefCallback<HTMLSpanElement>>((node) => {
     if (!node) {
       return
     }
     const screen = node.dataset['screen']
     if (isScreen(screen)) {
+      // 初期値投入
+      const display = window.getComputedStyle(node)['display']
+      setScreenState((state) => {
+        return {
+          ...state,
+          [screen]: display !== 'none',
+        }
+      })
+
       ref.current[screen] = node
     }
   }, [])
 
   return (
     <>
-      <mediaQueryContext.Provider value={{ screen: 'xl' }}>
+      <mediaQueryContext.Provider value={{ screenState }}>
         {children}
       </mediaQueryContext.Provider>
-      <span
-        className="w-0 h-0 fixed top-0 left-0 hidden sm:block"
-        data-screen="sm"
-        ref={entryRef}
-      />
-      <span
-        className="w-0 h-0 fixed top-0 left-0 hidden md:block"
-        data-screen="md"
-        ref={entryRef}
-      />
-      <span
-        className="w-0 h-0 fixed top-0 left-0 hidden lg:block"
-        data-screen="lg"
-        ref={entryRef}
-      />
-      <span
-        className="w-0 h-0 fixed top-0 left-0 hidden xl:block"
-        data-screen="xl"
-        ref={entryRef}
-      />
+      {Object.entries(classNames).map(([key, className]) => {
+        return (
+          <span
+            key={key}
+            className={cn('w-0 h-0 fixed top-0 left-0 hidden', className)}
+            data-screen={key}
+            ref={entryRef}
+          />
+        )
+      })}
     </>
   )
 }
