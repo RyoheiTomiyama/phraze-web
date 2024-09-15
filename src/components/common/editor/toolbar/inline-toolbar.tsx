@@ -10,7 +10,11 @@ export const InlineToolbar = ({ children }: PropsWithChildren) => {
   }, [placement])
 
   return (
-    <div ref={refs.setFloating} style={floatingStyles}>
+    <div
+      ref={refs.setFloating}
+      style={floatingStyles}
+      className={!open ? 'hidden' : ''}
+    >
       <div
         data-state={open ? 'open' : 'closed'}
         data-side={side}
