@@ -51,7 +51,7 @@ export const CardEdit = ({ cardId, loadingAnswer = false }: CardEditProps) => {
       <FormField
         control={form.control}
         name="answer"
-        render={({ field }) => {
+        render={({ field, formState: { defaultValues } }) => {
           return (
             <FormItem>
               <div className="flex align-bottom justify-between gap-2">
@@ -71,6 +71,7 @@ export const CardEdit = ({ cardId, loadingAnswer = false }: CardEditProps) => {
               <div className="relative">
                 <FormControl>
                   <AnswerInput
+                    key={defaultValues?.answer} // Note: AI生成結果反映のために必要
                     disabled={loadingAnswer || field.disabled}
                     onBlur={field.onBlur}
                     defaultValue={field.value}
