@@ -7,6 +7,7 @@ import { logger } from '@/lib/logger'
 import { parseGQLError } from '@/lib/gql'
 import { toast } from 'sonner'
 import { ChevronLeft } from 'lucide-react'
+import { CardDeleteButton } from './card-delete/card-delete-button'
 
 type CardEditActionProps = {
   cardId: number
@@ -47,14 +48,17 @@ export const CardEditAction = ({ cardId, onBack }: CardEditActionProps) => {
       >
         <ChevronLeft className="w-6" />
       </Button>
-      <Button
-        size="sm"
-        variant="default"
-        onClick={handleClick}
-        disabled={!formState.isDirty}
-      >
-        Save
-      </Button>
+      <div className="flex flex-row gap-2">
+        <CardDeleteButton cardId={cardId} />
+        <Button
+          size="sm"
+          variant="default"
+          onClick={handleClick}
+          disabled={!formState.isDirty}
+        >
+          Save
+        </Button>
+      </div>
     </div>
   )
 }
