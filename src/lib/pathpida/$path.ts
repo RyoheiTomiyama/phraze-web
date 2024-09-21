@@ -25,6 +25,17 @@ export type PagesPath = typeof pagesPath;
 
 export const staticPath = {
   favicon_ico: '/favicon.ico',
+  icons: {
+    android_chrome_192x192_png: '/icons/android-chrome-192x192.png',
+    android_chrome_512x512_png: '/icons/android-chrome-512x512.png',
+    apple_touch_icon_png: '/icons/apple-touch-icon.png',
+    browserconfig_xml: '/icons/browserconfig.xml',
+    favicon_ico: '/icons/favicon.ico',
+    favicon_svg: '/icons/favicon.svg',
+    mstile_150x150_png: '/icons/mstile-150x150.png',
+    safari_pinned_tab_svg: '/icons/safari-pinned-tab.svg',
+    site_webmanifest: '/icons/site.webmanifest'
+  },
   videos: {
     hero_browser_mp4: '/videos/hero-browser.mp4',
     hero_mobile_mp4: '/videos/hero-mobile.mp4'
