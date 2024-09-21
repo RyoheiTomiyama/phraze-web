@@ -66,6 +66,9 @@ export const DeckEditor = ({
     if (!cardId) {
       return false
     }
+    if (error) {
+      return false
+    }
     if (!data) {
       return true
     }
@@ -76,7 +79,7 @@ export const DeckEditor = ({
       return false
     }
     return new Date(data?.card.createdAt) > add(new Date(), { seconds: -10 })
-  }, [cardId, data])
+  }, [cardId, data, error])
 
   useSWR(
     shouldPolling
@@ -166,7 +169,7 @@ export const DeckEditor = ({
         className="flex flex-col data-[selected=false]:hidden data-[selected=false]:sm:flex"
         data-selected={!!cardId}
       >
-        {!fetching && !!data?.card && (
+        {!fetching && !!data?.card && cardId === data.card.id && (
           <CardForm card={data.card} key={data.card.id}>
             <CardEditAction cardId={data.card.id} onBack={handleGoEditTop} />
             <ScrollArea className="h-full flex-auto">

@@ -7,8 +7,9 @@ import { useDeleteCardOnCardDeleteButtonMutation } from './card-delete-button.ge
 
 type CardDeleteButtonProps = {
   cardId: number
+  onBack?: () => void
 }
-export const CardDeleteButton = ({ cardId }: CardDeleteButtonProps) => {
+export const CardDeleteButton = ({ cardId, onBack }: CardDeleteButtonProps) => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [, deleteCard] = useDeleteCardOnCardDeleteButtonMutation()
@@ -25,7 +26,9 @@ export const CardDeleteButton = ({ cardId }: CardDeleteButtonProps) => {
     )
     setLoading(false)
     setOpen(false)
-  }, [cardId, deleteCard])
+
+    onBack?.()
+  }, [cardId, deleteCard, onBack])
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

@@ -49,7 +49,7 @@ export const CardEditAction = ({ cardId, onBack }: CardEditActionProps) => {
         <ChevronLeft className="w-6" />
       </Button>
       <div className="flex flex-row gap-2">
-        <CardDeleteButton cardId={cardId} />
+        <CardDeleteButton cardId={cardId} onBack={onBack} />
         <Button
           size="sm"
           variant="default"
