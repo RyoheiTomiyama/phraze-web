@@ -3,6 +3,7 @@ import {
   IphoneBrowserFrame,
   IphoneFrame,
 } from '@/components/common/frame'
+import { LogoTypography } from '@/components/common/logo'
 import { useAuthContext } from '@/components/feature/auth'
 import { Button } from '@/components/ui/button'
 import { Heading } from '@/components/ui/heading'
@@ -15,7 +16,9 @@ export const Home = () => {
   return (
     <>
       <header className="flex flex-row items-center justify-between px-6 py-4">
-        <div className="text-4xl font-bold">Phraze</div>
+        <div>
+          <LogoTypography className="h-7 w-auto fill-card-foreground" />
+        </div>
         <div className="flex gap-4">
           {isLogin ? (
             <>
