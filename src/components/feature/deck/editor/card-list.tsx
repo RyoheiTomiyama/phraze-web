@@ -29,7 +29,7 @@ export const CardList = ({ activeCardId, cards, onClick }: CardListProps) => {
           <div
             key={card.id}
             data-active={card.id === activeCardId}
-            className="px-6 py-2 cursor-pointer hover:bg-muted data-[active='true']:font-bold"
+            className="px-6 py-2 cursor-pointer hover:bg-muted data-[active='true']:font-bold data-[active='true']:bg-accent"
             onClick={handleClick(card.id)}
           >
             <span className=" line-clamp-1 text-muted-foreground">
