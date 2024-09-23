@@ -10,7 +10,7 @@ const debug = (message?: unknown, ...options: unknown[]) => {
   }
 
   const str = util.format(message, ...options)
-  captureLog('debug', str)
+  captureLog('debug', str, { arguments: [message, ...options] })
 }
 
 const info = (message?: unknown, ...options: unknown[]) => {
@@ -20,7 +20,7 @@ const info = (message?: unknown, ...options: unknown[]) => {
   }
 
   const str = util.format(message, ...options)
-  captureLog('info', str)
+  captureLog('info', str, { arguments: [message, ...options] })
 }
 
 const warn = (message?: unknown, ...options: unknown[]) => {
@@ -30,7 +30,7 @@ const warn = (message?: unknown, ...options: unknown[]) => {
   }
 
   const str = util.format(message, ...options)
-  captureLog('warning', str)
+  captureLog('warning', str, { arguments: [message, ...options] })
 }
 
 const error = (message?: unknown, ...options: unknown[]) => {
@@ -40,7 +40,7 @@ const error = (message?: unknown, ...options: unknown[]) => {
   }
 
   const str = util.format(message, ...options)
-  captureError(new Error(str))
+  captureError(new Error(str), { arguments: [message, ...options] })
 }
 
 export const logger = {

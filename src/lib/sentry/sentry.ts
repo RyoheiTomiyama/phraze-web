@@ -13,17 +13,26 @@ export const setSentryUser = (
   Sentry.setUser(user ?? null)
 }
 
-export const captureError = (err: Error) => {
-  Sentry.captureException(err)
+export const captureError = (err: Error, data?: unknown) => {
+  Sentry.captureException(err, { data })
 }
 
 type LogLevel = 'warning' | 'info' | 'debug'
 
-export const captureLog = (level: LogLevel, message: string) => {
+export const captureLog = (
+  level: LogLevel,
+  message: string,
+  data?:
+    | {
+        [key: string]: unknown
+      }
+    | undefined,
+) => {
   Sentry.addBreadcrumb({
     level,
     type: 'default',
     category: 'log',
     message,
+    data,
   })
 }
