@@ -5,6 +5,7 @@ import {
   signOut,
   verify,
 } from '@/lib/firebase'
+import { setSentryUser } from '@/lib/sentry'
 import {
   PropsWithChildren,
   createContext,
@@ -69,8 +70,14 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         setUser({
           name: firebaseUser?.displayName ?? 'unknown',
         })
+        setSentryUser({
+          id: firebaseUser.uid,
+          username: firebaseUser.displayName ?? 'unknown',
+          email: firebaseUser.email ?? undefined,
+        })
       } else {
         setUser(undefined)
+        setSentryUser(undefined)
       }
 
       setLoading(false)
@@ -100,6 +107,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     const logout = async () => {
       await signOut()
       setUser(undefined)
+      setSentryUser(undefined)
     }
 
     return { getToken, refreshToken, login, logout }
