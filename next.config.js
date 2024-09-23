@@ -47,4 +47,6 @@ const sentryBuildOption = {
   automaticVercelMonitors: true,
 }
 
-export default withSentryConfig(nextConfig, sentryBuildOption)
+export default process.env.NODE_ENV === 'production'
+  ? withSentryConfig(nextConfig, sentryBuildOption)
+  : nextConfig
