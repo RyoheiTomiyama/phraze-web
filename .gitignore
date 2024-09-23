@@ -44,3 +44,6 @@ src/lib/firebase/config.ts
 # codegen
 graphql.schema.json
 src/**/*.generated.ts
+
+# Sentry Config File
+.env.sentry-build-plugin
