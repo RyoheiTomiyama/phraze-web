@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prebuild": "run-p codegen",
     "build": "next build",
     "dev": "run-p dev:*",
     "dev:next": "next dev",
