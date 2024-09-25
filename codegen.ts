@@ -1,8 +1,11 @@
 import type { CodegenConfig } from '@graphql-codegen/cli'
+import { loadEnvConfig } from '@next/env'
+
+loadEnvConfig(process.cwd())
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: 'http://localhost:8080/query',
+  schema: process.env.NEXT_PUBLIC_GRAPH_API_URL,
   documents: 'src/**/*.gql',
   generates: {
     'src/lib/gql/type.generated.ts': {
