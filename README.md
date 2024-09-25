@@ -2,23 +2,11 @@
 
 ## Development セットアップ
 
-### FirebaseのConfigファイルを配置
+### 環境変数
 
-`src/lib/firebase/config.ts`を設置する必要があります。Firebaseコンソールのプロジェクトの設定から下記の部分を埋めてファイルを作成してください
+.env.sampleから.env.localを作成してください。
 
-```ts
-const firebaseConfig = {
-  apiKey: 'xxxx',
-  authDomain: 'phraze-xxxx.firebaseapp.com',
-  projectId: 'phraze-xxxx',
-  storageBucket: 'phraze-xxxx.appspot.com',
-  messagingSenderId: 'xxxx',
-  appId: 'xxx',
-  measurementId: 'G-xxx',
-}
-
-export default firebaseConfig
-```
+- firebaseプロジェクトから環境変数を追加する
 
 ### 起動
 

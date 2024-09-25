@@ -1,7 +1,7 @@
 import { logger } from '@/lib/logger'
 import { clientSchema } from './schema'
 
-const parsed = clientSchema.safeParse(process.env)
+const parsed = clientSchema.safeParse({})
 
 // 検証に失敗した場合はビルドエラーにする
 if (!parsed.success) {
