@@ -1,0 +1,10 @@
+fragment CardOnCardTable on Card {
+  id
+  question
+  answer
+  aiAnswer
+  schedule {
+    id
+    scheduleAt
+  }
+}

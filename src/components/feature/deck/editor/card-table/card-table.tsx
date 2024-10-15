@@ -16,8 +16,26 @@ import {
 } from '@/components/ui/table'
 import { Plus } from 'lucide-react'
 import Link from 'next/link'
+import { CardOnCardTableFragment } from './card-table.generated'
+import { useCallback } from 'react'
+import {
+  $convertFromMarkdownString,
+  BOLD_STAR,
+  BOLD_UNDERSCORE,
+} from '@lexical/markdown'
+import { InputViewer } from '@/components/common/editor'
+import {
+  HeadingNode,
+  ListItemNode,
+  ListNode,
+} from '@/components/common/editor/node'
+import { formatDateTime } from '@/lib/date-util'
 
-export const CardTable = () => {
+type CardTableProps = {
+  cards: CardOnCardTableFragment[]
+}
+
+export const CardTable = ({ cards }: CardTableProps) => {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center">
@@ -38,48 +56,62 @@ export const CardTable = () => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Words</TableHead>
-              <TableHead className="hidden md:table-cell">Price</TableHead>
-              <TableHead className="hidden md:table-cell">
-                Total Sales
-              </TableHead>
-              <TableHead className="hidden md:table-cell">Created at</TableHead>
+              <TableHead>Question</TableHead>
+              <TableHead className="hidden md:table-cell">Answer</TableHead>
+              <TableHead className="min-w-[160px]">Next schedule</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
-              <TableCell className="font-medium">
-                Laser Lemonade Machine
-              </TableCell>
-              <TableCell className="hidden md:table-cell">$499.99</TableCell>
-              <TableCell className="hidden md:table-cell">25</TableCell>
-              <TableCell className="hidden md:table-cell">
-                2023-07-12 10:42 AM
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-medium">
-                Laser Lemonade Machine
-              </TableCell>
-              <TableCell className="hidden md:table-cell">$499.99</TableCell>
-              <TableCell className="hidden md:table-cell">25</TableCell>
-              <TableCell className="hidden md:table-cell">
-                2023-07-12 10:42 AM
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-medium">
-                Laser Lemonade Machine
-              </TableCell>
-              <TableCell className="hidden md:table-cell">$499.99</TableCell>
-              <TableCell className="hidden md:table-cell">25</TableCell>
-              <TableCell className="hidden md:table-cell">
-                2023-07-12 10:42 AM
-              </TableCell>
-            </TableRow>
+            {cards.map((card) => {
+              return (
+                <TableRow key={card.id}>
+                  <TableCell className="align-top">
+                    <QuestionViewer value={card.question} />
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell">
+                    <AnswerViewer value={card.answer || card.aiAnswer} />
+                  </TableCell>
+                  <TableCell className="align-top">
+                    {card.schedule
+                      ? formatDateTime(card.schedule?.scheduleAt)
+                      : 'now'}
+                  </TableCell>
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
       </CardContent>
     </Card>
+  )
+}
+
+type QuestionViewerProps = { value: string }
+const QuestionViewer = (props: QuestionViewerProps) => {
+  const editorState = useCallback(() => {
+    $convertFromMarkdownString(props.value, [BOLD_STAR, BOLD_UNDERSCORE])
+  }, [props.value])
+
+  return <InputViewer defaultEditorState={editorState} namespace="question" />
+}
+
+type AnswerViewerProps = { value: string }
+const AnswerViewer = (props: AnswerViewerProps) => {
+  const editorState = useCallback(() => {
+    // $convertFromMarkdownString(props.value, [
+    //   BOLD_STAR,
+    //   BOLD_UNDERSCORE,
+    //   HEADING,
+    // ])
+    $convertFromMarkdownString(props.value, undefined, undefined, false)
+  }, [props.value])
+
+  return (
+    <InputViewer
+      defaultEditorState={editorState}
+      nodes={[HeadingNode, ListNode, ListItemNode]}
+      namespace="answer"
+      className="[&_br]:hidden [&_*]:inline line-clamp-3"
+    />
   )
 }

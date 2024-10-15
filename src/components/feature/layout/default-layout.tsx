@@ -1,8 +1,7 @@
 import { LayoutWithSidebar } from '@/components/common/layout'
 import { Heading } from '@/components/ui/heading'
-import React, { HTMLAttributes, PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { SideNav } from './sidebar/side-nav'
-import { cn } from '@/lib/utils'
 
 type DefaultLayoutProps = {
   title: string
