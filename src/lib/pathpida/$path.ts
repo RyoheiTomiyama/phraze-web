@@ -9,6 +9,9 @@ export const pagesPath = {
   },
   "deck": {
     _id: (id: string | number) => ({
+      "admin": {
+        $url: (url?: { hash?: string | undefined } | undefined) => ({ pathname: '/deck/[id]/admin' as const, query: { id }, hash: url?.hash })
+      },
       "edit": {
         $url: (url?: { query?: OptionalQuery_1dmjqw | undefined, hash?: string | undefined } | undefined) => ({ pathname: '/deck/[id]/edit' as const, query: { id, ...url?.query }, hash: url?.hash })
       },
