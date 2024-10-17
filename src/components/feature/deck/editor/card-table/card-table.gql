@@ -8,3 +8,7 @@ fragment CardOnCardTable on Card {
     scheduleAt
   }
 }
+
+fragment PageInfoOnCardTable on PageInfo {
+  ...PageInfoOnCardTablePagination
+}

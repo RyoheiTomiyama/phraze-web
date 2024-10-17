@@ -16,7 +16,10 @@ import {
 } from '@/components/ui/table'
 import { Plus } from 'lucide-react'
 import Link from 'next/link'
-import { CardOnCardTableFragment } from './card-table.generated'
+import {
+  CardOnCardTableFragment,
+  PageInfoOnCardTableFragment,
+} from './card-table.generated'
 import { useCallback } from 'react'
 import {
   $convertFromMarkdownString,
@@ -30,12 +33,18 @@ import {
   ListNode,
 } from '@/components/common/editor/node'
 import { formatDateTime } from '@/lib/date-util'
+import { CardTablePagination } from './card-table-pagination'
 
 type CardTableProps = {
   cards: CardOnCardTableFragment[]
+  pageInfo: {
+    limit: number
+    offset: number
+    totalCount: PageInfoOnCardTableFragment['totalCount']
+  }
 }
 
-export const CardTable = ({ cards }: CardTableProps) => {
+export const CardTable = ({ cards, pageInfo }: CardTableProps) => {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center">
@@ -81,6 +90,7 @@ export const CardTable = ({ cards }: CardTableProps) => {
             })}
           </TableBody>
         </Table>
+        <CardTablePagination {...pageInfo} />
       </CardContent>
     </Card>
   )

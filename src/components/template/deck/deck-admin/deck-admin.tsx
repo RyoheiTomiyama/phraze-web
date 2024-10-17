@@ -8,6 +8,8 @@ import { pagesPath } from '@/lib/pathpida/$path'
 
 type DeckAdminProps = {
   deckId: number
+  limit: number
+  offset: number
 }
 
 // contextが静的でないと、無限ループになる
@@ -18,13 +20,13 @@ const cardsContext = {
   additionalTypenames: ['Card'],
 }
 
-export const DeckAdmin = ({ deckId }: DeckAdminProps) => {
+export const DeckAdmin = ({ deckId, limit, offset }: DeckAdminProps) => {
   const router = useRouter()
 
   const [{ data, fetching, error }] = useCardsOnDeckAdminQuery({
     pause: !deckId,
     variables: {
-      input: { where: { deckId } },
+      input: { where: { deckId }, limit, offset },
     },
     context: cardsContext,
   })
@@ -42,7 +44,14 @@ export const DeckAdmin = ({ deckId }: DeckAdminProps) => {
 
   return (
     <DefaultLayout title="Admin a deck">
-      <CardTable cards={data?.cards.cards || []} />
+      <CardTable
+        cards={data?.cards.cards || []}
+        pageInfo={{
+          limit,
+          offset,
+          totalCount: data?.cards.pageInfo.totalCount || 0,
+        }}
+      />
     </DefaultLayout>
   )
 }

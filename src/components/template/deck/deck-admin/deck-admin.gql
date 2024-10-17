@@ -4,5 +4,8 @@ query CardsOnDeckAdmin($input: CardsInput!) {
       id
       ...CardOnCardTable
     }
+    pageInfo {
+      ...PageInfoOnCardTable
+    }
   }
 }
