@@ -37,6 +37,7 @@ import { CardTablePagination } from './card-table-pagination'
 
 type CardTableProps = {
   cards: CardOnCardTableFragment[]
+  deckId: number
   pageInfo: {
     limit: number
     offset: number
@@ -44,7 +45,7 @@ type CardTableProps = {
   }
 }
 
-export const CardTable = ({ cards, pageInfo }: CardTableProps) => {
+export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center">
@@ -90,7 +91,7 @@ export const CardTable = ({ cards, pageInfo }: CardTableProps) => {
             })}
           </TableBody>
         </Table>
-        <CardTablePagination {...pageInfo} />
+        <CardTablePagination deckId={deckId} {...pageInfo} />
       </CardContent>
     </Card>
   )

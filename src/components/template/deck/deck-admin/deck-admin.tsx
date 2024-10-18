@@ -46,6 +46,7 @@ export const DeckAdmin = ({ deckId, limit, offset }: DeckAdminProps) => {
     <DefaultLayout title="Admin a deck">
       <CardTable
         cards={data?.cards.cards || []}
+        deckId={deckId}
         pageInfo={{
           limit,
           offset,

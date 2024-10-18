@@ -5,18 +5,21 @@ import {
 } from '@/components/ui/pagination'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { PageInfoOnCardTablePaginationFragment } from './card-table-pagination.generated'
-import { useEffect, useMemo, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import { pagesPath } from '@/lib/pathpida/$path'
 
 type CardTablePaginationProps = {
+  deckId: number
   limit: number
   offset: number
   totalCount: PageInfoOnCardTablePaginationFragment['totalCount']
 }
 
 export const CardTablePagination = ({
+  deckId,
   limit = 1,
   offset = 0,
   totalCount = 10,
@@ -50,6 +53,16 @@ export const CardTablePagination = ({
     content.scrollTo({ behavior: 'smooth', left: li.offsetLeft - 80 })
   }, [page])
 
+  const genLink = useCallback(
+    (page: number) => {
+      const nextPage = Math.min(Math.max(0, page), pageCount)
+      return pagesPath.deck
+        ._id(deckId)
+        .admin.$url({ query: { limit, offset: limit * nextPage } })
+    },
+    [deckId, limit, pageCount],
+  )
+
   return (
     <Pagination className="max-w-80 overflow-hidden">
       <PaginationContent className="overflow-hidden">
@@ -57,10 +70,10 @@ export const CardTablePagination = ({
           <Button
             data-disabled={!(page > 0)}
             variant="ghost"
-            className="data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+            className="data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50"
             asChild
           >
-            <Link href="#">
+            <Link href={genLink(page - 1)}>
               <ChevronLeft className="h-4 w-4" />
             </Link>
           </Button>
@@ -77,7 +90,7 @@ export const CardTablePagination = ({
                         variant={index === page ? 'outline' : 'ghost'}
                         asChild
                       >
-                        <Link href="#">{index + 1}</Link>
+                        <Link href={genLink(index)}>{index + 1}</Link>
                       </Button>
                     </PaginationItem>
                   )
@@ -88,12 +101,12 @@ export const CardTablePagination = ({
         </li>
         <PaginationItem>
           <Button
-            disabled={!(page < pageCount - 1)}
+            data-disabled={!(page < pageCount - 1)}
             variant="ghost"
-            className="data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+            className="data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50"
             asChild
           >
-            <Link href="#">
+            <Link href={genLink(page + 1)}>
               <ChevronRight className="h-4 w-4" />
             </Link>
           </Button>
