@@ -1,4 +1,4 @@
-import { CardTable } from '@/components/feature/deck'
+import { CardCreate, CardTable } from '@/components/feature/deck'
 import { DefaultLayout } from '@/components/feature/layout'
 import { useCardsOnDeckAdminQuery } from './deck-admin.generated'
 import { useEffect } from 'react'
@@ -44,15 +44,18 @@ export const DeckAdmin = ({ deckId, limit, offset }: DeckAdminProps) => {
 
   return (
     <DefaultLayout title="Admin a deck">
-      <CardTable
-        cards={data?.cards.cards || []}
-        deckId={deckId}
-        pageInfo={{
-          limit,
-          offset,
-          totalCount: data?.cards.pageInfo.totalCount || 0,
-        }}
-      />
+      <div className="flex flex-col gap-6">
+        <CardCreate deckId={deckId} />
+        <CardTable
+          cards={data?.cards.cards || []}
+          deckId={deckId}
+          pageInfo={{
+            limit,
+            offset,
+            totalCount: data?.cards.pageInfo.totalCount || 0,
+          }}
+        />
+      </div>
     </DefaultLayout>
   )
 }
