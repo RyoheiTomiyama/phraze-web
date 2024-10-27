@@ -9,18 +9,21 @@ import { cn } from '@/lib/utils'
 type InputEditorProps = EditorBaseProps & {
   className?: string
   disabled?: boolean
-  onBlue?: () => void
+  onBlur?: () => void
+  onEnter?: (evnet: KeyboardEvent | null) => void
 }
 
 export function InputEditor({
   className,
   disabled,
-  onBlue,
+  placeholder,
   plugins,
+  onBlur,
+  onEnter,
   ...props
 }: InputEditorProps) {
   const editorBasePlugins = [
-    <NoLineBreakPlugin key="NoLineBreakPlugin" />,
+    <NoLineBreakPlugin key="NoLineBreakPlugin" onEnter={onEnter} />,
     <DisabledPlugin key="DisabledPlugin" disabled={disabled} />,
     ...(plugins ?? []),
   ]
@@ -41,10 +44,10 @@ export function InputEditor({
           contentEditable={
             <ContentEditable
               className="w-full focus-visible:outline-none"
-              onBlur={onBlue}
+              onBlur={onBlur}
             />
           }
-          placeholder={<></>}
+          placeholder={placeholder || <></>}
           ErrorBoundary={LexicalErrorBoundary}
         />
       </div>

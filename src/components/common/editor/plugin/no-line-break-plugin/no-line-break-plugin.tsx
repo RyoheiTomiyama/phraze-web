@@ -7,8 +7,11 @@ import {
 } from 'lexical'
 import { useEffect } from 'react'
 
+type NoLineBreakPluginProps = {
+  onEnter?: (evnet: KeyboardEvent | null) => void
+}
 /** 改行を禁止するプラグイン */
-export const NoLineBreakPlugin = () => {
+export const NoLineBreakPlugin = ({ onEnter }: NoLineBreakPluginProps) => {
   const [editor] = useLexicalComposerContext()
 
   useEffect(() => {
@@ -16,7 +19,7 @@ export const NoLineBreakPlugin = () => {
       editor.registerCommand(
         KEY_ENTER_COMMAND,
         (payload) => {
-          payload?.preventDefault()
+          onEnter?.(payload)
 
           return true
         },
@@ -26,7 +29,7 @@ export const NoLineBreakPlugin = () => {
         node.remove()
       }),
     )
-  }, [editor])
+  }, [editor, onEnter])
 
   return null
 }

@@ -32,13 +32,18 @@ import {
 type PhraseInputProps = {
   defaultValue?: string // markdown string
   disabled?: boolean
+  placeholder?:
+    | ((isEditable: boolean) => null | JSX.Element)
+    | null
+    | JSX.Element
   onBlur?: () => void
   onChange?: (mdString: string) => void
+  onEnter?: (event: KeyboardEvent | null) => void
 }
 
 export const PhraseInput = forwardRef<HTMLDivElement, PhraseInputProps>(
   function PhraseInput(
-    { defaultValue = '', disabled, onBlur, onChange },
+    { defaultValue = '', disabled, placeholder, onBlur, onChange, onEnter },
     _ref,
   ) {
     const editorState = useCallback(() => {
@@ -64,12 +69,14 @@ export const PhraseInput = forwardRef<HTMLDivElement, PhraseInputProps>(
 
     return (
       <InputEditor
-        onBlue={onBlur}
+        onBlur={onBlur}
+        onEnter={onEnter}
         defaultEditorState={editorState}
         disabled={disabled}
         className="min-h-10 h-auto py-[7px]"
         namespace="phrase"
         plugins={plugins}
+        placeholder={placeholder}
       />
     )
   },
