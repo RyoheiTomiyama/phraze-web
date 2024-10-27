@@ -14,7 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { Plus } from 'lucide-react'
+import { EllipsisVertical, Plus } from 'lucide-react'
 import Link from 'next/link'
 import {
   CardOnCardTableFragment,
@@ -66,9 +66,13 @@ export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Question</TableHead>
-              <TableHead className="hidden md:table-cell">Answer</TableHead>
-              <TableHead className="min-w-[160px]">Next schedule</TableHead>
+              <TableHead className="w-[400px]">Question</TableHead>
+              <TableHead className="w-[800px] hidden md:table-cell">
+                Answer
+              </TableHead>
+              <TableHead className="w-[230px] min-w-[230px]" colSpan={2}>
+                Next schedule
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -85,6 +89,11 @@ export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
                     {card.schedule
                       ? formatDateTime(card.schedule?.scheduleAt)
                       : 'now'}
+                  </TableCell>
+                  <TableCell className="align-middle text-right">
+                    <Button variant="ghost" size="icon">
+                      <EllipsisVertical className="w-5 h-5" />
+                    </Button>
                   </TableCell>
                 </TableRow>
               )
