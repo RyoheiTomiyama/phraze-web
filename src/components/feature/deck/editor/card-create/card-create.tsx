@@ -1,5 +1,5 @@
 import { Plus } from 'lucide-react'
-import { useCallback, useState } from 'react'
+import { useCallback, useRef } from 'react'
 import { PhraseInput } from '../phrase-input'
 import { useForm } from '@/hook/useForm'
 import { CardSchemaOutput, cardSchema } from './schema'
@@ -14,6 +14,8 @@ import { SubmitHandler } from 'react-hook-form'
 import { useCreateCardOnCardCreateMutation } from './card-create.generated'
 import { parseGQLError } from '@/lib/gql'
 import { toast } from 'sonner'
+import { LexicalEditor } from 'lexical'
+import { clearEditor } from '@/lib/lexical'
 
 type CardCreateProps = {
   deckId: number
@@ -22,8 +24,7 @@ type CardCreateProps = {
 }
 
 export const CardCreate = ({ deckId, onCreated }: CardCreateProps) => {
-  const [open, setOpen] = useState(false)
-  const [submitting, setSubmitting] = useState(false)
+  const editorRef = useRef<LexicalEditor>(null)
   const [_, createCard] = useCreateCardOnCardCreateMutation()
 
   const form = useForm(cardSchema, {
@@ -34,31 +35,37 @@ export const CardCreate = ({ deckId, onCreated }: CardCreateProps) => {
 
   const handleSubmit = useCallback<SubmitHandler<CardSchemaOutput>>(
     async (data) => {
-      setSubmitting(true)
       const { data: result, error } = await createCard({
         input: {
           deckId,
           question: data.question,
         },
       })
-      setSubmitting(false)
 
       if (error) {
         const e = parseGQLError(error)
         toast.error(e.message)
       } else {
-        setOpen(false)
         form.reset()
+        clearEditor(editorRef.current)
         toast.success('Card has been created')
       }
 
-      setOpen(false)
       if (result?.createCard.card.id) {
         onCreated?.(result?.createCard.card.id)
       }
     },
     [createCard, deckId, form, onCreated],
   )
+
+  const handleEnter = useCallback((event: KeyboardEvent | null) => {
+    if (event?.target instanceof Element) {
+      event.target
+        .closest('form')
+        ?.querySelector<HTMLElement>('button[type=submit], input[type=submit]')
+        ?.click()
+    }
+  }, [])
 
   return (
     <Form {...form}>
@@ -75,6 +82,7 @@ export const CardCreate = ({ deckId, onCreated }: CardCreateProps) => {
                 <FormControl>
                   <PhraseInput
                     disabled={field.disabled}
+                    ref={editorRef}
                     onBlur={field.onBlur}
                     defaultValue={field.value}
                     onChange={field.onChange}
@@ -84,16 +92,7 @@ export const CardCreate = ({ deckId, onCreated }: CardCreateProps) => {
                         Add card
                       </div>
                     }
-                    onEnter={(event) => {
-                      if (event?.target instanceof Element) {
-                        event.target
-                          .closest('form')
-                          ?.querySelector<HTMLElement>(
-                            'button[type=submit], input[type=submit]',
-                          )
-                          ?.click()
-                      }
-                    }}
+                    onEnter={handleEnter}
                   />
                 </FormControl>
                 <FormMessage />
