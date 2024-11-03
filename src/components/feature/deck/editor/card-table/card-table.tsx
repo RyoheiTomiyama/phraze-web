@@ -82,8 +82,14 @@ export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
                   <TableCell className="align-top">
                     <QuestionViewer value={card.question} />
                   </TableCell>
-                  <TableCell className="hidden md:table-cell">
-                    <AnswerViewer value={card.answer || card.aiAnswer} />
+                  <TableCell className="hidden md:table-cell align-top">
+                    {card.answer || card.aiAnswer ? (
+                      <AnswerViewer value={card.answer || card.aiAnswer} />
+                    ) : (
+                      <p className="text-muted-foreground">
+                        AIが解答生成中です。リロードしてください。
+                      </p>
+                    )}
                   </TableCell>
                   <TableCell className="align-top">
                     {card.schedule
