@@ -34,6 +34,7 @@ import {
 } from '@/components/common/editor/node'
 import { formatDateTime } from '@/lib/date-util'
 import { CardTablePagination } from './card-table-pagination'
+import { CardTableMenu } from './card-table-menu'
 
 type CardTableProps = {
   cards: CardOnCardTableFragment[]
@@ -97,9 +98,7 @@ export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
                       : 'now'}
                   </TableCell>
                   <TableCell className="align-middle text-right">
-                    <Button variant="ghost" size="icon">
-                      <EllipsisVertical className="w-5 h-5" />
-                    </Button>
+                    <CardTableMenu cardId={card.id} />
                   </TableCell>
                 </TableRow>
               )
