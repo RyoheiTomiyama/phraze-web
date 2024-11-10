@@ -12,6 +12,7 @@ type CardTableMenuProps = {
 }
 
 export const CardTableMenu = ({ cardId }: CardTableMenuProps) => {
+  // TODO Delete dialog
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
