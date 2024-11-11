@@ -1,0 +1,5 @@
+mutation DeleteCardOnCardTableMenu($input: DeleteCardInput!) {
+  deleteCard(input: $input) {
+    affectedRows
+  }
+}
