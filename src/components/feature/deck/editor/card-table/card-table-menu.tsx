@@ -42,7 +42,7 @@ export const CardTableMenu = ({ cardId }: CardTableMenuProps) => {
 
   return (
     <>
-      <DropdownMenu modal={false}>
+      <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="icon">
             <EllipsisVertical className="w-5 h-5" />

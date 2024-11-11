@@ -20,7 +20,7 @@ import {
   CardOnCardTableFragment,
   PageInfoOnCardTableFragment,
 } from './card-table.generated'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import {
   $convertFromMarkdownString,
   BOLD_STAR,
@@ -35,6 +35,7 @@ import {
 import { formatDateTime } from '@/lib/date-util'
 import { CardTablePagination } from './card-table-pagination'
 import { CardTableMenu } from './card-table-menu'
+import { CardTableEditDrawer } from './card-table-edit-drawer'
 
 type CardTableProps = {
   cards: CardOnCardTableFragment[]
@@ -47,6 +48,22 @@ type CardTableProps = {
 }
 
 export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
+  const [selectedCardId, setSelectedCardId] = useState<number>()
+
+  const handleEditCard = useCallback((id: number) => {
+    return () => {
+      setSelectedCardId(id)
+    }
+  }, [])
+
+  const handleOpenChange = useCallback((open: boolean) => {
+    if (open) {
+      return
+    }
+
+    setSelectedCardId(undefined)
+  }, [])
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center">
@@ -79,7 +96,7 @@ export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
           <TableBody>
             {cards.map((card) => {
               return (
-                <TableRow key={card.id}>
+                <TableRow key={card.id} onClick={handleEditCard(card.id)}>
                   <TableCell className="align-top">
                     <QuestionViewer value={card.question} />
                   </TableCell>
@@ -106,6 +123,11 @@ export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
           </TableBody>
         </Table>
         <CardTablePagination deckId={deckId} {...pageInfo} />
+        <CardTableEditDrawer
+          cardId={selectedCardId}
+          open={!!selectedCardId}
+          onOpenChange={handleOpenChange}
+        />
       </CardContent>
     </Card>
   )

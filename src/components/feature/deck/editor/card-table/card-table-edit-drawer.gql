@@ -1,0 +1,11 @@
+fragment CardOnCardTableEditDrawer on Card {
+  id
+}
+
+query GetCardOnCardTableEditDrawer($id: ID!) {
+  card(id: $id) {
+    id
+    createdAt
+    ...CardOnCardForm
+  }
+}
