@@ -12,7 +12,10 @@ type ConfirmDialogProps = {
   loading?: boolean
   onSubmit?: () => void
 }
-export const ConfirmDialog = ({ loading, onSubmit }: ConfirmDialogProps) => {
+export const DeleteCardConfirmDialog = ({
+  loading,
+  onSubmit,
+}: ConfirmDialogProps) => {
   return (
     <DialogContent>
       <DialogHeader>
