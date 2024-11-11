@@ -4,6 +4,8 @@ import { Trash2 } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import { useDeleteCardOnCardDeleteButtonMutation } from './card-delete-button.generated'
 import { DeleteCardConfirmDialog } from '@/components/feature/card'
+import { parseGQLError } from '@/lib/gql'
+import { toast } from 'sonner'
 
 type CardDeleteButtonProps = {
   cardId: number
@@ -16,7 +18,7 @@ export const CardDeleteButton = ({ cardId, onBack }: CardDeleteButtonProps) => {
 
   const handleSubmit = useCallback(async () => {
     setLoading(true)
-    await deleteCard(
+    const { error } = await deleteCard(
       {
         input: {
           id: cardId,
@@ -24,8 +26,16 @@ export const CardDeleteButton = ({ cardId, onBack }: CardDeleteButtonProps) => {
       },
       { additionalTypenames: ['Card'] },
     )
-    setLoading(false)
-    setOpen(false)
+
+    if (error) {
+      const e = parseGQLError(error)
+      toast.error(e.message)
+      setLoading(false)
+    } else {
+      setLoading(false)
+      setOpen(false)
+      toast.success('Card has been deleted')
+    }
 
     onBack?.()
   }, [cardId, deleteCard, onBack])
