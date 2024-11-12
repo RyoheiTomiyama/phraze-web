@@ -120,9 +120,22 @@ export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
                 </TableRow>
               )
             })}
+            {!cards.length && (
+              <TableRow>
+                <TableCell colSpan={3}>
+                  <p className="text-sm text-center text-primary/40">
+                    カードが一つも登録されていません。
+                    <br />
+                    学習カードを作成しましょう。
+                  </p>
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
-        <CardTablePagination deckId={deckId} {...pageInfo} />
+        {pageInfo.totalCount > pageInfo.limit && (
+          <CardTablePagination deckId={deckId} {...pageInfo} />
+        )}
         <CardTableEditDrawer
           cardId={selectedCardId}
           open={!!selectedCardId}
