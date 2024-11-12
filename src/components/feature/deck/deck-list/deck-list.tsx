@@ -20,7 +20,7 @@ export const DeckList = ({ decks, loading = false }: DeckListProps) => {
             <DeckItem
               key={deck.id}
               name={deck.name}
-              editLink={pagesPath.deck._id(deck.id).edit.$url()}
+              editLink={pagesPath.deck._id(deck.id).admin.$url()}
               pendingCount={deck.deckInfo.pendingCardCount}
               totalCount={deck.deckInfo.totalCardCount}
               schduleAt={
