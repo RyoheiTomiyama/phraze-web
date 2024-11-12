@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+// import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -14,8 +14,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { Plus } from 'lucide-react'
-import Link from 'next/link'
+// import { Plus } from 'lucide-react'
+// import Link from 'next/link'
 import {
   CardOnCardTableFragment,
   PageInfoOnCardTableFragment,
@@ -73,12 +73,12 @@ export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
           Manage your products and view their sales performance.
         </CardDescription> */}
         </div>
-        <Button asChild variant="outline" size="sm" className="gap-2">
+        {/* <Button asChild variant="outline" size="sm" className="gap-2">
           <Link href="#">
             <Plus className="w-4" />
             新規追加
           </Link>
-        </Button>
+        </Button> */}
       </CardHeader>
       <CardContent>
         <Table>
@@ -88,7 +88,7 @@ export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
               <TableHead className="w-[800px] hidden md:table-cell">
                 Answer
               </TableHead>
-              <TableHead className="w-[230px] min-w-[230px]" colSpan={2}>
+              <TableHead className="w-[230px] min-w-[186px]" colSpan={2}>
                 Next schedule
               </TableHead>
             </TableRow>
