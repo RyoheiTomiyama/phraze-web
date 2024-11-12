@@ -64,8 +64,8 @@ export const CardTableEditDrawer = ({
   )
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent>
-        <div className="container">
+      <DrawerContent className="max-h-[90dvh]">
+        <div className="container overflow-auto">
           {!fetching && !!data?.card && cardId === data.card.id && (
             <CardForm card={data.card} key={data.card.id}>
               <CardEditAction
