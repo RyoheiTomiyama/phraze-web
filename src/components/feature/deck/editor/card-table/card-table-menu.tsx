@@ -43,7 +43,7 @@ export const CardTableMenu = ({ cardId, onEdit }: CardTableMenuProps) => {
 
   return (
     <>
-      <DropdownMenu modal={true}>
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="icon">
             <EllipsisVertical className="w-5 h-5" />
