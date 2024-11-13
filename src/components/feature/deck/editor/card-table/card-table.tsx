@@ -115,7 +115,13 @@ export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
                       : 'now'}
                   </TableCell>
                   <TableCell className="align-middle text-right">
-                    <CardTableMenu cardId={card.id} />
+                    <span
+                      onClick={(e) => {
+                        e.stopPropagation()
+                      }}
+                    >
+                      <CardTableMenu cardId={card.id} />
+                    </span>
                   </TableCell>
                 </TableRow>
               )
