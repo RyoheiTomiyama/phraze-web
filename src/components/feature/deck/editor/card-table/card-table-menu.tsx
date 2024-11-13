@@ -15,9 +15,10 @@ import { parseGQLError } from '@/lib/gql'
 
 type CardTableMenuProps = {
   cardId: number
+  onEdit: (cardId: number) => void
 }
 
-export const CardTableMenu = ({ cardId }: CardTableMenuProps) => {
+export const CardTableMenu = ({ cardId, onEdit }: CardTableMenuProps) => {
   const [openDelete, setOpenDelete] = useState(false)
   const [{ fetching }, deleteCard] = useDeleteCardOnCardTableMenuMutation()
 
@@ -42,14 +43,20 @@ export const CardTableMenu = ({ cardId }: CardTableMenuProps) => {
 
   return (
     <>
-      <DropdownMenu>
+      <DropdownMenu modal={true}>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="icon">
             <EllipsisVertical className="w-5 h-5" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem>Edit</DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => {
+              return onEdit(cardId)
+            }}
+          >
+            Edit
+          </DropdownMenuItem>
           <DropdownMenuItem
             className="text-destructive focus:text-destructive"
             onClick={() => {

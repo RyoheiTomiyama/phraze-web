@@ -120,7 +120,10 @@ export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
                         e.stopPropagation()
                       }}
                     >
-                      <CardTableMenu cardId={card.id} />
+                      <CardTableMenu
+                        cardId={card.id}
+                        onEdit={handleEditCard(card.id)}
+                      />
                     </span>
                   </TableCell>
                 </TableRow>
