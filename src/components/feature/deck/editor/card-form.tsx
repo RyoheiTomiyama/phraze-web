@@ -6,7 +6,7 @@ import { DevTool } from '@/components/common/form'
 import { CardOnCardFormFragment } from './card-form.generated'
 
 type CardFormProps = {
-  card: CardOnCardFormFragment
+  card: CardOnCardFormFragment | undefined
 }
 
 export const CardForm = ({
@@ -15,8 +15,8 @@ export const CardForm = ({
 }: PropsWithChildren<CardFormProps>) => {
   const form = useForm(cardEditSchema, {
     values: {
-      question: card.question,
-      answer: card.answer || card.aiAnswer,
+      question: card?.question,
+      answer: card?.answer || card?.aiAnswer,
     },
   })
 

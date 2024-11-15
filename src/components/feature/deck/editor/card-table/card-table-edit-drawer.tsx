@@ -1,5 +1,5 @@
 import { Drawer, DrawerContent } from '@/components/ui/drawer'
-import React, { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { CardForm } from '../card-form'
 import { CardEditAction } from '../card-edit-action'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -10,6 +10,7 @@ import {
 } from './card-table-edit-drawer.generated'
 import useSWR from 'swr'
 import { add } from '@/lib/date-util'
+import { useFormContext } from '@/hook/useForm'
 
 type CardTableEditDrawerProps = {
   cardId: CardOnCardTableEditDrawerFragment['id'] | undefined
@@ -62,24 +63,66 @@ export const CardTableEditDrawer = ({
     },
     { refreshInterval: 1000 },
   )
+
   return (
-    <Drawer open={open} onOpenChange={onOpenChange}>
+    <CardForm card={data?.card} key={data?.card.id}>
+      <CardTableEditDrawerInner
+        cardId={cardId}
+        fetching={fetching}
+        loadingAnswer={shouldPolling}
+        open={open}
+        onOpenChange={onOpenChange}
+      />
+    </CardForm>
+  )
+}
+
+type CardTableEditDrawerInnerProps = {
+  cardId: number | undefined
+  fetching?: boolean
+  loadingAnswer?: boolean
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+}
+const CardTableEditDrawerInner = ({
+  cardId,
+  fetching,
+  loadingAnswer,
+  open,
+  onOpenChange,
+}: CardTableEditDrawerInnerProps) => {
+  const { formState, reset } = useFormContext()
+
+  const handleOpenChange = useCallback(
+    (op: boolean) => {
+      if (op === false && op !== open && formState.isDirty) {
+        if (confirm('hoge')) {
+          onOpenChange?.(op)
+          reset()
+        }
+      } else {
+        onOpenChange?.(op)
+      }
+    },
+    [formState.isDirty, onOpenChange, open, reset],
+  )
+
+  return (
+    <Drawer open={open} onOpenChange={handleOpenChange}>
       <DrawerContent className="max-h-[90dvh]">
-        <div className="container overflow-auto">
-          {!fetching && !!data?.card && cardId === data.card.id && (
-            <CardForm card={data.card} key={data.card.id}>
-              <CardEditAction
-                cardId={data.card.id}
-                onBack={() => {
-                  onOpenChange?.(false)
-                }}
-              />
-              <ScrollArea className="h-full flex-auto">
-                <CardEdit cardId={data.card.id} loadingAnswer={shouldPolling} />
-              </ScrollArea>
-            </CardForm>
-          )}
-        </div>
+        {!fetching && !!cardId && (
+          <div className="container overflow-auto">
+            <CardEditAction
+              cardId={cardId}
+              onBack={() => {
+                onOpenChange?.(false)
+              }}
+            />
+            <ScrollArea className="h-full flex-auto">
+              <CardEdit cardId={cardId} loadingAnswer={loadingAnswer} />
+            </ScrollArea>
+          </div>
+        )}
       </DrawerContent>
     </Drawer>
   )
