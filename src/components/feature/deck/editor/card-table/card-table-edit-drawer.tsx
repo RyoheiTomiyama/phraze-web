@@ -1,5 +1,5 @@
 import { Drawer, DrawerContent } from '@/components/ui/drawer'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { CardForm } from '../card-form'
 import { CardEditAction } from '../card-edit-action'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -11,6 +11,7 @@ import {
 import useSWR from 'swr'
 import { add } from '@/lib/date-util'
 import { useFormContext } from '@/hook/useForm'
+import { ConfirmDialog } from '@/components/common/dialog'
 
 type CardTableEditDrawerProps = {
   cardId: CardOnCardTableEditDrawerFragment['id'] | undefined
@@ -92,20 +93,28 @@ const CardTableEditDrawerInner = ({
   onOpenChange,
 }: CardTableEditDrawerInnerProps) => {
   const { formState, reset } = useFormContext()
+  const [openConfirm, setOpenConfirm] = useState(false)
 
   const handleOpenChange = useCallback(
     (op: boolean) => {
       if (op === false && op !== open && formState.isDirty) {
-        if (confirm('hoge')) {
-          onOpenChange?.(op)
-          reset()
-        }
+        setOpenConfirm(true)
       } else {
         onOpenChange?.(op)
       }
     },
-    [formState.isDirty, onOpenChange, open, reset],
+    [formState.isDirty, onOpenChange, open],
   )
+
+  const handleOk = useCallback(() => {
+    setOpenConfirm(false)
+    reset()
+    onOpenChange?.(false)
+  }, [onOpenChange, reset])
+
+  const handleCancel = useCallback(() => {
+    setOpenConfirm(false)
+  }, [])
 
   return (
     <Drawer open={open} onOpenChange={handleOpenChange}>
@@ -124,6 +133,13 @@ const CardTableEditDrawerInner = ({
           </div>
         )}
       </DrawerContent>
+      <ConfirmDialog
+        open={openConfirm}
+        title={'カード編集画面を閉じます'}
+        description={'編集した内容が失われますが、よろしいですか？'}
+        onCancel={handleCancel}
+        onOk={handleOk}
+      />
     </Drawer>
   )
 }
