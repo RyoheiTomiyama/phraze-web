@@ -25,7 +25,7 @@ export const ConfirmDialog = ({
   onOk,
 }: ConfirmDialogProps) => {
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onOpenChange={onCancel}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
