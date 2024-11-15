@@ -1,4 +1,3 @@
-import { DialogProvider } from '@/components/common/dialog'
 import { MediaQueryProvider } from '@/components/common/media-query'
 import { FaviconMeta } from '@/components/common/meta'
 import { ThemeProvider } from '@/components/common/theme'
@@ -16,9 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <MediaQueryProvider>
           <AuthProvider>
             <GraphProvider>
-              <DialogProvider>
-                <Component {...pageProps} />
-              </DialogProvider>
+              <Component {...pageProps} />
               <Toaster />
             </GraphProvider>
           </AuthProvider>
