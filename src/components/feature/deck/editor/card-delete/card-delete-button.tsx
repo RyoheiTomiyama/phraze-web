@@ -2,8 +2,10 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
 import { Trash2 } from 'lucide-react'
 import { useCallback, useState } from 'react'
-import { ConfirmDialog } from './confirm-dialog'
 import { useDeleteCardOnCardDeleteButtonMutation } from './card-delete-button.generated'
+import { DeleteCardConfirmDialog } from '@/components/feature/card'
+import { parseGQLError } from '@/lib/gql'
+import { toast } from 'sonner'
 
 type CardDeleteButtonProps = {
   cardId: number
@@ -16,7 +18,7 @@ export const CardDeleteButton = ({ cardId, onBack }: CardDeleteButtonProps) => {
 
   const handleSubmit = useCallback(async () => {
     setLoading(true)
-    await deleteCard(
+    const { error } = await deleteCard(
       {
         input: {
           id: cardId,
@@ -24,8 +26,16 @@ export const CardDeleteButton = ({ cardId, onBack }: CardDeleteButtonProps) => {
       },
       { additionalTypenames: ['Card'] },
     )
-    setLoading(false)
-    setOpen(false)
+
+    if (error) {
+      const e = parseGQLError(error)
+      toast.error(e.message)
+      setLoading(false)
+    } else {
+      setLoading(false)
+      setOpen(false)
+      toast.success('Card has been deleted')
+    }
 
     onBack?.()
   }, [cardId, deleteCard, onBack])
@@ -37,7 +47,7 @@ export const CardDeleteButton = ({ cardId, onBack }: CardDeleteButtonProps) => {
           <Trash2 className="w-4 h-4 text-secondary-foreground group-hover:text-destructive" />
         </Button>
       </DialogTrigger>
-      <ConfirmDialog loading={loading} onSubmit={handleSubmit} />
+      <DeleteCardConfirmDialog loading={loading} onSubmit={handleSubmit} />
     </Dialog>
   )
 }

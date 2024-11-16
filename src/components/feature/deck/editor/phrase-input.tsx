@@ -21,6 +21,7 @@ import {
   BOLD_STAR,
   BOLD_UNDERSCORE,
 } from '@lexical/markdown'
+import { EditorRefPlugin } from '@lexical/react/LexicalEditorRefPlugin'
 
 // 必要なものを渡す
 // onChange: (...event: any[]) => void;
@@ -32,14 +33,28 @@ import {
 type PhraseInputProps = {
   defaultValue?: string // markdown string
   disabled?: boolean
+  placeholder?:
+    | ((isEditable: boolean) => null | JSX.Element)
+    | null
+    | JSX.Element
   onBlur?: () => void
   onChange?: (mdString: string) => void
+  onClear?: () => void
+  onEnter?: (event: KeyboardEvent | null) => void
 }
 
-export const PhraseInput = forwardRef<HTMLDivElement, PhraseInputProps>(
+export const PhraseInput = forwardRef<LexicalEditor, PhraseInputProps>(
   function PhraseInput(
-    { defaultValue = '', disabled, onBlur, onChange },
-    _ref,
+    {
+      defaultValue = '',
+      disabled,
+      placeholder,
+      onBlur,
+      onChange,
+      onClear,
+      onEnter,
+    },
+    ref,
   ) {
     const editorState = useCallback(() => {
       $convertFromMarkdownString(defaultValue, [BOLD_STAR, BOLD_UNDERSCORE])
@@ -54,6 +69,9 @@ export const PhraseInput = forwardRef<HTMLDivElement, PhraseInputProps>(
     )
 
     const plugins = [
+      ...(ref
+        ? [<EditorRefPlugin key="EditorRefPlugin" editorRef={ref} />]
+        : []),
       <ToolbarPlugin key="ToolbarPlugin" />,
       <OnChangePlugin
         key="OnChangePlugin"
@@ -64,12 +82,15 @@ export const PhraseInput = forwardRef<HTMLDivElement, PhraseInputProps>(
 
     return (
       <InputEditor
-        onBlue={onBlur}
+        onBlur={onBlur}
+        onClear={onClear}
+        onEnter={onEnter}
         defaultEditorState={editorState}
         disabled={disabled}
         className="min-h-10 h-auto py-[7px]"
         namespace="phrase"
         plugins={plugins}
+        placeholder={placeholder}
       />
     )
   },

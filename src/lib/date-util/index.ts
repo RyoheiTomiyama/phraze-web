@@ -1,1 +1,1 @@
-export { add } from './date-fns'
+export { add, formatDateTime } from './date-fns'

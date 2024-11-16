@@ -1,4 +1,5 @@
 import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin'
+import { ClearEditorPlugin } from '@lexical/react/LexicalClearEditorPlugin'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary'
 import { EditorBase, EditorBaseProps } from './editor-base'
@@ -9,19 +10,25 @@ import { cn } from '@/lib/utils'
 type InputEditorProps = EditorBaseProps & {
   className?: string
   disabled?: boolean
-  onBlue?: () => void
+  onBlur?: () => void
+  onClear?: () => void
+  onEnter?: (evnet: KeyboardEvent | null) => void
 }
 
 export function InputEditor({
   className,
   disabled,
-  onBlue,
+  placeholder,
   plugins,
+  onBlur,
+  onClear,
+  onEnter,
   ...props
 }: InputEditorProps) {
   const editorBasePlugins = [
-    <NoLineBreakPlugin key="NoLineBreakPlugin" />,
+    <NoLineBreakPlugin key="NoLineBreakPlugin" onEnter={onEnter} />,
     <DisabledPlugin key="DisabledPlugin" disabled={disabled} />,
+    <ClearEditorPlugin key="ClearEditorPlugin" onClear={onClear} />,
     ...(plugins ?? []),
   ]
 
@@ -41,10 +48,10 @@ export function InputEditor({
           contentEditable={
             <ContentEditable
               className="w-full focus-visible:outline-none"
-              onBlur={onBlue}
+              onBlur={onBlur}
             />
           }
-          placeholder={<></>}
+          placeholder={placeholder || <></>}
           ErrorBoundary={LexicalErrorBoundary}
         />
       </div>

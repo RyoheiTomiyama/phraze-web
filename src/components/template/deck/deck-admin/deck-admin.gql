@@ -1,0 +1,11 @@
+query CardsOnDeckAdmin($input: CardsInput!) {
+  cards(input: $input) {
+    cards {
+      id
+      ...CardOnCardTable
+    }
+    pageInfo {
+      ...PageInfoOnCardTable
+    }
+  }
+}
