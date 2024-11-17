@@ -1,10 +1,10 @@
 import { DeckLayout, DeckQuiz, DeckQuizEmpty } from '@/components/feature/deck'
-import { Heading } from '@/components/ui/heading'
 import { useRouter } from 'next/router'
 import { useDeckShowQuery } from './deck-show.generated'
 import { useEffect } from 'react'
 import { parseGQLError, ResponseError } from '@/lib/gql'
 import { pagesPath } from '@/lib/pathpida/$path'
+import { LearningOptionProvider } from '@/components/feature/setting'
 
 type DeckShowProps = {
   deckId?: number
@@ -36,18 +36,20 @@ export const DeckShow = ({ deckId }: DeckShowProps) => {
   }
 
   return (
-    <DeckLayout>
-      {/* <header className="container">
+    <LearningOptionProvider>
+      <DeckLayout>
+        {/* <header className="container">
         <Heading variant="h1">{router.asPath.toUpperCase()}</Heading>
       </header> */}
-      <main className="container flex flex-col flex-1 px-4">
-        {data?.cards.pageInfo.totalCount === 0 && (
-          <DeckQuizEmpty deckId={data.deck.id} />
-        )}
-        {data?.cards.pageInfo.totalCount > 0 && (
-          <DeckQuiz cards={data.pendingCards.cards || []} deck={data.deck} />
-        )}
-      </main>
-    </DeckLayout>
+        <main className="container flex flex-col flex-1 px-4">
+          {data?.cards.pageInfo.totalCount === 0 && (
+            <DeckQuizEmpty deckId={data.deck.id} />
+          )}
+          {data?.cards.pageInfo.totalCount > 0 && (
+            <DeckQuiz cards={data.pendingCards.cards || []} deck={data.deck} />
+          )}
+        </main>
+      </DeckLayout>
+    </LearningOptionProvider>
   )
 }
