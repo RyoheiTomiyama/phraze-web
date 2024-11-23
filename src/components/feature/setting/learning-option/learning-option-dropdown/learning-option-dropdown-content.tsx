@@ -7,13 +7,13 @@ import { CircleHelp } from 'lucide-react'
 export const LearningOptionDropdownContent = () => {
   return (
     <DropdownMenuContent>
-      <label className="flex flex-row items-center gap-2 px-2 py-1.5 text-sm">
-        <div className="flex flex-row items-center gap-2">
+      <div className="flex flex-row items-center gap-2 px-2 py-1.5 text-sm">
+        <label className="flex flex-row items-center gap-2">
           <Switch />
           {learningOptions.voiceOnly.name}
-        </div>
+        </label>
         <CircleHelp className="w-4 h-4" />
-      </label>
+      </div>
       <label className="flex flex-row items-center gap-2 px-2 py-1.5 text-sm">
         <Switch />
         {learningOptions.autoPlay.name}
