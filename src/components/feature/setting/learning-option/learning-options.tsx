@@ -13,7 +13,7 @@ export const learningOptions = {
   },
   autoPlay: {
     name: '自動再生',
-    description: '問題文が表示されたら自動で音声読み上げを行います。',
+    description: '問題が表示されたら自動で音声読み上げを行います。',
   },
 } as const satisfies {
   [key in LEARNING_OPTION]: {
