@@ -1,10 +1,16 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { toast } from 'sonner'
 
 export const useTextToSpeech = () => {
+  const stateRef = useRef({
+    stopped: true,
+  })
+
   useEffect(() => {
     return () => {
-      speechSynthesis.cancel()
+      if (!stateRef.current.stopped) {
+        speechSynthesis.cancel()
+      }
     }
   }, [])
 
@@ -20,6 +26,19 @@ export const useTextToSpeech = () => {
 
     const utter = new SpeechSynthesisUtterance(words)
     utter.lang = 'en-US'
+    stateRef.current = {
+      stopped: true,
+    }
+    utter.onstart = () => {
+      stateRef.current = { ...stateRef.current, stopped: false }
+    }
+    utter.onend = () => {
+      stateRef.current = { ...stateRef.current, stopped: true }
+    }
+    utter.onerror = () => {
+      stateRef.current = { ...stateRef.current, stopped: true }
+    }
+
     speechSynthesis.speak(utter)
   }, [])
 
