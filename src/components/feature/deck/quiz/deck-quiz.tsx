@@ -11,6 +11,8 @@ import { QuizAction } from './quiz-action'
 import { parseGQLError } from '@/lib/gql'
 import { toast } from 'sonner'
 import { DeckQuizCompleted } from './deck-quiz-completed'
+import { useLearningOption } from '@/components/feature/setting'
+import { useTextToSpeech } from '@/hook/useTextToSpeech'
 
 type DeckQuizProps = HTMLAttributes<HTMLDivElement> & {
   cards: CardOnDeckQuizFragment[]
@@ -26,6 +28,10 @@ export const DeckQuiz = ({
   const [current, setCurrent] = useState(0)
   const [show, setShow] = useState(false)
   const [, reviewCard] = useReviewCardOnDeckQuizMutation()
+  const autoPlay = useLearningOption((state) => {
+    return state.autoPlay
+  })
+  const { speak } = useTextToSpeech()
 
   const card = useMemo(() => {
     return cards[current]
@@ -34,6 +40,21 @@ export const DeckQuiz = ({
   const handleShowAnswer = useCallback(() => {
     setShow(true)
   }, [])
+
+  // 自動再生
+  const handleChange = useCallback(
+    (current: number) => {
+      if (!autoPlay) {
+        return
+      }
+      if (!cards[current]) {
+        return
+      }
+
+      speak(cards[current].question)
+    },
+    [autoPlay, cards, speak],
+  )
 
   const handleResponse = useCallback(
     async (grade: number) => {
@@ -48,12 +69,14 @@ export const DeckQuiz = ({
         }
 
         setCurrent((c) => {
-          return c + 1
+          const next = c + 1
+          handleChange(next)
+          return next
         })
         setShow(false)
       }
     },
-    [card, reviewCard],
+    [card, handleChange, reviewCard],
   )
 
   return (
