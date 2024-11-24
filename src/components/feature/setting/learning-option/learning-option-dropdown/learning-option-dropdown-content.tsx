@@ -1,5 +1,5 @@
 import { DropdownMenuContent } from '@/components/ui/dropdown-menu'
-import React from 'react'
+import { useCallback } from 'react'
 import { learningOptions } from '../learning-options'
 import { Switch } from '@/components/ui/switch'
 import { CircleHelp } from 'lucide-react'
@@ -8,13 +8,36 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
+import { useLearningOption } from '@/components/feature/setting'
 
 export const LearningOptionDropdownContent = () => {
+  const { autoPlay, setAutoPlay, voiceOnly, setVoiceOnly } = useLearningOption(
+    (state) => {
+      return state
+    },
+  )
+
+  const handleChangeAutoPlay = useCallback(
+    (checked: boolean) => {
+      setAutoPlay(checked)
+    },
+    [setAutoPlay],
+  )
+  const handleChangeVoiceOnly = useCallback(
+    (checked: boolean) => {
+      setVoiceOnly(checked)
+    },
+    [setVoiceOnly],
+  )
+
   return (
     <DropdownMenuContent>
       <div className="flex flex-row items-center justify-between gap-2 px-2 py-1.5 text-sm">
         <label className="flex flex-row items-center gap-2">
-          <Switch />
+          <Switch
+            defaultChecked={voiceOnly}
+            onCheckedChange={handleChangeVoiceOnly}
+          />
           {learningOptions.voiceOnly.name}
         </label>
         <Popover>
@@ -28,7 +51,10 @@ export const LearningOptionDropdownContent = () => {
       </div>
       <div className="flex flex-row items-center justify-between gap-2 px-2 py-1.5 text-sm">
         <label className="flex flex-row items-center gap-2">
-          <Switch />
+          <Switch
+            defaultChecked={autoPlay}
+            onCheckedChange={handleChangeAutoPlay}
+          />
           {learningOptions.autoPlay.name}
         </label>
         <Popover>
