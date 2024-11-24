@@ -1,9 +1,14 @@
 import { Appbar } from '@/components/common/layout'
 import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import { pagesPath } from '@/lib/pathpida/$path'
-import { ChevronLeft, X } from 'lucide-react'
+import { ChevronLeft, Settings2, X } from 'lucide-react'
 import { useRouter } from 'next/router'
 import { PropsWithChildren, useCallback } from 'react'
+import { LearningOptionDropdownContent } from '../../setting'
 
 export const DeckLayout = ({ children }: PropsWithChildren) => {
   const router = useRouter()
@@ -28,14 +33,24 @@ export const DeckLayout = ({ children }: PropsWithChildren) => {
           <ChevronLeft className="w-6" />
         </Button>
 
-        <Button
-          variant="ghost"
-          size="icon"
-          className="-mr-3"
-          onClick={handleClose}
-        >
-          <X className="w-6" />
-        </Button>
+        <div className="flex flex-row">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" onClick={handleClose}>
+                <Settings2 className="w-6" />
+              </Button>
+            </DropdownMenuTrigger>
+            <LearningOptionDropdownContent />
+          </DropdownMenu>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="-mr-3"
+            onClick={handleClose}
+          >
+            <X className="w-6" />
+          </Button>
+        </div>
       </Appbar>
       <div className="flex-auto flex flex-col gap-4 py-4">{children}</div>
     </div>

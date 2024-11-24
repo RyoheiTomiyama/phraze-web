@@ -1,36 +1,29 @@
 import { InputViewer } from '@/components/common/editor'
+import { useTextToSpeech } from '@/hook/useTextToSpeech'
+import { cn } from '@/lib/utils'
 import {
   $convertFromMarkdownString,
   BOLD_STAR,
   BOLD_UNDERSCORE,
 } from '@lexical/markdown'
 import { Volume2 } from 'lucide-react'
-import { useCallback, useEffect } from 'react'
+import { useCallback } from 'react'
 
 type QuestionViewerProps = {
   /** markdown string */
   value: string
+  show?: boolean
 }
-export const QuestionViewer = ({ value }: QuestionViewerProps) => {
+export const QuestionViewer = ({ value, show = true }: QuestionViewerProps) => {
   const editorState = useCallback(() => {
     $convertFromMarkdownString(value, [BOLD_STAR, BOLD_UNDERSCORE])
   }, [value])
 
-  useEffect(() => {
-    return () => {
-      speechSynthesis.cancel()
-    }
-  }, [])
+  const { speak } = useTextToSpeech()
 
   const pronouceWords = useCallback(() => {
-    if (speechSynthesis.speaking) {
-      return
-    }
-
-    const utter = new SpeechSynthesisUtterance(value)
-    utter.lang = 'en-US'
-    speechSynthesis.speak(utter)
-  }, [value])
+    speak(value)
+  }, [speak, value])
 
   return (
     <div onClick={pronouceWords}>
@@ -38,7 +31,7 @@ export const QuestionViewer = ({ value }: QuestionViewerProps) => {
       <InputViewer
         defaultEditorState={editorState}
         namespace="phrase"
-        className="[font-size:1.2em]"
+        className={cn('[font-size:1.2em]', show ? 'blur-0' : 'blur-md')}
       />
     </div>
   )
