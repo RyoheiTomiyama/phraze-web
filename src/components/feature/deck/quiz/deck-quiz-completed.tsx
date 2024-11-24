@@ -34,7 +34,7 @@ export const DeckQuizCompleted = ({
           <Link href={pagesPath.dashboard.$url()}>Back to Dashboard</Link>
         </Button>
         <Button className="mt-2 text-muted-foreground" asChild variant="link">
-          <Link href={pagesPath.deck._id(deckId).edit.$url()}>Edit Deck</Link>
+          <Link href={pagesPath.deck._id(deckId).admin.$url()}>Edit Deck</Link>
         </Button>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { ComponentProps } from 'react'
 import { DeckOnDeckQuizEmptyFragment } from './deck-quiz-empty.generated'
+import { pagesPath } from '@/lib/pathpida/$path'
 
 type DeckQuizEmptyProps = {
   deckId: DeckOnDeckQuizEmptyFragment['id']
@@ -31,7 +32,7 @@ export const DeckQuizEmpty = ({
         <span>学習カードを作成しましょう。</span>
       </p>
       <Button className="mt-4" asChild>
-        <Link href={`/deck/${deckId}/edit`}>Create Card</Link>
+        <Link href={pagesPath.deck._id(deckId).admin.$url()}>Create Card</Link>
       </Button>
     </Card>
   )
