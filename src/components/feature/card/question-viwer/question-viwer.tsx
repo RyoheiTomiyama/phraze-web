@@ -1,4 +1,5 @@
 import { InputViewer } from '@/components/common/editor'
+import { cn } from '@/lib/utils'
 import {
   $convertFromMarkdownString,
   BOLD_STAR,
@@ -10,8 +11,9 @@ import { useCallback, useEffect } from 'react'
 type QuestionViewerProps = {
   /** markdown string */
   value: string
+  show?: boolean
 }
-export const QuestionViewer = ({ value }: QuestionViewerProps) => {
+export const QuestionViewer = ({ value, show = true }: QuestionViewerProps) => {
   const editorState = useCallback(() => {
     $convertFromMarkdownString(value, [BOLD_STAR, BOLD_UNDERSCORE])
   }, [value])
@@ -38,7 +40,7 @@ export const QuestionViewer = ({ value }: QuestionViewerProps) => {
       <InputViewer
         defaultEditorState={editorState}
         namespace="phrase"
-        className="[font-size:1.2em]"
+        className={cn('[font-size:1.2em]', show ? 'blur-0' : 'blur-md')}
       />
     </div>
   )

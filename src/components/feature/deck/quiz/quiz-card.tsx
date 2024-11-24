@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils'
 import { CardOnQuizCardFragment } from './quiz-card.generated'
 import { Separator } from '@/components/ui/separator'
 import { AnswerViewer, QuestionViewer } from '@/components/feature/card'
+import { useLearningOption } from '../../setting'
 
 type QuizCardProps = {
   card: CardOnQuizCardFragment
@@ -9,6 +10,9 @@ type QuizCardProps = {
   show: boolean
 }
 export const QuizCard = ({ card, className, show }: QuizCardProps) => {
+  const voiceOnly = useLearningOption(({ voiceOnly }) => {
+    return voiceOnly
+  })
   return (
     <div
       className={cn(
@@ -17,7 +21,7 @@ export const QuizCard = ({ card, className, show }: QuizCardProps) => {
         className,
       )}
     >
-      <QuestionViewer value={card.question} />
+      <QuestionViewer value={card.question} show={!voiceOnly || show} />
       <Separator />
       <AnswerViewer value={card.answer || card.aiAnswer} show={show} />
       <span
