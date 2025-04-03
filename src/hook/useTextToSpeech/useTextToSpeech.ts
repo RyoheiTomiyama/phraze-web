@@ -1,7 +1,13 @@
+import { logger } from '@/lib/logger'
+import { speak, Voice } from '@/lib/webSpeech'
 import { useCallback, useEffect, useRef } from 'react'
 import { toast } from 'sonner'
 
-export const useTextToSpeech = () => {
+type UseTextToSpeechArgs = {
+  voice?: Voice
+}
+
+export const useTextToSpeech = ({ voice }: UseTextToSpeechArgs) => {
   const stateRef = useRef({
     stopped: true,
   })
@@ -14,33 +20,36 @@ export const useTextToSpeech = () => {
     }
   }, [])
 
-  const speak = useCallback((words: string) => {
-    if (!('speechSynthesis' in window)) {
-      toast.warning('このブラウザは音声合成に対応していません。')
-      return
-    }
+  const speakFn = useCallback(
+    (words: string) => {
+      try {
+        stateRef.current = {
+          stopped: true,
+        }
+        speak({
+          text: words,
+          voice,
+          onStart: () => {
+            stateRef.current = { ...stateRef.current, stopped: false }
+          },
+          onEnd: () => {
+            stateRef.current = { ...stateRef.current, stopped: true }
+          },
+          onError: () => {
+            stateRef.current = { ...stateRef.current, stopped: true }
+          },
+        })
+      } catch (error) {
+        if (error instanceof Error) {
+          logger.warn(error.message)
+          toast.warning('このブラウザは音声合成に対応していません。')
+        } else {
+          logger.error(error)
+        }
+      }
+    },
+    [voice],
+  )
 
-    if (speechSynthesis.speaking) {
-      speechSynthesis.cancel()
-    }
-
-    const utter = new SpeechSynthesisUtterance(words)
-    utter.lang = 'en-US'
-    stateRef.current = {
-      stopped: true,
-    }
-    utter.onstart = () => {
-      stateRef.current = { ...stateRef.current, stopped: false }
-    }
-    utter.onend = () => {
-      stateRef.current = { ...stateRef.current, stopped: true }
-    }
-    utter.onerror = () => {
-      stateRef.current = { ...stateRef.current, stopped: true }
-    }
-
-    speechSynthesis.speak(utter)
-  }, [])
-
-  return { speak }
+  return { speak: speakFn }
 }
