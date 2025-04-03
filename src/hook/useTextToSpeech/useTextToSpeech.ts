@@ -3,11 +3,13 @@ import { speak, Voice } from '@/lib/webSpeech'
 import { useCallback, useEffect, useRef } from 'react'
 import { toast } from 'sonner'
 
-type UseTextToSpeechArgs = {
-  voice?: Voice
-}
+type UseTextToSpeechArgs =
+  | {
+      voice?: Voice
+    }
+  | undefined
 
-export const useTextToSpeech = ({ voice }: UseTextToSpeechArgs) => {
+export const useTextToSpeech = ({ voice }: UseTextToSpeechArgs = {}) => {
   const stateRef = useRef({
     stopped: true,
   })
