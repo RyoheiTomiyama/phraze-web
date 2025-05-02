@@ -1,3 +1,3 @@
 export { speak } from './speak'
-export { getVoices } from './voice'
+export { getVoices, onVoicesChanged } from './voice'
 export type { Voice } from './types'
