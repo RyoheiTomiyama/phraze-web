@@ -17,6 +17,7 @@ const config = {
     'no-unused-vars': 'off',
     'no-var': 'error',
     'prefer-template': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
     '@typescript-eslint/no-unused-vars': [
       'warn',
       {
