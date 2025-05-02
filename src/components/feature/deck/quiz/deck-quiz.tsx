@@ -31,7 +31,10 @@ export const DeckQuiz = ({
   const autoPlay = useLearningOption((state) => {
     return state.autoPlay
   })
-  const { speak } = useTextToSpeech()
+  const voice = useLearningOption((state) => {
+    return state.voice
+  })
+  const { speak } = useTextToSpeech({ voice })
 
   const card = useMemo(() => {
     return cards[current]
@@ -51,7 +54,7 @@ export const DeckQuiz = ({
         return
       }
 
-      speak(cards[current].question)
+      speak(cards[current].question.replaceAll('*', ''))
     },
     [autoPlay, cards, speak],
   )
