@@ -51,15 +51,18 @@ export const LearningOptionDropdownVoice = () => {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
+          size="sm"
           variant="outline"
           role="combobox"
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
-          {currentVoice
-            ? `${getFlagEmoji(currentVoice.lang)} ${currentVoice.name}`
-            : '音声を選択してください...'}
-          <ChevronsUpDown className="opacity-50" />
+          <p className="flex-auto overflow-hidden text-ellipsis">
+            {currentVoice
+              ? `${getFlagEmoji(currentVoice.lang)} ${currentVoice.name}`
+              : '音声を選択してください...'}
+          </p>
+          <ChevronsUpDown className="h-4 w-4 flex-[0_0_auto] opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0 pointer-events-auto">
