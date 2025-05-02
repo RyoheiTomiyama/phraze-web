@@ -22,6 +22,14 @@ const createLearningOption = () => {
               voiceOnly: bool,
             })
           },
+          // 音声設定
+          voice: undefined,
+          setVoice: (v) => {
+            return set({
+              ...get(),
+              voice: v,
+            })
+          },
         }
       },
       {
