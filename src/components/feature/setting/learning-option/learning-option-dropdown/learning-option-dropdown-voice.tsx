@@ -17,6 +17,7 @@ import { getVoices, onVoicesChanged, Voice } from '@/lib/webSpeech'
 import { ChevronsUpDown, Check } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import { useLearningOption } from '@/components/feature/setting'
+import { useTextToSpeech } from '@/hook/useTextToSpeech'
 
 export const LearningOptionDropdownVoice = () => {
   const [voices, setVoices] = useState(sortVoices(getVoices()))
@@ -25,6 +26,8 @@ export const LearningOptionDropdownVoice = () => {
   const { voice: currentVoice, setVoice } = useLearningOption((state) => {
     return state
   })
+
+  const { speak } = useTextToSpeech({ voice: currentVoice })
 
   useEffect(() => {
     onVoicesChanged((voices) => {
@@ -41,10 +44,12 @@ export const LearningOptionDropdownVoice = () => {
           return v.voiceURI === value
         })
         setVoice(selected)
+        if (selected) {
+          speak('This is a sample voice.', selected)
+        }
       }
-      setOpen(false)
     },
-    [currentVoice?.voiceURI, setVoice, voices],
+    [currentVoice?.voiceURI, setVoice, speak, voices],
   )
 
   return (
@@ -57,7 +62,7 @@ export const LearningOptionDropdownVoice = () => {
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
-          <p className="flex-auto overflow-hidden text-ellipsis">
+          <p className="flex-auto overflow-hidden text-ellipsis text-left">
             {currentVoice
               ? `${getFlagEmoji(currentVoice.lang)} ${currentVoice.name}`
               : '音声を選択してください...'}

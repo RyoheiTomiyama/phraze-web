@@ -3,6 +3,11 @@ import { speak, Voice } from '@/lib/webSpeech'
 import { useCallback, useEffect, useRef } from 'react'
 import { toast } from 'sonner'
 
+type SpeakFn = {
+  (words: string): void
+  (words: string, voice: Voice): void
+}
+
 type UseTextToSpeechArgs =
   | {
       voice?: Voice
@@ -22,15 +27,15 @@ export const useTextToSpeech = ({ voice }: UseTextToSpeechArgs = {}) => {
     }
   }, [])
 
-  const speakFn = useCallback(
-    (words: string) => {
+  const speakFn = useCallback<SpeakFn>(
+    (words: string, overwriteVoice?: Voice) => {
       try {
         stateRef.current = {
           stopped: true,
         }
         speak({
           text: words,
-          voice,
+          voice: overwriteVoice || voice,
           onStart: () => {
             stateRef.current = { ...stateRef.current, stopped: false }
           },
