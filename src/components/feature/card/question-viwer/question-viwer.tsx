@@ -1,4 +1,5 @@
 import { InputViewer } from '@/components/common/editor'
+import { useLearningOption } from '@/components/feature/setting'
 import { useTextToSpeech } from '@/hook/useTextToSpeech'
 import { cn } from '@/lib/utils'
 import {
@@ -19,10 +20,14 @@ export const QuestionViewer = ({ value, show = true }: QuestionViewerProps) => {
     $convertFromMarkdownString(value, [BOLD_STAR, BOLD_UNDERSCORE])
   }, [value])
 
-  const { speak } = useTextToSpeech()
+  const voiceURI = useLearningOption((state) => {
+    return state.voiceURI
+  })
+
+  const { speak } = useTextToSpeech({ voiceURI })
 
   const pronouceWords = useCallback(() => {
-    speak(value)
+    speak(value.replaceAll('*', ''))
   }, [speak, value])
 
   return (

@@ -1,3 +1,4 @@
+import { Voice } from '@/lib/webSpeech'
 import { LEARNING_OPTION } from './learning-options'
 
 export type LearningOptionState = {
@@ -5,4 +6,8 @@ export type LearningOptionState = {
 } & {
   setAutoPlay: (bool: boolean) => void
   setVoiceOnly: (bool: boolean) => void
+} & {
+  // 音声設定
+  voiceURI?: string
+  setVoice: (v: Voice | undefined) => void
 }
