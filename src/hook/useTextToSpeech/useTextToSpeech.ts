@@ -1,6 +1,6 @@
 import { logger } from '@/lib/logger'
-import { speak, Voice } from '@/lib/webSpeech'
-import { useCallback, useEffect, useRef } from 'react'
+import { getVoices, onVoicesChanged, speak, Voice } from '@/lib/webSpeech'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
 type SpeakFn = {
@@ -10,11 +10,12 @@ type SpeakFn = {
 
 type UseTextToSpeechArgs =
   | {
-      voice?: Voice
+      voiceURI?: string
     }
   | undefined
 
-export const useTextToSpeech = ({ voice }: UseTextToSpeechArgs = {}) => {
+export const useTextToSpeech = ({ voiceURI }: UseTextToSpeechArgs = {}) => {
+  const [voices, setVoices] = useState(getVoices())
   const stateRef = useRef({
     stopped: true,
   })
@@ -26,6 +27,18 @@ export const useTextToSpeech = ({ voice }: UseTextToSpeechArgs = {}) => {
       }
     }
   }, [])
+
+  useEffect(() => {
+    return onVoicesChanged((voices) => {
+      setVoices(voices)
+    })
+  }, [])
+
+  const voice = useMemo(() => {
+    return voices.find((v) => {
+      return v.voiceURI === voiceURI
+    })
+  }, [voiceURI, voices])
 
   const speakFn = useCallback<SpeakFn>(
     (words: string, overwriteVoice?: Voice) => {
@@ -58,5 +71,5 @@ export const useTextToSpeech = ({ voice }: UseTextToSpeechArgs = {}) => {
     [voice],
   )
 
-  return { speak: speakFn }
+  return { speak: speakFn, voice }
 }

@@ -23,11 +23,11 @@ const createLearningOption = () => {
             })
           },
           // 音声設定
-          voice: undefined,
+          voiceURI: undefined,
           setVoice: (v) => {
             return set({
               ...get(),
-              voice: v,
+              voiceURI: v?.voiceURI,
             })
           },
         }
@@ -39,6 +39,7 @@ const createLearningOption = () => {
           return {
             autoPlay: state.autoPlay,
             voiceOnly: state.voiceOnly,
+            voiceURI: state.voiceURI,
           }
         },
       },

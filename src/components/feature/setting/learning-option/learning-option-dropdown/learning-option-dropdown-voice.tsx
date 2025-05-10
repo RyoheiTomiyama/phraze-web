@@ -23,14 +23,14 @@ export const LearningOptionDropdownVoice = () => {
   const [voices, setVoices] = useState(sortVoices(getVoices()))
   const [open, setOpen] = useState(false)
 
-  const { voice: currentVoice, setVoice } = useLearningOption((state) => {
+  const { voiceURI, setVoice } = useLearningOption((state) => {
     return state
   })
 
-  const { speak } = useTextToSpeech({ voice: currentVoice })
+  const { speak, voice: currentVoice } = useTextToSpeech({ voiceURI })
 
   useEffect(() => {
-    onVoicesChanged((voices) => {
+    return onVoicesChanged((voices) => {
       setVoices(sortVoices(voices))
     })
   }, [])

@@ -31,10 +31,10 @@ export const DeckQuiz = ({
   const autoPlay = useLearningOption((state) => {
     return state.autoPlay
   })
-  const voice = useLearningOption((state) => {
-    return state.voice
+  const voiceURI = useLearningOption((state) => {
+    return state.voiceURI
   })
-  const { speak } = useTextToSpeech({ voice })
+  const { speak } = useTextToSpeech({ voiceURI })
 
   const card = useMemo(() => {
     return cards[current]

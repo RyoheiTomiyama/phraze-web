@@ -10,8 +10,17 @@ export const getVoices = (): Voice[] => {
   })
 }
 
+/** Web Speech APIでは、タイミングによって使える音声が変化するので、検知する関数を用意する
+ * hooks内で使う場合は、returnでイベントを破棄すること。
+ */
 export const onVoicesChanged = (cb: (voices: Voice[]) => void) => {
-  speechSynthesis.onvoiceschanged = (_event) => {
+  const listener = (_event: Event) => {
     cb(getVoices())
+  }
+
+  speechSynthesis.addEventListener('voiceschanged', listener)
+
+  return () => {
+    speechSynthesis.removeEventListener('voiceschanged', listener)
   }
 }

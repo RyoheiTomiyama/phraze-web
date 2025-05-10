@@ -8,6 +8,6 @@ export type LearningOptionState = {
   setVoiceOnly: (bool: boolean) => void
 } & {
   // 音声設定
-  voice?: Voice
+  voiceURI?: string
   setVoice: (v: Voice | undefined) => void
 }

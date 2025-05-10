@@ -20,10 +20,11 @@ export const QuestionViewer = ({ value, show = true }: QuestionViewerProps) => {
     $convertFromMarkdownString(value, [BOLD_STAR, BOLD_UNDERSCORE])
   }, [value])
 
-  const voice = useLearningOption((state) => {
-    return state.voice
+  const voiceURI = useLearningOption((state) => {
+    return state.voiceURI
   })
-  const { speak } = useTextToSpeech({ voice })
+
+  const { speak } = useTextToSpeech({ voiceURI })
 
   const pronouceWords = useCallback(() => {
     speak(value.replaceAll('*', ''))
