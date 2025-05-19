@@ -1,11 +1,4 @@
-// import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  //   CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Table,
   TableBody,
@@ -14,8 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-// import { Plus } from 'lucide-react'
-// import Link from 'next/link'
 import {
   CardOnCardTableFragment,
   PageInfoOnCardTableFragment,
@@ -36,6 +27,7 @@ import { formatDateTime } from '@/lib/date-util'
 import { CardTablePagination } from './card-table-pagination'
 import { CardTableMenu } from './card-table-menu'
 import { CardTableEditDrawer } from './card-table-edit-drawer'
+import { CardTableSearchForm } from './card-table-search-form'
 
 type CardTableProps = {
   cards: CardOnCardTableFragment[]
@@ -66,19 +58,13 @@ export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
 
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center">
-        <div className="flex-1 grid gap-2">
+      <CardHeader className="flex flex-row items-center gap-8">
+        <div className="flex-0 grid gap-2">
           <CardTitle>Cards</CardTitle>
-          {/* <CardDescription>
-          Manage your products and view their sales performance.
-        </CardDescription> */}
         </div>
-        {/* <Button asChild variant="outline" size="sm" className="gap-2">
-          <Link href="#">
-            <Plus className="w-4" />
-            新規追加
-          </Link>
-        </Button> */}
+        <div className="flex flex-1">
+          <CardTableSearchForm />
+        </div>
       </CardHeader>
       <CardContent>
         <Table>
