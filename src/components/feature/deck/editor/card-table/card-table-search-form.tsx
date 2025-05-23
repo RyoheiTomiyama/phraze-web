@@ -13,9 +13,14 @@ import {
 } from './card-table-search-form-schema'
 import { useCallback } from 'react'
 import { SubmitHandler } from 'react-hook-form'
-import { logger } from '@/lib/logger'
 
-export const CardTableSearchForm = () => {
+type CardTableSearchFormProps = {
+  onSubmit: (q?: string) => void
+}
+
+export const CardTableSearchForm: React.FC<CardTableSearchFormProps> = ({
+  onSubmit,
+}) => {
   const form = useForm(cardTableSearchFormSchema, {
     defaultValues: {
       q: '',
@@ -24,10 +29,12 @@ export const CardTableSearchForm = () => {
 
   const handleSubmit = useCallback<
     SubmitHandler<CardTableSearchFormSchemaOutput>
-  >(async (data) => {
-    // TODO: on submit
-    logger.debug('handleSubmit', data)
-  }, [])
+  >(
+    async (data) => {
+      onSubmit(data.q || undefined)
+    },
+    [onSubmit],
+  )
 
   return (
     <Form {...form}>
