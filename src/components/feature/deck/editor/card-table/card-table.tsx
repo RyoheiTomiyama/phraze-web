@@ -39,9 +39,10 @@ type CardTableProps = {
     offset: number
     totalCount: PageInfoOnCardTableFragment['totalCount']
   }
+  q?: string
 }
 
-export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
+export const CardTable = ({ cards, deckId, pageInfo, q }: CardTableProps) => {
   const router = useRouter()
   const [selectedCardId, setSelectedCardId] = useState<number>()
 
@@ -74,7 +75,7 @@ export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
           <CardTitle>Cards</CardTitle>
         </div>
         <div className="flex flex-1">
-          <CardTableSearchForm onSubmit={handleSubmitSearch} />
+          <CardTableSearchForm defaultValue={q} onSubmit={handleSubmitSearch} />
         </div>
       </CardHeader>
       <CardContent>

@@ -55,6 +55,7 @@ export const DeckAdmin = ({ deckId, limit, offset, q }: DeckAdminProps) => {
             offset,
             totalCount: data?.cards.pageInfo.totalCount || 0,
           }}
+          q={q}
         />
       </div>
     </DefaultLayout>

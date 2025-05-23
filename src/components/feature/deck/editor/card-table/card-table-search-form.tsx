@@ -15,15 +15,17 @@ import { useCallback } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 
 type CardTableSearchFormProps = {
+  defaultValue?: string
   onSubmit: (q?: string) => void
 }
 
 export const CardTableSearchForm: React.FC<CardTableSearchFormProps> = ({
+  defaultValue,
   onSubmit,
 }) => {
   const form = useForm(cardTableSearchFormSchema, {
     defaultValues: {
-      q: '',
+      q: defaultValue ?? '',
     },
   })
 
