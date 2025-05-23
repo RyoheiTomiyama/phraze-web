@@ -1,11 +1,4 @@
-// import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  //   CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Table,
   TableBody,
@@ -14,8 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-// import { Plus } from 'lucide-react'
-// import Link from 'next/link'
 import {
   CardOnCardTableFragment,
   PageInfoOnCardTableFragment,
@@ -36,6 +27,9 @@ import { formatDateTime } from '@/lib/date-util'
 import { CardTablePagination } from './card-table-pagination'
 import { CardTableMenu } from './card-table-menu'
 import { CardTableEditDrawer } from './card-table-edit-drawer'
+import { CardTableSearchForm } from './card-table-search-form'
+import { useRouter } from 'next/router'
+import { pagesPath } from '@/lib/pathpida/$path'
 
 type CardTableProps = {
   cards: CardOnCardTableFragment[]
@@ -45,9 +39,11 @@ type CardTableProps = {
     offset: number
     totalCount: PageInfoOnCardTableFragment['totalCount']
   }
+  q?: string
 }
 
-export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
+export const CardTable = ({ cards, deckId, pageInfo, q }: CardTableProps) => {
+  const router = useRouter()
   const [selectedCardId, setSelectedCardId] = useState<number>()
 
   const handleEditCard = useCallback((id: number) => {
@@ -64,21 +60,23 @@ export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
     setSelectedCardId(undefined)
   }, [])
 
+  const handleSubmitSearch = useCallback(
+    (q?: string) => {
+      const query = q ? { q } : {}
+      router.push(pagesPath.deck._id(deckId).admin.$url({ query }))
+    },
+    [deckId, router],
+  )
+
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center">
-        <div className="flex-1 grid gap-2">
+      <CardHeader className="flex flex-row items-center gap-8">
+        <div className="flex-0 grid gap-2">
           <CardTitle>Cards</CardTitle>
-          {/* <CardDescription>
-          Manage your products and view their sales performance.
-        </CardDescription> */}
         </div>
-        {/* <Button asChild variant="outline" size="sm" className="gap-2">
-          <Link href="#">
-            <Plus className="w-4" />
-            新規追加
-          </Link>
-        </Button> */}
+        <div className="flex flex-1">
+          <CardTableSearchForm defaultValue={q} onSubmit={handleSubmitSearch} />
+        </div>
       </CardHeader>
       <CardContent>
         <Table>
@@ -143,7 +141,7 @@ export const CardTable = ({ cards, deckId, pageInfo }: CardTableProps) => {
           </TableBody>
         </Table>
         {pageInfo.totalCount > pageInfo.limit && (
-          <CardTablePagination deckId={deckId} {...pageInfo} />
+          <CardTablePagination deckId={deckId} {...pageInfo} q={q} />
         )}
         <CardTableEditDrawer
           cardId={selectedCardId}

@@ -10,6 +10,7 @@ type DeckAdminProps = {
   deckId: number
   limit: number
   offset: number
+  q?: string
 }
 
 // contextが静的でないと、無限ループになる
@@ -20,13 +21,13 @@ const cardsContext = {
   additionalTypenames: ['Card'],
 }
 
-export const DeckAdmin = ({ deckId, limit, offset }: DeckAdminProps) => {
+export const DeckAdmin = ({ deckId, limit, offset, q }: DeckAdminProps) => {
   const router = useRouter()
 
   const [{ data, fetching, error }] = useCardsOnDeckAdminQuery({
     pause: !deckId,
     variables: {
-      input: { where: { deckId }, limit, offset },
+      input: { where: { deckId, q }, limit, offset },
     },
     context: cardsContext,
   })
@@ -54,6 +55,7 @@ export const DeckAdmin = ({ deckId, limit, offset }: DeckAdminProps) => {
             offset,
             totalCount: data?.cards.pageInfo.totalCount || 0,
           }}
+          q={q}
         />
       </div>
     </DefaultLayout>

@@ -16,6 +16,7 @@ type CardTablePaginationProps = {
   limit: number
   offset: number
   totalCount: PageInfoOnCardTablePaginationFragment['totalCount']
+  q?: string
 }
 
 export const CardTablePagination = ({
@@ -23,6 +24,7 @@ export const CardTablePagination = ({
   limit = 1,
   offset = 0,
   totalCount = 10,
+  q,
 }: CardTablePaginationProps) => {
   const scrollAreaRef = useRef<HTMLDivElement>(null)
 
@@ -58,9 +60,11 @@ export const CardTablePagination = ({
       const nextPage = Math.min(Math.max(0, page), pageCount)
       return pagesPath.deck
         ._id(deckId)
-        .admin.$url({ query: { limit, offset: limit * nextPage } })
+        .admin.$url({
+          query: { limit, offset: limit * nextPage, q: q || undefined },
+        })
     },
-    [deckId, limit, pageCount],
+    [deckId, limit, pageCount, q],
   )
 
   return (
