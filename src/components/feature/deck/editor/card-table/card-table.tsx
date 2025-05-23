@@ -141,7 +141,7 @@ export const CardTable = ({ cards, deckId, pageInfo, q }: CardTableProps) => {
           </TableBody>
         </Table>
         {pageInfo.totalCount > pageInfo.limit && (
-          <CardTablePagination deckId={deckId} {...pageInfo} />
+          <CardTablePagination deckId={deckId} {...pageInfo} q={q} />
         )}
         <CardTableEditDrawer
           cardId={selectedCardId}
