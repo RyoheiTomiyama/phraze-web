@@ -4,9 +4,10 @@ import { DeckList } from '@/components/feature/deck/deck-list'
 
 export const Dashboard = () => {
   // TODO Sentry
-  const [{ data, fetching, error }] = useDecksOnDashboardQuery({
+  const [{ data, fetching, error: _error }] = useDecksOnDashboardQuery({
     requestPolicy: 'cache-and-network',
   })
+
   return (
     <DefaultLayout title="Dashboard">
       <DeckList decks={data?.decks.decks || []} loading={fetching} />
