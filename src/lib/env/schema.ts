@@ -9,7 +9,6 @@ export const clientSchema = z.object({
     .enum(['development', 'production', 'test'])
     .default(process.env.NODE_ENV),
   NEXT_PUBLIC_GRAPH_API_URL: z
-    .string()
     .url()
     .default(
       process.env.NEXT_PUBLIC_GRAPH_API_URL || 'http://localhost:8080/query',
