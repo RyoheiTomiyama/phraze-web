@@ -94,13 +94,13 @@ const main = () => {
   if (watchMode) {
     // eslint-disable-next-line no-console
     console.log('run watch mode...')
-  }
 
-  watchMode
-    ? watch(() => {
-        return generate()
-      })
-    : generate()
+    watch(() => {
+      generate()
+    })
+  } else {
+    generate()
+  }
 }
 
 main()
