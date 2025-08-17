@@ -6929,7 +6929,7 @@ language-tags@^1.0.9:
   dependencies:
     language-subtag-registry "^0.3.20"
 
-ldrs@^1.0.2:
+ldrs@^1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/ldrs/-/ldrs-1.1.7.tgz#1288d6c4f1fa1193e1805839c434dbb66807b4b4"
   integrity sha512-rZnfveeY1SeS3F3ifUVd9AVGTFHmQ0qzp5fuszAirnrVkjqJBLrm99vtr/Mxbby4XgadUYv+DsFqyk2p4FV40Q==
