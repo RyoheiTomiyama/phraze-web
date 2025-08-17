@@ -178,7 +178,7 @@ const AnswerViewer = (props: AnswerViewerProps) => {
       defaultEditorState={editorState}
       nodes={[HeadingNode, ListNode, ListItemNode]}
       namespace="answer"
-      className="[&_br]:hidden [&_*]:inline line-clamp-3"
+      className="[&_br]:hidden **:inline line-clamp-3"
     />
   )
 }

@@ -58,11 +58,9 @@ export const CardTablePagination = ({
   const genLink = useCallback(
     (page: number) => {
       const nextPage = Math.min(Math.max(0, page), pageCount)
-      return pagesPath.deck
-        ._id(deckId)
-        .admin.$url({
-          query: { limit, offset: limit * nextPage, q: q || undefined },
-        })
+      return pagesPath.deck._id(deckId).admin.$url({
+        query: { limit, offset: limit * nextPage, q: q || undefined },
+      })
     },
     [deckId, limit, pageCount, q],
   )
@@ -91,7 +89,7 @@ export const CardTablePagination = ({
                   return (
                     <PaginationItem key={index}>
                       <Button
-                        variant={index === page ? 'outline' : 'ghost'}
+                        variant={index === page ? 'outline-solid' : 'ghost'}
                         asChild
                       >
                         <Link href={genLink(index)}>{index + 1}</Link>

@@ -92,7 +92,7 @@ export const DeckQuiz = ({
           totalCount={cards.length}
           count={Math.min(current + 1, cards.length)}
         />
-        <div className="flex-auto flex flex-col gap-6 w-full max-w-screen-md mx-auto pb-6">
+        <div className="flex-auto flex flex-col gap-6 w-full max-w-(--breakpoint-md) mx-auto pb-6">
           {card ? (
             <>
               <QuizCard

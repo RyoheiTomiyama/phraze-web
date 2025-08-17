@@ -49,7 +49,7 @@ export const QuizAction = ({
       className={cn(
         `
       flex flex-row-reverse justify-center gap-2 min-w-32 p-1 rounded-full
-      bg-black bg-opacity-30 self-center backdrop-blur-sm
+      bg-black bg-opacity-30 self-center backdrop-blur-xs
       `,
         className,
       )}
