@@ -171,10 +171,6 @@
 @layer base {
   * {
     @apply border-border;
-
-    word-break: 'keep-all';
-    overflow-wrap: 'anywhere';
-    line-break: 'anywhere';
   }
   body {
     @apply bg-background text-foreground;
