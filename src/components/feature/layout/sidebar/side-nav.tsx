@@ -37,7 +37,7 @@ const NavItem = ({ variant }: { variant: keyof typeof layoutConfig }) => {
     <Link
       href={{ pathname: variant }}
       className={cn(
-        'group flex h-8 w-8 items-center justify-center rounded-full transition-colors',
+        'group flex size-8 items-center justify-center rounded-full transition-colors',
         active
           ? 'bg-primary text-primary-foreground'
           : 'text-muted-foreground transition-colors hover:text-foreground',
@@ -45,7 +45,7 @@ const NavItem = ({ variant }: { variant: keyof typeof layoutConfig }) => {
     >
       <Icon
         className={cn(
-          active ? 'h-4 w-4 transition-all group-hover:scale-110' : 'h-5 w-5',
+          active ? 'size-4 transition-all group-hover:scale-110' : 'size-5',
         )}
       />
       <span className="sr-only">{name}</span>
@@ -67,7 +67,7 @@ const NavAccount = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <CircleUser className="h-7 w-7" />
+        <CircleUser className="size-7" />
         <span className="sr-only">Settings</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" side="right" align="end">

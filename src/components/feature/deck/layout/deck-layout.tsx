@@ -30,14 +30,14 @@ export const DeckLayout = ({ children }: PropsWithChildren) => {
           className="-ml-3"
           onClick={handleBack}
         >
-          <ChevronLeft className="w-6" />
+          <ChevronLeft className="size-5" />
         </Button>
 
         <div className="flex flex-row">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" onClick={handleClose}>
-                <Settings2 className="w-6" />
+                <Settings2 className="size-5" />
               </Button>
             </DropdownMenuTrigger>
             <LearningOptionDropdownContent />
@@ -48,7 +48,7 @@ export const DeckLayout = ({ children }: PropsWithChildren) => {
             className="-mr-3"
             onClick={handleClose}
           >
-            <X className="w-6" />
+            <X className="size-5" />
           </Button>
         </div>
       </Appbar>

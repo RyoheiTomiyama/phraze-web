@@ -59,7 +59,7 @@ export const QuizAction = ({
         size="lg"
         onClick={handleResponse(5)}
       >
-        <Laugh className="w-5" />
+        <Laugh className="size-5" />
         Easy
       </Button>
       <Button
@@ -68,7 +68,7 @@ export const QuizAction = ({
         variant="secondary"
         onClick={handleResponse(3)}
       >
-        <Meh className="w-5" />
+        <Meh className="size-5" />
         Unsure
       </Button>
       <Button
@@ -77,7 +77,7 @@ export const QuizAction = ({
         size="lg"
         onClick={handleResponse(1)}
       >
-        <Frown className="w-5" />
+        <Frown className="size-5" />
         Again
       </Button>
     </div>
