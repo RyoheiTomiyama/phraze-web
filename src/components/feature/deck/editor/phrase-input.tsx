@@ -34,9 +34,9 @@ type PhraseInputProps = {
   defaultValue?: string // markdown string
   disabled?: boolean
   placeholder?:
-    | ((isEditable: boolean) => null | JSX.Element)
+    | ((isEditable: boolean) => null | React.JSX.Element)
     | null
-    | JSX.Element
+    | React.JSX.Element
   onBlur?: () => void
   onChange?: (mdString: string) => void
   onClear?: () => void

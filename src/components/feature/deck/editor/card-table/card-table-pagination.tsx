@@ -58,11 +58,9 @@ export const CardTablePagination = ({
   const genLink = useCallback(
     (page: number) => {
       const nextPage = Math.min(Math.max(0, page), pageCount)
-      return pagesPath.deck
-        ._id(deckId)
-        .admin.$url({
-          query: { limit, offset: limit * nextPage, q: q || undefined },
-        })
+      return pagesPath.deck._id(deckId).admin.$url({
+        query: { limit, offset: limit * nextPage, q: q || undefined },
+      })
     },
     [deckId, limit, pageCount, q],
   )

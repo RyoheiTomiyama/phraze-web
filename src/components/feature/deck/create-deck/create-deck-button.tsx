@@ -55,7 +55,7 @@ export const CreateDeckButton = () => {
       <Form {...form}>
         <DialogTrigger asChild>
           <Button variant="outline" size="sm" className="gap-2">
-            <Plus className="w-4" />
+            <Plus className="size-4" />
             新規作成
           </Button>
         </DialogTrigger>

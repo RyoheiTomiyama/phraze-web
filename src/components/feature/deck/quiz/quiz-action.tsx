@@ -49,7 +49,7 @@ export const QuizAction = ({
       className={cn(
         `
       flex flex-row-reverse justify-center gap-2 min-w-32 p-1 rounded-full
-      bg-black bg-opacity-30 self-center backdrop-blur-sm
+      bg-black bg-opacity-30 self-center backdrop-blur-xs
       `,
         className,
       )}
@@ -59,7 +59,7 @@ export const QuizAction = ({
         size="lg"
         onClick={handleResponse(5)}
       >
-        <Laugh className="w-5" />
+        <Laugh className="size-5" />
         Easy
       </Button>
       <Button
@@ -68,7 +68,7 @@ export const QuizAction = ({
         variant="secondary"
         onClick={handleResponse(3)}
       >
-        <Meh className="w-5" />
+        <Meh className="size-5" />
         Unsure
       </Button>
       <Button
@@ -77,7 +77,7 @@ export const QuizAction = ({
         size="lg"
         onClick={handleResponse(1)}
       >
-        <Frown className="w-5" />
+        <Frown className="size-5" />
         Again
       </Button>
     </div>

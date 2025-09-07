@@ -11,9 +11,9 @@ export type ViewerBaseProps = {
   namespace?: InitialConfigType['namespace']
   nodes?: InitialConfigType['nodes']
   placeholder?:
-    | ((isEditable: boolean) => null | JSX.Element)
+    | ((isEditable: boolean) => null | React.JSX.Element)
     | null
-    | JSX.Element
+    | React.JSX.Element
   plugins?: ReactElement[]
   theme?: InitialConfigType['theme']
 }

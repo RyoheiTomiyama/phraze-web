@@ -36,7 +36,7 @@ export const QuestionViewer = ({ value, show = true }: QuestionViewerProps) => {
       <InputViewer
         defaultEditorState={editorState}
         namespace="phrase"
-        className={cn('[font-size:1.2em]', show ? 'blur-0' : 'blur-md')}
+        className={cn('text-[1.2em]', show ? 'blur-0' : 'blur-md')}
       />
     </div>
   )

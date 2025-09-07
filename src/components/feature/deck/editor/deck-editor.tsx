@@ -125,7 +125,7 @@ export const DeckEditor = ({
         defaultSize={30}
         minSize={10}
         data-selected={!!cardId}
-        className="data-[selected=true]:hidden data-[selected=true]:sm:flex"
+        className="data-[selected=true]:hidden sm:data-[selected=true]:flex"
       >
         <Card className="flex flex-col border-none h-full w-full">
           <CardHeader>
@@ -166,7 +166,7 @@ export const DeckEditor = ({
       <ResizablePanel
         defaultSize={70}
         minSize={50}
-        className="flex flex-col data-[selected=false]:hidden data-[selected=false]:sm:flex"
+        className="flex flex-col data-[selected=false]:hidden sm:data-[selected=false]:flex"
         data-selected={!!cardId}
       >
         {!fetching && !!data?.card && cardId === data.card.id && (

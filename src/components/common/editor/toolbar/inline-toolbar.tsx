@@ -19,7 +19,7 @@ export const InlineToolbar = ({ children }: PropsWithChildren) => {
         data-state={open ? 'open' : 'closed'}
         data-side={side}
         className={`
-            rounded-md border bg-popover text-popover-foreground shadow-md outline-none 
+            rounded-md border bg-popover text-popover-foreground shadow-md outline-hidden 
             transition
             data-[state=open]:opacity-100 data-[state=open]:translate-x-0 data-[state=open]:translate-y-0
             data-[state=closed]:opacity-0 

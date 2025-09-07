@@ -16,7 +16,7 @@ export const LayoutWithSidebar = ({
     >
       <aside
         className="
-        fixed left-0 z-10 backdrop-blur-sm bg-background/50 sm:bg-background
+        fixed left-0 z-10 backdrop-blur-xs bg-background/50 sm:bg-background
         flex flex-row inset-x-0 h-11
         sm:flex-col sm:inset-y-0 sm:w-14 sm:h-auto sm:border-r sm:border-b-0
         "

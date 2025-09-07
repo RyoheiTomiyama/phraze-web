@@ -58,15 +58,15 @@ export const Editor = ({
         className={cn(
           `flex h-10 w-full rounded-md border border-input bg-background 
       px-3 py-2 text-sm ring-offset-background 
-      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
-      data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50`,
+      focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
+      data-disabled:cursor-not-allowed data-disabled:opacity-50`,
           className,
         )}
       >
         <RichTextPlugin
           contentEditable={
             <ContentEditable
-              className="w-full leading-6 focus-visible:outline-none "
+              className="w-full leading-6 focus-visible:outline-hidden "
               onBlur={onBlue}
             />
           }

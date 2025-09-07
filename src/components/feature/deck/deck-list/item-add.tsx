@@ -4,9 +4,12 @@ import { CreateDeckButton } from '../create-deck'
 
 export const ItemAdd = () => {
   return (
-    <Card className="border-dashed flex flex-col items-center justify-center">
+    <Card className="border-dashed">
       <CardHeader>
-        <Heading variant="h3" className="text-2xl font-bold tracking-tight">
+        <Heading
+          variant="h3"
+          className="text-center text-2xl font-bold tracking-tight"
+        >
           Add new deck
         </Heading>
       </CardHeader>

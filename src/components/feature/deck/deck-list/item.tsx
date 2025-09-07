@@ -39,10 +39,10 @@ export const DeckItem = ({
             asChild
             size="xs"
             variant="ghost"
-            className="w-6 h-6 p-0 text-muted-foreground"
+            className="size-6 p-0 text-muted-foreground"
           >
             <Link href={editLink}>
-              <Pencil className="w-4 h-4" />
+              <Pencil className="size-4" />
             </Link>
           </Button>
         </div>
@@ -77,11 +77,11 @@ export const DeckItem = ({
           >
             <Button
               size="sm"
-              className="rounded-full gap-1"
+              className="rounded-full gap-1 cursor-pointer"
               disabled={pendingCount <= 0}
             >
               Start Now
-              <ArrowRight className="w-4" />
+              <ArrowRight className="size-4" />
             </Button>
           </Link>
         </div>

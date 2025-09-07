@@ -53,7 +53,7 @@ const learningOptionContext = createContext<LearningOptionContext | undefined>(
 )
 
 export const LearningOptionProvider = ({ children }: PropsWithChildren) => {
-  const ref = useRef<LearningOptionContext>()
+  const ref = useRef<LearningOptionContext>(null)
   if (!ref.current) {
     ref.current = createLearningOption()
   }

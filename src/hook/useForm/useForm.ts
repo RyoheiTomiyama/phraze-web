@@ -3,22 +3,29 @@ import {
   useForm as useReactHookForm,
   UseFormProps,
   useFormContext as useReactFormContext,
+  FieldValues,
 } from 'react-hook-form'
-import { Schema, z } from 'zod'
+import { z, ZodType } from 'zod'
 
-type Input<T extends Schema> = z.input<T>
-type Output<T extends Schema> = z.output<T>
+type Input<T extends ZodType<FieldValues, FieldValues>> = z.input<T>
+type Output<T extends ZodType<FieldValues, FieldValues>> = z.output<T>
 
-export const useForm = <T extends Schema, TContext = unknown>(
+export const useForm = <
+  T extends ZodType<FieldValues, FieldValues>,
+  TContext = unknown,
+>(
   schema: T,
-  options?: UseFormProps<Input<T>, TContext>,
+  options?: UseFormProps<Input<T>, TContext, Output<T>>,
 ) => {
-  return useReactHookForm<Input<T>, TContext, Output<T>>({
+  return useReactHookForm({
     ...options,
     resolver: zodResolver(schema),
   })
 }
 
-export const useFormContext = <T extends Schema, TContext = unknown>() => {
+export const useFormContext = <
+  T extends ZodType<FieldValues, FieldValues>,
+  TContext = unknown,
+>() => {
   return useReactFormContext<Input<T>, TContext, Output<T>>()
 }
