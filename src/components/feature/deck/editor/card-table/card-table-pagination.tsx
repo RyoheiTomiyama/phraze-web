@@ -89,7 +89,7 @@ export const CardTablePagination = ({
                   return (
                     <PaginationItem key={index}>
                       <Button
-                        variant={index === page ? 'outline-solid' : 'ghost'}
+                        variant={index === page ? 'outline' : 'ghost'}
                         asChild
                       >
                         <Link href={genLink(index)}>{index + 1}</Link>
