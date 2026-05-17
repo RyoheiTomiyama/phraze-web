@@ -8,7 +8,7 @@
 .next
 .vscode
 public
-yarn.lock
+pnpm-lock.yaml
 
 # pathpida
 src/lib/pathpida/$path.ts

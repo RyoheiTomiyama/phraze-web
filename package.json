@@ -8,14 +8,14 @@
     "build": "next build",
     "dev": "run-p dev:*",
     "dev:next": "next dev",
-    "dev:path": "yarn generate:path --watch",
-    "dev:path-ext": "yarn script:path --watch",
+    "dev:path": "pnpm generate:path --watch",
+    "dev:path-ext": "pnpm script:path --watch",
     "codegen": "graphql-codegen --config codegen.ts",
     "format": "prettier --write .",
     "generate:path": "pathpida --output src/lib/pathpida --ignorePath .gitignore --enableStatic",
     "lint": "next lint",
     "prepare": "husky",
-    "script:path": "yarn script:path:build && node script/dist/pathpida-extend.js",
+    "script:path": "pnpm script:path:build && node script/dist/pathpida-extend.js",
     "script:path:build": "esbuild script/pathpida-extend.ts --outdir=script/dist --bundle --platform=node --format=esm --target=node22 --packages=external --sourcemap=inline",
     "start": "next start",
     "tslint": "tsc --noEmit --pretty"
@@ -90,7 +90,7 @@
     "typescript": "^5.5.0",
     "typescript-eslint": "^8.39.1"
   },
-  "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447",
+  "packageManager": "pnpm@10.11.1",
   "resolutions": {
     "@types/react": "19.1.10",
     "@types/react-dom": "19.1.7"

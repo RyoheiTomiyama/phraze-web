@@ -11,8 +11,8 @@
 ### 起動
 
 ```bash
-yarn
-yarn dev
+pnpm
+pnpm dev
 ```
 
 ## Tips
