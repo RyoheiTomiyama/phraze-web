@@ -58,6 +58,7 @@
     "zustand": "^5.0.1"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^9.33.0",
     "@graphql-codegen/cli": "5.0.2",
     "@graphql-codegen/client-preset": "4.3.1",
@@ -78,6 +79,7 @@
     "eslint": "^9.33.0",
     "eslint-config-next": "15.4.6",
     "eslint-config-prettier": "^9.1.0",
+    "graphql-tag": "^2.12.6",
     "husky": "^9.0.11",
     "jiti": "^2.5.1",
     "minimist": "^1.2.8",
