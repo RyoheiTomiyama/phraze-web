@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 import { ArrowRight, Pencil } from 'lucide-react'
 import Link from 'next/link'
 import { UrlObject } from 'url'
-import { formatDistanceToNowStrict } from '@/lib/date-util/date-fns'
+import { formatDistanceToNowStrict } from '@/lib/date-util'
 
 type Url = UrlObject | string
 

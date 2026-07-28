@@ -42,5 +42,6 @@ export default tsEslint.config([
     'src/lib/pathpida/pathnames.ts',
     'src/components/ui/**/*',
     'src/**/*.generated.ts',
+    'coverage/**',
   ]),
 ])

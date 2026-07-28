@@ -17,3 +17,6 @@ src/lib/pathpida/pathnames.ts
 # codegen
 graphql.schema.json
 src/**/*.generated.ts
+
+# test
+coverage
