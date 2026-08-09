@@ -7,6 +7,12 @@ afterEach(() => {
   cleanup()
 })
 
+// jsdom は Element.prototype.scrollTo を実装していない。
+// ScrollArea 配下の useEffect が content.scrollTo({...}) を呼ぶため polyfill する。
+if (typeof Element.prototype.scrollTo !== 'function') {
+  Element.prototype.scrollTo = (() => {}) as typeof Element.prototype.scrollTo
+}
+
 // Next.js の router / link を軽量スタブに置換
 // （jsdom では本物が router context 依存で警告するため）
 vi.mock('next/router', () => {
@@ -24,9 +30,50 @@ vi.mock('next/router', () => {
 })
 
 vi.mock('next/link', () => {
+  // pathpida の $url() は href に { pathname, query, hash } オブジェクトを返す。
+  // そのまま <a> に渡すと href が "[object Object]" になるため、
+  // 文字列へシリアライズして a[href="..."] 形式で assert 可能にする。
+  const serializeHref = (href: unknown): string => {
+    if (typeof href === 'string') {
+      return href
+    }
+    if (href === null || typeof href !== 'object') {
+      return ''
+    }
+    const { pathname, query, hash } = href as {
+      pathname?: string
+      query?: Record<string, unknown>
+      hash?: string
+    }
+    let path = pathname ?? ''
+    const rest = new URLSearchParams()
+    if (query) {
+      for (const [key, value] of Object.entries(query)) {
+        if (value === undefined || value === null) {
+          continue
+        }
+        const token = `[${key}]`
+        if (path.includes(token)) {
+          path = path.replace(token, encodeURIComponent(String(value)))
+        } else {
+          rest.append(key, String(value))
+        }
+      }
+    }
+    const qs = rest.toString()
+    return path + (qs ? `?${qs}` : '') + (hash ?? '')
+  }
   return {
-    default: ({ children, ...props }: React.ComponentProps<'a'>) => {
-      return React.createElement('a', props, children)
+    default: ({
+      children,
+      href,
+      ...props
+    }: React.ComponentProps<'a'> & { href?: unknown }) => {
+      return React.createElement(
+        'a',
+        { ...props, href: serializeHref(href) },
+        children,
+      )
     },
   }
 })
