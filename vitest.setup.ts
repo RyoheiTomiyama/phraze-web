@@ -1,9 +1,43 @@
 import '@testing-library/jest-dom/vitest'
+import React from 'react'
 import { afterEach, vi } from 'vitest'
 import { cleanup } from '@testing-library/react'
 
 afterEach(() => {
   cleanup()
+})
+
+// Next.js の router / link を軽量スタブに置換
+// （jsdom では本物が router context 依存で警告するため）
+vi.mock('next/router', () => {
+  return {
+    useRouter: () => {
+      return {
+        push: vi.fn(),
+        replace: vi.fn(),
+        pathname: '/',
+        query: {},
+        asPath: '/',
+      }
+    },
+  }
+})
+
+vi.mock('next/link', () => {
+  return {
+    default: ({ children, ...props }: React.ComponentProps<'a'>) => {
+      return React.createElement('a', props, children)
+    },
+  }
+})
+
+// Sentry は外部 SDK 呼び出しなので空スタブ化（logger 経由も含め本物を呼ばない）
+vi.mock('@/lib/sentry', () => {
+  return {
+    setSentryUser: vi.fn(),
+    captureError: vi.fn(),
+    captureLog: vi.fn(),
+  }
 })
 
 /**
