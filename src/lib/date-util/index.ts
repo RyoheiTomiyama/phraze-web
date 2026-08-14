@@ -1,1 +1,1 @@
-export { add, formatDateTime } from './date-fns'
+export { add, formatDateTime, formatDistanceToNowStrict } from './date-fns'
