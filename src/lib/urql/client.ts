@@ -31,6 +31,7 @@ export const createClient = ({
         },
         onOperation(operation) {
           if (debug) {
+            // @ts-expect-error urql 6.0.3で解消予定
             operation.query.definitions.forEach((def) => {
               if (def.kind === Kind.OPERATION_DEFINITION) {
                 logger.debug(def.operation, def.name?.value)
