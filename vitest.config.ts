@@ -22,6 +22,9 @@ export default defineConfig({
         'src/lib/pathpida/**',
         'src/components/ui/**',
         'src/**/*.test.{ts,tsx}',
+        // テスト基盤のコード（モック・フィクスチャ）は計測対象外とする（ADR-003）
+        'src/**/*.mock.{ts,tsx}',
+        'src/**/*.fixture.{ts,tsx}',
       ],
     },
   },
